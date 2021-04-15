@@ -56,10 +56,19 @@ input_vec = tf.keras.Input(shape=(32000,))
 #input_vec = tf.stack(input_vec)
 #spectrogram = extract_feature(train_data)
 
+@tf.function
+def signal_stft(input_data):
+    with tf.GradientTape(watch_accessed_variables=False) as tape:
+        tape.watch(input_data)
+        output_data = tf.signal.stft(input_data, frame_length=255, frame_step=128)    
+    return output_data
 
-#spectrogram = tf.signal.stft(input_vec, frame_length=255, frame_step=128)
-#spectrogram = tf.abs(spectrogram)
-#spectrogram = tf.expand_dims(spectrogram, -1)
+
+# spectrogram = tf.signal.stft(input_vec, frame_length=255, frame_step=128)
+spectrogram = tf.keras.layers.Lambda(signal_stft, name='signal_stft')(input_vec)
+# spectrogram = signal_stft(input_vec)
+spectrogram = tf.abs(spectrogram)
+spectrogram = tf.expand_dims(spectrogram, -1)
 
 
 
@@ -72,12 +81,12 @@ input_vec = tf.keras.Input(shape=(32000,))
 #print(spectrogram)
 #print("\n******************************\n")
 
-x = tf.abs(input_vec)
-x = tf.expand_dims(x, -1)
-x = layers.Conv1D(32, 3, activation='relu')(x)
-x = layers.Conv1D(64, 3, activation='relu')(x)
+# x = tf.abs(input_vec)
+# x = tf.expand_dims(x, -1)
+# x = layers.Conv1D(32, 3, activation='relu')(x)
+# x = layers.Conv1D(64, 3, activation='relu')(x)
 
-spectrogram = tf.expand_dims(x, -1)
+# spectrogram = tf.expand_dims(x, -1)
 
 # input_vec = tf.keras.Input(shape=(spectrogram.shape[1], spectrogram.shape[2], 1))
 # x = preprocessing.Resizing(64, 64)(input_vec)
