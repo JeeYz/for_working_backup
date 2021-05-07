@@ -64,7 +64,9 @@ def train(model, x, y, learning_rate):
     current_loss = loss(y, model(x))
 
     # Use GradientTape to calculate the gradients with respect to W and b
-    dw, db = t.gradient(current_loss, [model.w, model.b])
+  # with 문을 벗어나도 t는 사용할 수 있음.
+  # 결과에 변화가 없음.
+  dw, db = t.gradient(current_loss, [model.w, model.b])
 
   # Subtract the gradient scaled by the learning rate
   model.w.assign_sub(learning_rate * dw)
@@ -116,3 +118,44 @@ plt.show()
 
 print("Current loss: %1.6f" % loss(model(x), y).numpy())
 
+
+print('\n', '동일한 솔루션이지만 Keras를 사용하면')
+# 이전 Keras를 사용하지 않은 모델과 Keras를 사용한 모델 비교
+class MyModelKeras(tf.keras.Model):
+  def __init__(self, **kwargs):
+    super().__init__(**kwargs)
+    # Initialize the weights to `5.0` and the bias to `0.0`
+    # In practice, these should be randomly initialized
+    self.w = tf.Variable(5.0)
+    self.b = tf.Variable(0.0)
+
+  def call(self, x):
+    return self.w * x + self.b
+
+keras_model = MyModelKeras()
+
+# Reuse the training loop with a Keras model
+training_loop(keras_model, x, y)
+
+# You can also save a checkpoint using Keras's built-in support
+keras_model.save_weights("my_checkpoint")
+
+keras_model = MyModelKeras()
+
+# compile sets the training parameters
+keras_model.compile(
+    # By default, fit() uses tf.function().  You can
+    # turn that off for debugging, but it is on now.
+    run_eagerly=False,
+
+    # Using a built-in optimizer, configuring as an object
+    optimizer=tf.keras.optimizers.SGD(learning_rate=0.1),
+
+    # Keras comes with built-in MSE error
+    # However, you could use the loss function
+    # defined above
+    loss=tf.keras.losses.mean_squared_error,
+)
+
+print(x.shape[0])
+keras_model.fit(x, y, epochs=10, batch_size=1000)
