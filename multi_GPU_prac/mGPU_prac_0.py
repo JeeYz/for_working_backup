@@ -6,6 +6,7 @@ from tensorflow.keras import layers
 from tensorflow.keras.layers.experimental import preprocessing
 from tensorflow.python import framework
 from tensorflow.python.framework.tensor_util import constant_value
+from tensorflow.keras.layers import Lambda
 
 
 # @tf.function
@@ -27,11 +28,8 @@ def stft_func(input_sig, **kwargs):
         if num == 0:
             max_num = len(one_data)
 
-        # one_data = input_sig[num*gap_sizes:(num+1)*gap_sizes]
-
         if max_num > len(one_data):
             one_data = np.pad(one_data, (0, (max_num-len(one_data))))
-            # print(one_data)
 
         x = tf.cast(one_data, tf.complex64)
         tres = tf.signal.fft(x)
@@ -41,23 +39,44 @@ def stft_func(input_sig, **kwargs):
         result.append(x)
     return np.array(result)
 
-train_data = list()
-train_data_size = 1000
 
-for i in range(train_data_size):
-    temp_data = np.random.randint(-3000, 3000, size=32000)
-    result = stft_func(temp_data, frame_size = 255, delay_size = 128)
+train_data = list()
+
+train_data_file = "D:\\train_data_.npz"
+
+loaded_data = np.load(train_data_file)
+
+temp_train_data = loaded_data['data']
+train_label = loaded_data['label']
+
+# temp_train_data = loaded_data['data'][:10]
+# train_label = loaded_data['label'][:10]
+
+# temp_train_data = tf.data.Dataset.from_tensor_slices(temp_train_data)
+# train_label = tf.data.Dataset.from_tensor_slices(train_label)
+
+# temp_train_data = tf.data.Dataset.from_generator(temp_train_data)
+# train_label = tf.data.Dataset.from_generator(train_label)
+
+# input_sig = keras.Input(shape=(64000))
+
+for i, one_data in enumerate(temp_train_data):
+    result = stft_func(one_data, frame_size=255, delay_size=128)
+    # # result = Lambda(stft_func)(one_data, frame_size=255, delay_size=128)
+    # result = Lambda(stft_func, arguments={'frame_size':255, 'delay_size':128})(one_data)
     train_data.append(result)
+    print("\r{}th file is done...".format(i+1), end='')
 
 train_data = np.array(train_data)
 
-result = np.expand_dims(train_data, -1)
+# result = np.expand_dims(train_data, -1)
+result = tf.expand_dims(train_data, -1)
 print(result.shape)
 
 input_data = tf.data.Dataset.from_tensor_slices(result)
 print(input_data)
 
-input_sig = keras.Input(shape=(252, 127, 1))
+input_sig = keras.Input(shape=(504, 127, 1))
 
 x = preprocessing.Resizing(32, 32)(input_sig)
 print(x.shape)
@@ -69,7 +88,19 @@ x = layers.Dropout(0.25)(x)
 x = layers.Flatten()(x)
 x = layers.Dense(128, activation='relu')(x)
 x = layers.Dropout(0.5)(x)
-answer = layers.Dense(6, activation='softmax')(x)
+answer = layers.Dense(7, activation='softmax')(x)
 
 
+model = keras.Model(inputs=input_sig, outputs=answer)
 
+model.summary()
+
+keras.utils.plot_model(model, "proto_model_with_shape_info.png", show_shapes=True)
+
+model.compile(
+    loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+    optimizer=keras.optimizers.Adam(),
+    metrics=["accuracy"],
+)
+
+history = model.fit(x = train_data, y = train_label, batch_size=64, epochs=10, validation_split=0.2)
