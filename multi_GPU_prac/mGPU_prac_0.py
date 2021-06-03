@@ -46,11 +46,11 @@ train_data_file = "D:\\train_data_.npz"
 
 loaded_data = np.load(train_data_file)
 
-temp_train_data = loaded_data['data']
-train_label = loaded_data['label']
+# temp_train_data = loaded_data['data']
+# train_label = loaded_data['label']
 
-# temp_train_data = loaded_data['data'][:10]
-# train_label = loaded_data['label'][:10]
+temp_train_data = loaded_data['data'][:30]
+train_label = loaded_data['label'][:30]
 
 # temp_train_data = tf.data.Dataset.from_tensor_slices(temp_train_data)
 # train_label = tf.data.Dataset.from_tensor_slices(train_label)
@@ -104,3 +104,12 @@ model.compile(
 )
 
 history = model.fit(x = train_data, y = train_label, batch_size=64, epochs=10, validation_split=0.2)
+
+
+
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS,
+                                       tf.lite.OpsSet.SELECT_TF_OPS]
+tflite_model = converter.convert()
+open('D:\\test_tflite_mGPU_prac_0.tflite', 'wb').write(tflite_model)
+

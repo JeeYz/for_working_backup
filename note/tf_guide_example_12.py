@@ -79,4 +79,22 @@ images, labels = train
 images = images/255
 
 dataset = tf.data.Dataset.from_tensor_slices((images, labels))
-dataset
+print(dataset)
+
+
+def count(stop):
+  i = 0
+  while i<stop:
+    yield i
+    i += 1
+
+for n in count(5):
+  print(n)
+
+ds_counter = tf.data.Dataset.from_generator(count, args=[25], output_types=tf.int32, output_shapes = (), )
+
+for count_batch in ds_counter.repeat().batch(10).take(10):
+  print(count_batch.numpy())
+
+
+

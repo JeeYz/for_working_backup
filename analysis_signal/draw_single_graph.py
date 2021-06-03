@@ -48,7 +48,7 @@ def draw_graph_raw_signal(data, **kwargs):
 
 
 
-##
+##%
 def draw_graph_logfbank(data, sr, **kwargs):
     title_name = kwargs['title_name']
 

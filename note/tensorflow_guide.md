@@ -2,8 +2,8 @@
 =====================
 
 
-runtime and Unified functions
-eager execution
+## runtime and Unified functions
+### eager execution
 
 @tf.function 안의 코드도 이 효과로 쓰여진 순서대로 실행
 
@@ -1894,4 +1894,18 @@ tf.data API는 각 요소가 하나 이상의 구성 요소로 구성된 일련�
 모든 입력 데이터가 메모리에 맞으면 Dataset를 만드는 가장 간단한 방법은 tf.Tensor 객체로 변환하고 Dataset.from_tensor_slices() 를 
 사용한다.
 
+# python 생성기 사용
+
+Dataset.from_generator 생성자는 파이썬 생성기를 완전한 기능을 tf.data.Dataset으로 변환
+
+
+### 분산형 학습
+
+tf.distribute.Strategy는 훈련을 여러 GPU 또는 여러 장비, 여러 TPU로 나누어 처리하기 위한 tensorflow API 
+이 API를 사용하면 기존의 모델이나 훈련 코드를 조금만 고쳐서 분산처리를 할 수 있음.
+
+tf.distribute.Strategy 설계 목표
+* 사용하기 쉽고, 연구원, 기계 학습 엔지니어 등 여러 사용자 층을 지원할 것
+* 그대로 적용하기만 하면 좋은 성능을 보일 것
+* 전략들을 쉽게 갈아 끼울 수 있을 것
 
