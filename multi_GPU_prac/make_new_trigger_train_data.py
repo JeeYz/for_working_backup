@@ -4,7 +4,7 @@
 ## 답
 
 ##
-
+import new_trigger_algorithm as nta
 
 # zeroth 데이터 경로
 zeroth_path = 'D:\\voice_data_backup\\zeroth_korean.tar\\zeroth_korean\\test_data_01'
@@ -17,7 +17,7 @@ wav_files_list = nta.find_files(filepath=zeroth_path, file_ext=".wav")
 ## 문제
 # 2. train_data_set이라는 변수이름으로 파이썬 자료형인 list()를 선언 하시오
 ## 답
-
+train_data_set = list()
 ##
 
 for i, one_file in enumerate(wav_files_list):
@@ -33,7 +33,7 @@ for i, one_file in enumerate(wav_files_list):
     ## 문제
     # 3. 동일한 줄에 출력 결과를 갱신하도록 작성하시오.
     ## 답
-
+    print("\r{}th file is done...".format(i), end='')
     ##
     
 

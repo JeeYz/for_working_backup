@@ -16,6 +16,7 @@ import numpy as np
 import time
 
 from scipy.io import wavfile
+import librosa
 
 
 sr = 16000 # sample rate
@@ -23,6 +24,13 @@ front_size = 4000
 tail_size = 4000
 full_size = sr*4
 trigger_val = 1.5
+
+slice_data_num = 10000
+
+rate_list = [
+0.97, 0.94, 0.91, 0.88, 0.85, 0.82, 0.79, 0.76, 0.73, 0.70, 0.67, 0.64, 0.61,
+1.03, 1.06, 1.09, 1.12, 1.15, 1.18, 1.21, 1.24, 1.27, 1.30, 1.33, 1.36, 1.39,
+1.0]
 
 # ## function : find_files
 # about : 파일을 탐색해 주는 함수
@@ -161,7 +169,12 @@ def cut_input_signal(data, **kwargs):
 # output : 정해진 길이로 맞춰진 데이터
 def fit_determined_size(data, **kwargs):
     # print(full_size-len(data))
-    return np.append(data, np.zeros(full_size-len(data)))
+    if len(data) > full_size:
+        return data[0:full_size]
+    elif len(data) == full_size:
+        return data
+    else:
+        return np.append(data, np.zeros(full_size-len(data)))
 
 
 # ## function : add_noise_data
@@ -219,23 +232,42 @@ def write_file(data, **kwargs):
 # about : 파일 리스트에 있는 경로명을 보고 label 리스트를 작성
 # input : 파일 리스트 (list)
 # output : 레이블 데이터 (list)
-def make_label_list(files_list):
+def make_label_list(files_list, **kwargs):
+    if "kind_of_data" in kwargs.keys():
+        kind_of_data = kwargs["kind_of_data"]
+
     label_result = list()
-    label_dict = {'hipnc': 0,
-                'camera' : 1,
-                'picture' : 2,
-                'record' : 3,
-                'stop' : 4,
-                'end' : 5}
+    label_dict = {  'hipnc': 0,
+                    'camera' : 1,
+                    'picture' : 2,
+                    'record' : 3,
+                    'stop' : 4,
+                    'end' : 5,
+                    'hipnc2' : 0}
 
-    for one in files_list:
-        parsed_path = one.split('\\')
-        if parsed_path[-2] in label_dict:
-            label_result.append(label_dict[parsed_path[-2]])
-        else:
-            label_result.append(6)
+    if kind_of_data == "train":
 
-    return label_result
+        for one in files_list:
+            parsed_path = one.split('\\')
+            if parsed_path[-2] in label_dict:
+                for r in rate_list:
+                    label_result.append(label_dict[parsed_path[-2]])
+            else:
+                for r in rate_list:
+                    label_result.append(6)
+
+        return label_result
+    
+    elif kind_of_data == "test":
+
+        for one in files_list:
+            parsed_path = one.split('\\')
+            if parsed_path[-2] in label_dict:
+                label_result.append(label_dict[parsed_path[-2]])
+            else:
+                label_result.append(6)
+
+        return label_result
 
 
 # ## function : write_numpy_file
@@ -321,10 +353,34 @@ def read_wav_file(**kwargs):
 
 
 
+'''
+@ func : 데이터 증강 함수
+@ param : raw data
+@ return : 증강된 데이터 list
+@ remark : for문을 핵심으로 개발
+@ data : 
+'''
+def augment_data(data):
+
+    result = list()
+    for r in rate_list:
+        aug_data = librosa.effects.time_stretch(data, r)
+
+        if len(aug_data) > full_size:
+            result.append(aug_data[:full_size])
+        else:
+            result.append(aug_data)
+
+    return result
+
+
 
 
 
 if __name__ == '__main__':
+
+    ## train data 생성
+
     print("hello, world~!!")
     files_list = list()
     files_list = find_files(filepath='D:\\voice_data_backup\\PNC_DB_ALL',
@@ -332,9 +388,87 @@ if __name__ == '__main__':
     # print(files_list)
 
     train_data_set = list()
+    train_label_set = list()
     label_list = list()
 
-    label_list = make_label_list(files_list)
+    label_list = make_label_list(files_list, kind_of_data="train")
+
+    file_name = './train_data_'
+
+    file_num = 0
+    data_num = 0
+
+    label_num = 0
+    count_num = 0
+
+    for i, one_file in enumerate(files_list):
+
+        one_data = read_wav_file(file_path=one_file)
+        one_data = standardize_signal(one_data)
+
+        result = cut_input_signal(one_data, frame_size=255, shift_size=128)
+
+        # draw_graph(result)
+
+        result_list = augment_data(result)
+
+        for one_r in result_list:
+
+            result = fit_determined_size(one_r)
+            result = add_noise_data(result)
+
+            train_data_set.append(result)
+            train_label_set.append(label_list[label_num])
+
+            data_num+=1
+
+            if data_num%100==0:
+            # if data_num%slice_data_num==0:
+
+                temp = './train_data_'+str('%02d'%file_num)
+                write_numpy_file(train_data_set,
+                    label_numpy=np.array(train_label_set),
+                    default_filename=temp)
+
+                train_data_set = list()
+                train_label_set = list()
+                data_num = 0
+                file_num+=1
+                print('\n')
+
+            print("\r{}th file is done...".format(data_num), end='')
+            count_num+=1
+            label_num+=1
+
+            if count_num == 1000:
+                break
+
+    
+    temp = './train_data_'+str('%02d'%file_num)
+    write_numpy_file(train_data_set,
+                    label_numpy=np.array(label_list[file_num*slice_data_num:]),
+                    default_filename=temp)           
+
+    # print(label_num, len(label_list[label_num:]))
+    # time.sleep(1000)
+
+    print('\n')
+    print(len(label_list), count_num)
+
+    ## test data 생성
+
+    print("hello, world~!!")
+    files_list = list()
+    files_list = find_files(filepath='D:\\voice_data_backup\\test',
+                file_ext='.wav')
+    # print(files_list)
+
+    test_data_set = list()
+    label_list = list()
+
+    label_list = make_label_list(files_list, kind_of_data="test")
+
+    print('\n', len(label_list))
 
     for i, one_file in enumerate(files_list):
 
@@ -348,11 +482,14 @@ if __name__ == '__main__':
         result = fit_determined_size(result)
         result = add_noise_data(result)
 
-        train_data_set.append(result)
+        test_data_set.append(result)
 
         print("\r{}th file is done...".format(i), end='')
 
-    write_numpy_file(train_data_set,
-                    label_numpy=np.array(label_list))
+    write_numpy_file(test_data_set,
+                    label_numpy=np.array(label_list), 
+                    default_filename='./test_data_')
+
+    
 
 
