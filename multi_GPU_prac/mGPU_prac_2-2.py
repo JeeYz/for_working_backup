@@ -1,3 +1,4 @@
+#%%
 import tensorflow as tf
 from tensorflow.keras import layers
 from tensorflow.keras.layers.experimental import preprocessing
@@ -6,25 +7,62 @@ import numpy as np
 
 
 train_data_path = "D:\\train_data_.npz"
-
-options = tf.data.Options()
-options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
+# train_data_path = "D:\\train_data_00.npz"
+test_data_path = "D:\\test_data_.npz"
 
 loaded_data_00 = np.load(train_data_path)
 train_data_00 = loaded_data_00['data']
 train_label_00 = loaded_data_00['label']
-train_dataset_00 = tf.data.Dataset.from_tensor_slices((train_data_00, train_label_00)).shuffle(5000).batch(64)
-train_dataset = train_dataset_00.with_options(options)
 
-loaded_data_test = np.load("D:\\test_data_.npz")
-test_data = loaded_data_test['data']
-test_label = loaded_data_test['label']
-test_dataset = tf.data.Dataset.from_tensor_slices((test_data, test_label)).shuffle(5000).batch(1)
+loaded_data_01 = np.load(test_data_path)
+test_data_00 = loaded_data_01['data']
+test_label_00 = loaded_data_01['label']
+
+
+
+
+#%%
+def generate_train_data():
+
+    for one_data, one_label in zip(train_data_00, train_label_00):
+        yield (one_data, one_label)
+
+
+def generate_test_data():
+    for one_data, one_label in zip(test_data_00, test_label_00):
+        yield (one_data, one_label)
+    
+    # yield (train_data_00, train_label_00)
+
+#%%
+options = tf.data.Options()
+options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
+
+#%%
+train_dataset = tf.data.Dataset.from_generator(generate_train_data, 
+# output_types=(tf.float32, tf.int32),
+output_signature=(
+                    tf.TensorSpec(shape=(None,), dtype=tf.float32),
+                    tf.TensorSpec(shape=(), dtype=tf.int32)
+)).shuffle(5000).batch(64)
+# args=(train_data_path)),
+train_dataset = train_dataset.with_options(options)
+
+# train_dataset = train_dataset.cache()
+
+#%%
+test_dataset = tf.data.Dataset.from_generator(generate_test_data, 
+# output_types=(tf.float32, tf.int32),
+output_signature=(
+                    tf.TensorSpec(shape=(None,), dtype=tf.float32),
+                    tf.TensorSpec(shape=(), dtype=tf.int32)
+)).shuffle(5000).batch(64)
+# args=(test_data_path))
 test_dataset = test_dataset.with_options(options)
 
+# test_dataset = train_dataset.cache()
 
-import time
-
+#%%
 mirrored_strategy = tf.distribute.MirroredStrategy(
     cross_device_ops=tf.distribute.HierarchicalCopyAllReduce())
 
@@ -78,9 +116,10 @@ with mirrored_strategy.scope():
         metrics=["accuracy"],
     )
 
-
+#%%
 history = model.fit(train_dataset, epochs=10)
 
+#%%
 eval_loss, eval_acc = model.evaluate(test_dataset)
 
 print('\n\n')
@@ -88,6 +127,7 @@ print("loss : {}, accuracy : {}".format(eval_loss, eval_acc))
 print('\n\n')
 
 
+#%%
 ## convert tflite
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
 converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS,
