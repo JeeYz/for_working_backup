@@ -20,17 +20,53 @@ import librosa
 
 
 sr = 16000 # sample rate
-front_size = 4000
-tail_size = 4000
-full_size = sr*4
-trigger_val = 1.5
+
+tail_size = 3000
+
+full_size = 16000
+trigger_val = 3.0
 
 slice_data_num = 10000
 
+# rate_list = [
+# 0.97, 0.94, 0.91, 0.88, 0.85, 0.82, 0.79, 0.76, 0.73, 0.70, 0.67, 0.64, 0.61,
+# 1.03, 1.06, 1.09, 1.12, 1.15, 1.18, 1.21, 1.24, 1.27, 1.30, 1.33, 1.36, 1.39,
+# 1.0]
+
+# rate_list = [
+# 0.97, 0.94, 0.91,
+# 1.03, 1.06, 1.09, 1.12, 1.15, 1.18, 1.21, 1.24, 1.27, 1.30,
+# 1.0]
+
+# rate_list = [
+# 0.98, 0.96, 0.94, 0.92, 0.90,
+# 1.02, 1.04, 1.06, 1.08, 1.10, 1.12, 1.14, 1.16, 1.18, 1.20, 1.22, 1.24, 1.26, 1.28, 1.30,
+# 1.0]
+
+# rate_list = [
+# 0.98, 0.96, 0.94,
+# 1.02, 1.04, 1.06, 1.08, 1.10, 1.12, 1.14, 1.16, 1.18, 1.20,
+# 1.0]
+
+# rate_list = [
+# 0.98, 0.96, 0.94, 0.92, 0.90, 0.88, 0.86, 0.84, 0.82,
+# 1.02, 1.04, 1.06, 1.08, 1.10,
+# 1.11, 1.12, 1.13, 1.14, 1.15, 1.16, 1.17, 1.18, 1.19, 1.20,
+# 1.22, 1.24, 1.26, 1.28,
+# 1.0]
+
+
 rate_list = [
-0.97, 0.94, 0.91, 0.88, 0.85, 0.82, 0.79, 0.76, 0.73, 0.70, 0.67, 0.64, 0.61,
-1.03, 1.06, 1.09, 1.12, 1.15, 1.18, 1.21, 1.24, 1.27, 1.30, 1.33, 1.36, 1.39,
-1.0]
+                1.10,
+                1.0
+            ]
+
+random_value = [
+                    3000, 3500, 4000, 4500,
+                    5000, 5500, 6000, 6500
+                ]
+
+
 
 # ## function : find_files
 # about : 파일을 탐색해 주는 함수
@@ -148,6 +184,7 @@ def cut_input_signal(data, **kwargs):
         else:
             end_index = len(mean_val_list)
 
+    front_size = 4000
     temp = gap_frame_shift*start_index-front_size
 
     if temp <= 0:
@@ -161,6 +198,148 @@ def cut_input_signal(data, **kwargs):
     result = data[temp:temp_tail]
 
     return result
+
+
+
+# ## function : cut_input_signal_v2
+# about :   입력되는 신호를 신호의 세기를 기준으로 잘라 주는 함수
+#           앞 부분만 자르고 뒤는 그대로 두는 함수
+# input : signal data, frame size, shift size
+# output : 잘린 데이터
+def cut_input_signal_v2(data, **kwargs):
+
+    if "frame_size" in kwargs.keys():
+        frame_size = kwargs['frame_size']
+    if "shift_size" in kwargs.keys():
+        shift_size = kwargs['shift_size']
+
+    gap_frame_shift = frame_size-shift_size
+
+    num_frames = len(data)//(gap_frame_shift)
+
+    mean_val_list = list()
+
+    for i in range(num_frames):
+        temp_n = i*gap_frame_shift
+        one_frame_data = data[temp_n:temp_n+frame_size]
+        mean_val_list.append(np.mean(np.abs(one_frame_data)))
+
+    for i,start in enumerate(mean_val_list):
+        if trigger_val < start:
+            start_index = i
+            break
+        else:
+            start_index = 0
+
+    front_size = np.random.randint(40, 100)*100
+    
+    temp = gap_frame_shift*start_index-front_size
+
+    if temp < 0:
+        abs_temp = np.abs(temp)
+        result = np.append(np.zeros(abs_temp), data)
+    elif temp == 0:
+        result = data
+    else:
+        result = data[front_size:]
+
+    return result
+
+
+
+# ## function : cut_input_signal_v3
+# about : 입력되는 신호를 신호의 세기를 기준으로 잘라 주는 함수
+# input : signal data, frame size, shift size
+# output : 잘린 데이터
+def cut_input_signal_v3(data, **kwargs):
+
+    if "frame_size" in kwargs.keys():
+        frame_size = kwargs['frame_size']
+    if "shift_size" in kwargs.keys():
+        shift_size = kwargs['shift_size']
+
+    gap_frame_shift = frame_size-shift_size
+
+    num_frames = len(data)//(gap_frame_shift)
+
+    mean_val_list = list()
+
+    for i in range(num_frames):
+        temp_n = i*gap_frame_shift
+        one_frame_data = data[temp_n:temp_n+frame_size]
+        mean_val_list.append(np.mean(np.abs(one_frame_data)))
+
+    for i,start in enumerate(mean_val_list):
+        if trigger_val < start:
+            start_index = i
+            break
+        else:
+            start_index = 0
+
+    front_size = 7000
+    temp = gap_frame_shift*start_index-front_size
+
+    if temp <= 0:
+        temp = 0
+
+    result = data[temp:]
+
+    return result
+
+
+
+# ## function : cut_input_signal_v4
+# about : 입력되는 신호를 신호의 세기를 기준으로 잘라 주는 함수
+# input : signal data, frame size, shift size
+# output : 잘린 데이터
+def cut_input_signal_v4(data, random_value, **kwargs):
+
+    if "frame_size" in kwargs.keys():
+        frame_size = kwargs['frame_size']
+    if "shift_size" in kwargs.keys():
+        shift_size = kwargs['shift_size']
+
+    gap_frame_shift = frame_size-shift_size
+
+    num_frames = len(data)//(gap_frame_shift)
+
+    mean_val_list = list()
+
+    for i in range(num_frames):
+        temp_n = i*gap_frame_shift
+        one_frame_data = data[temp_n:temp_n+frame_size]
+        mean_val_list.append(np.mean(np.abs(one_frame_data)))
+
+    for i,start in enumerate(mean_val_list):
+        if trigger_val < start:
+            start_index = i
+            break
+        else:
+            start_index = 0
+
+    for i,end in enumerate(reversed(mean_val_list)):
+        if trigger_val < end:
+            end_index = len(mean_val_list)-i-1
+            break
+        else:
+            end_index = len(mean_val_list)
+
+    front_size = random_value
+    temp = gap_frame_shift*start_index-front_size
+
+    if temp <= 0:
+        temp = 0
+
+    temp_tail = gap_frame_shift*end_index+tail_size
+
+    if temp_tail > len(data):
+        temp_tail = len(data)-1
+
+    result = np.append(np.zeros(temp), data[temp:temp_tail])
+
+    return result
+
+
 
 
 # ## function : fit_determined_size
@@ -237,13 +416,11 @@ def make_label_list(files_list, **kwargs):
         kind_of_data = kwargs["kind_of_data"]
 
     label_result = list()
-    label_dict = {  'hipnc': 0,
-                    'camera' : 1,
-                    'picture' : 2,
-                    'record' : 3,
-                    'stop' : 4,
-                    'end' : 5,
-                    'hipnc2' : 0}
+    label_dict = {  'camera' : 0,
+                    'picture' : 1,
+                    'record' : 2,
+                    'stop' : 3,
+                    'end' : 4}
 
     if kind_of_data == "train":
 
@@ -251,10 +428,12 @@ def make_label_list(files_list, **kwargs):
             parsed_path = one.split('\\')
             if parsed_path[-2] in label_dict:
                 for r in rate_list:
-                    label_result.append(label_dict[parsed_path[-2]])
+                    for rv in random_value:
+                        label_result.append(label_dict[parsed_path[-2]])
             else:
                 for r in rate_list:
-                    label_result.append(6)
+                    for rv in random_value:
+                        label_result.append(5)
 
         return label_result
     
@@ -265,7 +444,7 @@ def make_label_list(files_list, **kwargs):
             if parsed_path[-2] in label_dict:
                 label_result.append(label_dict[parsed_path[-2]])
             else:
-                label_result.append(6)
+                label_result.append(5)
 
         return label_result
 
@@ -379,11 +558,13 @@ def augment_data(data):
 
 if __name__ == '__main__':
 
-    ## train data 생성
+    # train data 생성
 
     print("hello, world~!!")
     files_list = list()
-    files_list = find_files(filepath='D:\\voice_data_backup\\PNC_DB_ALL',
+    # files_list = find_files(filepath='D:\\Speech\\PNC_DB_ALL',
+    #             file_ext='.wav')
+    files_list = find_files(filepath='D:\\Speech\\PNC_DB_ALL',
                 file_ext='.wav')
     # print(files_list)
 
@@ -406,48 +587,34 @@ if __name__ == '__main__':
         one_data = read_wav_file(file_path=one_file)
         one_data = standardize_signal(one_data)
 
-        result = cut_input_signal(one_data, frame_size=255, shift_size=128)
+        for rv in random_value:
 
-        # draw_graph(result)
+            result = cut_input_signal_v4(one_data, rv, frame_size=800, shift_size=400)
 
-        result_list = augment_data(result)
+            # draw_graph(result)
 
-        for one_r in result_list:
+            result_list = augment_data(result)
 
-            result = fit_determined_size(one_r)
-            result = add_noise_data(result)
+            for one_r in result_list:
 
-            train_data_set.append(result)
-            train_label_set.append(label_list[label_num])
+                result = fit_determined_size(one_r)
+                # result = add_noise_data(result)
 
-            data_num+=1
+                train_data_set.append(result)
 
-            if data_num%100==0:
-            # if data_num%slice_data_num==0:
+                data_num+=1
 
-                temp = './train_data_'+str('%02d'%file_num)
-                write_numpy_file(train_data_set,
-                    label_numpy=np.array(train_label_set),
-                    default_filename=temp)
 
-                train_data_set = list()
-                train_label_set = list()
-                data_num = 0
-                file_num+=1
-                print('\n')
-
-            print("\r{}th file is done...".format(data_num), end='')
-            count_num+=1
-            label_num+=1
-
-            if count_num == 1000:
-                break
+                print("\r{}th file is done...".format(data_num), end='')
+                count_num+=1
 
     
-    temp = './train_data_'+str('%02d'%file_num)
+    # write_numpy_file(train_datya_set,
+    #                 label_nump=np.array(label_list))           
+    
     write_numpy_file(train_data_set,
-                    label_numpy=np.array(label_list[file_num*slice_data_num:]),
-                    default_filename=temp)           
+                    label_numpy=np.array(label_list),
+                    default_filename="D:\\train_data_small_16000_random_")  
 
     # print(label_num, len(label_list[label_num:]))
     # time.sleep(1000)
@@ -455,11 +622,13 @@ if __name__ == '__main__':
     print('\n')
     print(len(label_list), count_num)
 
-    ## test data 생성
+    # test data 생성
 
     print("hello, world~!!")
     files_list = list()
-    files_list = find_files(filepath='D:\\voice_data_backup\\test',
+    # files_list = find_files(filepath='D:\\Speech\\test',
+    #             file_ext='.wav')
+    files_list = find_files(filepath='D:\\Speech\\test',
                 file_ext='.wav')
     # print(files_list)
 
@@ -475,12 +644,13 @@ if __name__ == '__main__':
         one_data = read_wav_file(file_path=one_file)
         one_data = standardize_signal(one_data)
 
-        result = cut_input_signal(one_data, frame_size=255, shift_size=128)
+        result = cut_input_signal(one_data, frame_size=800, shift_size=400)
 
         # draw_graph(result)
 
         result = fit_determined_size(result)
-        result = add_noise_data(result)
+        # print(len(result))
+        # result = add_noise_data(result)
 
         test_data_set.append(result)
 
@@ -488,7 +658,7 @@ if __name__ == '__main__':
 
     write_numpy_file(test_data_set,
                     label_numpy=np.array(label_list), 
-                    default_filename='./test_data_')
+                    default_filename='D:\\test_data_20000_')
 
     
 

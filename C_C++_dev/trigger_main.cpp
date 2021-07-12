@@ -17,9 +17,28 @@ int main(void){
     
     a.preprocess_progressing(test_data, temp, 64000);
 
-    bool temp_bool = a.trigger_boolean(test_data, 64000);
+    // bool temp_bool = a.trigger_boolean(test_data, 64000);
 
-    cout << temp_bool << endl;
+    // cout << temp_bool << endl;
+
+    float * temp_std = new float[64000]{};
+
+    cout << "hello, world~!!" << endl;
+    
+    a.standardization_process(test_data, temp_std, 64000);
+
+    float max_val=0, min_val=0;
+
+    for(int i=0;i<64000;i++){
+        if(max_val<temp_std[i]){
+            max_val=temp_std[i];
+        }
+        if(min_val>temp_std[i]){
+            min_val=temp_std[i];
+        }
+    }
+
+    cout << endl << endl << max_val << "\t" << min_val << endl;
 
     return 0;
 }

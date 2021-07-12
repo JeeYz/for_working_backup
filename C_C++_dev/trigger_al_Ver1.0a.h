@@ -24,7 +24,7 @@ private:
     float * add_noise(float*);
     float * fit_full_size(float*);
     float * check_and_cut_data(float*);
-    float * standardization_process(float*, int);
+    float * check_and_cut_data_v2(float*){
 
 public:
     // Trig_al(int, int);
@@ -35,6 +35,7 @@ public:
     bool trigger_boolean(float*, int);
     void change_record_sec(int);
     int check_the_input_data(float*);
+    void standardization_process(float*, float*, int);
 
 };
 
