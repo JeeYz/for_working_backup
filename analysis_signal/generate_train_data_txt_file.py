@@ -9,6 +9,8 @@ from numpy.lib.npyio import load
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
 
+import tensorflow as tf
+
 
 
 def draw_multi_graphes(data_list, label_list, row, col):
@@ -225,10 +227,96 @@ def process_for_draw_graph_train_data():
     return
 
 
+
+
+def detect_speakers(file_name):
+
+    # plt.figure()
+    # plt.plot(data)
+
+    # plt.xlabel('sample rate')
+    # plt.ylabel('amplitude')
+
+    path_temp = file_name.split("\\PNCDB\\")[1].split("\\")
+    # title_string = "speaker: {speaker},  command: {command}".format(
+    #                                 speaker=path_temp[0], 
+    #                                 command=path_temp[1]
+    #                                 )
+
+    speaker=path_temp[0] 
+    command=path_temp[1]
+
+    # plt.title(title_string)
+
+    # plt.tight_layout()
+
+    # plt.show()
+
+    return speaker, command
+
+
+
+def determine_condition(file_name):
+
+    try:
+        sample_rate, data = wavfile.read(file_name)
+    except wavfile.WavFileWarning:
+        print("\noccur warning...\n")
+
+    max_value = np.max(data)
+    min_value = np.min(data)
+    sorted_np, indices = np.unique(data, return_counts=True)
+
+    # print("max value : {},  value list : {}, value freq : {}".format(
+                    #                                     max_value, 
+                    #                                     sorted_np,
+                    #                                     indices
+                    #                                     ))
+
+    # if max_value == 32767   \
+    #             and         \
+    #         indices[-1] != 0\
+    #             and                 \
+    #         min_value == -32768     \
+    #             and                 \
+    #         indices[0] != 0:
+
+
+    # 조건 0 and 1
+    # if max_value != 32767   \
+    #             or         \
+    #         min_value != -32768:                        
+
+    #     return 1
+    # else:
+    #     return 0
+
+    # correct_data_num+=1
+
+    # 조건 2 and 3
+    if max_value == 32767       \
+                and             \
+            indices[-1] > 500:
+        return 0
+    elif min_value == -32768       \
+                and             \
+            indices[0] > 500:
+        return 0
+    else:
+        return 1
+    
+    # files_list.append("%s\\%s" % (path, filename))
+
+    # return
+
+
+
+
+
 def search_saturation_data():
 
-    parent_folder = "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB"
-    # parent_folder = "D:\\voice_data_backup\\PNC_DB_ALL"
+    # parent_folder = "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB"
+    parent_folder = "D:\\voice_data_backup\\PNC_DB_ALL"
     file_ext = ".wav"
 
     command_list = [
@@ -240,31 +328,72 @@ def search_saturation_data():
 
     files_list = list()
     
+    correct_data_num = 0
+
+    camera_num = 0
+    end_num = 0
+    picture_num = 0
+    stop_num = 0
+    record_num = 0
+
+
     for (path, dir, files) in os.walk(parent_folder):
 
-        print("path : {a}, dir : {b}, files : {c}".format(  a=path, 
-                                                            b=dir, 
-                                                            c=files ))
+        # print("path : {a}, dir : {b}, files : {c}".format(  a=path, 
+        #                                                     b=dir, 
+        #                                                     c=files ))
 
+        for filename in files:
 
-        # for filename in files:
-        #     ext = os.path.splitext(filename)[-1]
-        #     if ext == file_ext:
-                
-        #         file_name = path + "\\" + filename
+            # print("os.path: {path}".format(path=os.path.splitext(filename)))
+            # print("filename: {} \tsplit: {}".format(filename, filename.split('.')))
 
-        #         plt.figure()
-        #         plt.plot(data)
+            ext = os.path.splitext(filename)[-1]
+            if path.split("\\")[-1] in command_list:
+                if ext == file_ext:
+                    
+                    file_name = path + "\\" + filename
 
-        #         plt.xlabel('sample rate')
-        #         plt.ylabel('amplitude')
-        #         plt.title(title_name)
+                    if path.split("\\")[-1] == command_list[0]:
+                        # 조건 == camera 명령어
+                        result = determine_condition(file_name)
+                        camera_num+=result
+                    
+                    elif path.split("\\")[-1] == command_list[1]:
+                        # 조건 == end 명령어
+                        result = determine_condition(file_name)
+                        end_num+=result
 
-        #         plt.tight_layout()
+                    elif path.split("\\")[-1] == command_list[2]:
+                        # 조건 == picture 명령어
+                        result = determine_condition(file_name)
+                        picture_num+=result
+                    
+                    elif path.split("\\")[-1] == command_list[3]:
+                        # 조건 == stop 명령어
+                        result = determine_condition(file_name)
+                        stop_num+=result
 
-        #         files_list.append("%s\\%s" % (path, filename))
+                    elif path.split("\\")[-1] == command_list[4]:
+                        # 조건 == record 명령어
+                        result = determine_condition(file_name)
+                        record_num+=result
+                   
 
+                    
+    correct_data_num =  camera_num      \
+                        +   end_num     \
+                        +   picture_num \
+                        +   stop_num    \
+                        +   record_num
 
+    print("correct data number : {}".format(correct_data_num))
+
+    print("camera number : {}".format(camera_num))
+    print("end number : {}".format(end_num))
+    print("picture number : {}".format(picture_num))
+    print("stop number : {}".format(stop_num))
+    print("record number : {}".format(record_num))
 
     return
 
