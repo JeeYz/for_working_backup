@@ -364,27 +364,27 @@ def determine_condition(file_name):
                     #                                     ))
 
     # 조건 0 and 1
-    # if max_value != 32767   \
-    #             or         \
-    #         min_value != -32768:                        
+    if max_value != 32767   \
+                or         \
+            min_value != -32768:                        
 
-    #     return 1
-    # else:
-    #     return 0
+        return 1
+    else:
+        return 0
 
     # correct_data_num+=1
 
     # 조건 2 and 3
-    if max_value == 32767       \
-                and             \
-            indices[-1] > 10000:
-        return 0
-    elif min_value == -32768       \
-                and             \
-            indices[0] > 10000:
-        return 0
-    else:
-        return 1
+    # if max_value == 32767       \
+    #             and             \
+    #         indices[-1] > 10000:
+    #     return 0
+    # elif min_value == -32768       \
+    #             and             \
+    #         indices[0] > 10000:
+    #     return 0
+    # else:
+    #     return 1
     
     # files_list.append("%s\\%s" % (path, filename))
 
