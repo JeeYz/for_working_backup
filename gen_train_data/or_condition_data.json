@@ -1,0 +1,2521 @@
+{
+    "title": "whole data for training",
+    "speakers": [
+        {
+            "name": "kjh",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\camera\\kjhcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\camera\\kjhcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\camera\\kjhcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\camera\\kjhcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\camera\\kjhcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\camera\\kjhcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\camera\\kjhcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\camera\\kjhcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\camera\\kjhcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\camera\\kjhcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\end\\kjhend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\end\\kjhend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\end\\kjhend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\end\\kjhend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\end\\kjhend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\end\\kjhend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\end\\kjhend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\end\\kjhend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\end\\kjhend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\end\\kjhend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\picture\\kjhpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\picture\\kjhpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\picture\\kjhpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\picture\\kjhpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\picture\\kjhpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\picture\\kjhpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\picture\\kjhpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\picture\\kjhpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\picture\\kjhpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\picture\\kjhpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\stop\\kjhstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\stop\\kjhstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\stop\\kjhstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\stop\\kjhstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\stop\\kjhstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\stop\\kjhstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\stop\\kjhstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\stop\\kjhstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\stop\\kjhstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\stop\\kjhstop9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\record\\kjhrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\record\\kjhrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\record\\kjhrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\record\\kjhrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\record\\kjhrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\record\\kjhrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\record\\kjhrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\record\\kjhrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\record\\kjhrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kjh\\record\\kjhrecord9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "ljw",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\camera\\ljwcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\camera\\ljwcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\camera\\ljwcamera8.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\camera\\ljwcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\camera\\ljwcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\camera\\ljwcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\camera\\ljwcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\camera\\ljwcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\camera\\ljwcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\camera\\ljwcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\end\\ljwend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\end\\ljwend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\end\\ljwend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\end\\ljwend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\end\\ljwend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\end\\ljwend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\end\\ljwend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\end\\ljwend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\end\\ljwend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\end\\ljwend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\picture\\ljwpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\picture\\ljwpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\picture\\ljwpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\picture\\ljwpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\picture\\ljwpicture8.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\picture\\ljwpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\picture\\ljwpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\picture\\ljwpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\picture\\ljwpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\picture\\ljwpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\stop\\ljwstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\stop\\ljwstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\stop\\ljwstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\stop\\ljwstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\stop\\ljwstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\stop\\ljwstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\stop\\ljwstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\stop\\ljwstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\stop\\ljwstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\stop\\ljwstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\record\\ljwrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\record\\ljwrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\record\\ljwrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\record\\ljwrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\record\\ljwrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\record\\ljwrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\record\\ljwrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\record\\ljwrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\record\\ljwrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljw\\record\\ljwrecord9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "pkh",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\camera\\pkhcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\camera\\pkhcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\camera\\pkhcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\camera\\pkhcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\camera\\pkhcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\camera\\pkhcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\camera\\pkhcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\camera\\pkhcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\camera\\pkhcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\camera\\pkhcamera9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\end\\pkhend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\end\\pkhend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\end\\pkhend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\end\\pkhend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\end\\pkhend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\end\\pkhend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\end\\pkhend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\end\\pkhend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\end\\pkhend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\end\\pkhend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\picture\\pkhpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\picture\\pkhpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\picture\\pkhpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\picture\\pkhpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\picture\\pkhpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\picture\\pkhpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\picture\\pkhpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\picture\\pkhpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\picture\\pkhpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\picture\\pkhpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\stop\\pkhstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\stop\\pkhstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\stop\\pkhstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\stop\\pkhstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\stop\\pkhstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\stop\\pkhstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\stop\\pkhstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\stop\\pkhstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\stop\\pkhstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\stop\\pkhstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\record\\pkhrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\record\\pkhrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\record\\pkhrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\record\\pkhrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\record\\pkhrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\record\\pkhrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\record\\pkhrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\record\\pkhrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\record\\pkhrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\pkh\\record\\pkhrecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "psc",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\camera\\psccamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\camera\\psccamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\camera\\psccamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\camera\\psccamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\camera\\psccamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\camera\\psccamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\camera\\psccamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\camera\\psccamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\camera\\psccamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\camera\\psccamera9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\end\\pscend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\end\\pscend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\end\\pscend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\end\\pscend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\end\\pscend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\end\\pscend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\end\\pscend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\end\\pscend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\end\\pscend9.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\end\\pscend10.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\picture\\pscpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\picture\\pscpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\picture\\pscpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\picture\\pscpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\picture\\pscpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\picture\\pscpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\picture\\pscpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\picture\\pscpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\picture\\pscpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\picture\\pscpicture9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\stop\\pscstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\stop\\pscstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\stop\\pscstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\stop\\pscstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\stop\\pscstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\stop\\pscstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\stop\\pscstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\stop\\pscstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\stop\\pscstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\stop\\pscstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\record\\pscrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\record\\pscrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\record\\pscrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\record\\pscrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\record\\pscrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\record\\pscrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\record\\pscrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\record\\pscrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\record\\pscrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psc\\record\\pscrecord9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "yim",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\camera\\yimcamera3.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\camera\\yimcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\camera\\yimcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\camera\\yimcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\camera\\yimcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\camera\\yimcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\camera\\yimcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\camera\\yimcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\camera\\yimcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\camera\\yimcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\end\\yimend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\end\\yimend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\end\\yimend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\end\\yimend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\end\\yimend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\end\\yimend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\end\\yimend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\end\\yimend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\end\\yimend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\end\\yimend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\picture\\yimpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\picture\\yimpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\picture\\yimpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\picture\\yimpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\picture\\yimpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\picture\\yimpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\picture\\yimpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\picture\\yimpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\picture\\yimpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\picture\\yimpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\stop\\yimstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\stop\\yimstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\stop\\yimstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\stop\\yimstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\stop\\yimstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\stop\\yimstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\stop\\yimstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\stop\\yimstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\stop\\yimstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\stop\\yimstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\record\\yimrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\record\\yimrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\record\\yimrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\record\\yimrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\record\\yimrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\record\\yimrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\record\\yimrecord8.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\record\\yimrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\record\\yimrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yim\\record\\yimrecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "bms",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\camera\\bmscamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\camera\\bmscamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\camera\\bmscamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\camera\\bmscamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\camera\\bmscamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\camera\\bmscamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\camera\\bmscamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\camera\\bmscamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\camera\\bmscamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\camera\\bmscamera9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\end\\bmsend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\end\\bmsend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\end\\bmsend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\end\\bmsend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\end\\bmsend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\end\\bmsend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\end\\bmsend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\end\\bmsend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\end\\bmsend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\end\\bmsend9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\picture\\bmspicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\picture\\bmspicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\picture\\bmspicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\picture\\bmspicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\picture\\bmspicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\picture\\bmspicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\picture\\bmspicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\picture\\bmspicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\picture\\bmspicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\picture\\bmspicture9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\stop\\bmsstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\stop\\bmsstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\stop\\bmsstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\stop\\bmsstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\stop\\bmsstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\stop\\bmsstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\stop\\bmsstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\stop\\bmsstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\stop\\bmsstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\stop\\bmsstop9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\record\\bmsrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\record\\bmsrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\record\\bmsrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\record\\bmsrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\record\\bmsrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\record\\bmsrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\record\\bmsrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\record\\bmsrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\record\\bmsrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\bms\\record\\bmsrecord9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "cjh",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\end\\cjhend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\end\\cjhend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\end\\cjhend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\end\\cjhend8.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\end\\cjhend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\end\\cjhend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\end\\cjhend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\end\\cjhend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\end\\cjhend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\end\\cjhend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\picture\\cjhpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\picture\\cjhpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\picture\\cjhpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\picture\\cjhpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\picture\\cjhpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\picture\\cjhpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\picture\\cjhpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\picture\\cjhpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\picture\\cjhpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\picture\\cjhpicture9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\stop\\cjhstop4.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\stop\\cjhstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\stop\\cjhstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\stop\\cjhstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\stop\\cjhstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\stop\\cjhstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\stop\\cjhstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\stop\\cjhstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\stop\\cjhstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\stop\\cjhstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\record\\cjhrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\record\\cjhrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\record\\cjhrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\record\\cjhrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\record\\cjhrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\record\\cjhrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\record\\cjhrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\record\\cjhrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\record\\cjhrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh\\record\\cjhrecord9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "cjh2",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\camera\\cjh2camera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\camera\\cjh2camera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\camera\\cjh2camera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\camera\\cjh2camera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\camera\\cjh2camera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\camera\\cjh2camera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\camera\\cjh2camera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\camera\\cjh2camera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\camera\\cjh2camera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\camera\\cjh2camera9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\end\\cjh2end5.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\end\\cjh2end1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\end\\cjh2end10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\end\\cjh2end2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\end\\cjh2end3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\end\\cjh2end4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\end\\cjh2end6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\end\\cjh2end7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\end\\cjh2end8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\end\\cjh2end9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\picture\\cjh2picture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\picture\\cjh2picture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\picture\\cjh2picture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\picture\\cjh2picture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\picture\\cjh2picture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\picture\\cjh2picture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\picture\\cjh2picture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\picture\\cjh2picture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\picture\\cjh2picture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\picture\\cjh2picture9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\stop\\cjh2stop1.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\stop\\cjh2stop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\stop\\cjh2stop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\stop\\cjh2stop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\stop\\cjh2stop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\stop\\cjh2stop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\stop\\cjh2stop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\stop\\cjh2stop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\stop\\cjh2stop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\stop\\cjh2stop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\record\\cjh2record1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\record\\cjh2record10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\record\\cjh2record2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\record\\cjh2record3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\record\\cjh2record4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\record\\cjh2record5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\record\\cjh2record6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\record\\cjh2record7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\record\\cjh2record8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\cjh2\\record\\cjh2record9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "hsw",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\camera\\hswcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\camera\\hswcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\camera\\hswcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\camera\\hswcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\camera\\hswcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\camera\\hswcamera7.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\camera\\hswcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\camera\\hswcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\camera\\hswcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\camera\\hswcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\end\\hswend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\end\\hswend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\end\\hswend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\end\\hswend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\end\\hswend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\end\\hswend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\end\\hswend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\end\\hswend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\end\\hswend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\end\\hswend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\picture\\hswpicture4.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\picture\\hswpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\picture\\hswpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\picture\\hswpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\picture\\hswpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\picture\\hswpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\picture\\hswpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\picture\\hswpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\picture\\hswpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\picture\\hswpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\stop\\hswstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\stop\\hswstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\stop\\hswstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\stop\\hswstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\stop\\hswstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\stop\\hswstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\stop\\hswstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\stop\\hswstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\stop\\hswstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\stop\\hswstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\record\\hswrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\record\\hswrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\record\\hswrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\record\\hswrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\record\\hswrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\record\\hswrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\record\\hswrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\record\\hswrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\record\\hswrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\hsw\\record\\hswrecord9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "jdy",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\camera\\jdycamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\camera\\jdycamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\camera\\jdycamera8.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\camera\\jdycamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\camera\\jdycamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\camera\\jdycamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\camera\\jdycamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\camera\\jdycamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\camera\\jdycamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\camera\\jdycamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\end\\jdyend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\end\\jdyend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\end\\jdyend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\end\\jdyend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\end\\jdyend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\end\\jdyend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\end\\jdyend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\end\\jdyend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\end\\jdyend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\end\\jdyend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\picture\\jdypicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\picture\\jdypicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\picture\\jdypicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\picture\\jdypicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\picture\\jdypicture9.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\picture\\jdypicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\picture\\jdypicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\picture\\jdypicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\picture\\jdypicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\picture\\jdypicture8.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\stop\\jdystop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\stop\\jdystop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\stop\\jdystop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\stop\\jdystop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\stop\\jdystop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\stop\\jdystop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\stop\\jdystop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\stop\\jdystop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\stop\\jdystop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\stop\\jdystop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\record\\jdyrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\record\\jdyrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\record\\jdyrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\record\\jdyrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\record\\jdyrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\record\\jdyrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\record\\jdyrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\record\\jdyrecord9.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\record\\jdyrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jdy\\record\\jdyrecord8.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "jsh",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\camera\\jshcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\camera\\jshcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\camera\\jshcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\camera\\jshcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\camera\\jshcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\camera\\jshcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\camera\\jshcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\camera\\jshcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\camera\\jshcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\camera\\jshcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\end\\jshend8.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\end\\jshend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\end\\jshend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\end\\jshend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\end\\jshend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\end\\jshend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\end\\jshend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\end\\jshend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\end\\jshend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\end\\jshend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\picture\\jshpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\picture\\jshpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\picture\\jshpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\picture\\jshpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\picture\\jshpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\picture\\jshpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\picture\\jshpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\picture\\jshpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\picture\\jshpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\picture\\jshpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\stop\\jshstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\stop\\jshstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\stop\\jshstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\stop\\jshstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\stop\\jshstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\stop\\jshstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\stop\\jshstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\stop\\jshstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\stop\\jshstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\stop\\jshstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\record\\jshrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\record\\jshrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\record\\jshrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\record\\jshrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\record\\jshrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\record\\jshrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\record\\jshrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\record\\jshrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\record\\jshrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\jsh\\record\\jshrecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "kdh",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\camera\\kdhcamera8.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\camera\\kdhcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\camera\\kdhcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\camera\\kdhcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\camera\\kdhcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\camera\\kdhcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\camera\\kdhcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\camera\\kdhcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\camera\\kdhcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\camera\\kdhcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\end\\kdhend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\end\\kdhend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\end\\kdhend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\end\\kdhend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\end\\kdhend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\end\\kdhend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\end\\kdhend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\end\\kdhend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\end\\kdhend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\end\\kdhend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\picture\\kdhpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\picture\\kdhpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\picture\\kdhpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\picture\\kdhpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\picture\\kdhpicture6.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\picture\\kdhpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\picture\\kdhpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\picture\\kdhpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\picture\\kdhpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\picture\\kdhpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\stop\\kdhstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\stop\\kdhstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\stop\\kdhstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\stop\\kdhstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\stop\\kdhstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\stop\\kdhstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\stop\\kdhstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\stop\\kdhstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\stop\\kdhstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\stop\\kdhstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\record\\kdhrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\record\\kdhrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\record\\kdhrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\record\\kdhrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\record\\kdhrecord5.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\record\\kdhrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\record\\kdhrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\record\\kdhrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\record\\kdhrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kdh\\record\\kdhrecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "kmk",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\camera\\kmkcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\camera\\kmkcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\camera\\kmkcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\camera\\kmkcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\camera\\kmkcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\camera\\kmkcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\camera\\kmkcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\camera\\kmkcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\camera\\kmkcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\camera\\kmkcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\end\\kmkend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\end\\kmkend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\end\\kmkend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\end\\kmkend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\end\\kmkend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\end\\kmkend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\end\\kmkend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\end\\kmkend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\end\\kmkend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\end\\kmkend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\picture\\kmkpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\picture\\kmkpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\picture\\kmkpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\picture\\kmkpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\picture\\kmkpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\picture\\kmkpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\picture\\kmkpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\picture\\kmkpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\picture\\kmkpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\picture\\kmkpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\stop\\kmkstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\stop\\kmkstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\stop\\kmkstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\stop\\kmkstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\stop\\kmkstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\stop\\kmkstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\stop\\kmkstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\stop\\kmkstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\stop\\kmkstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\stop\\kmkstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\record\\kmkrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\record\\kmkrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\record\\kmkrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\record\\kmkrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\record\\kmkrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\record\\kmkrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\record\\kmkrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\record\\kmkrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\record\\kmkrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kmk\\record\\kmkrecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "kth",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\camera\\kthcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\camera\\kthcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\camera\\kthcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\camera\\kthcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\camera\\kthcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\camera\\kthcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\camera\\kthcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\camera\\kthcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\camera\\kthcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\camera\\kthcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\end\\kthend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\end\\kthend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\end\\kthend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\end\\kthend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\end\\kthend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\end\\kthend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\end\\kthend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\end\\kthend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\end\\kthend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\end\\kthend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\picture\\kthpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\picture\\kthpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\picture\\kthpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\picture\\kthpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\picture\\kthpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\picture\\kthpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\picture\\kthpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\picture\\kthpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\picture\\kthpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\picture\\kthpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\stop\\kthstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\stop\\kthstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\stop\\kthstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\stop\\kthstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\stop\\kthstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\stop\\kthstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\stop\\kthstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\stop\\kthstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\stop\\kthstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\stop\\kthstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\record\\kthrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\record\\kthrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\record\\kthrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\record\\kthrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\record\\kthrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\record\\kthrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\record\\kthrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\record\\kthrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\record\\kthrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kth\\record\\kthrecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "kyk",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\camera\\kykcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\camera\\kykcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\camera\\kykcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\camera\\kykcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\camera\\kykcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\camera\\kykcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\camera\\kykcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\camera\\kykcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\camera\\kykcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\camera\\kykcamera9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\end\\kykend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\end\\kykend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\end\\kykend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\end\\kykend5.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\end\\kykend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\end\\kykend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\end\\kykend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\end\\kykend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\end\\kykend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\end\\kykend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\picture\\kykpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\picture\\kykpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\picture\\kykpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\picture\\kykpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\picture\\kykpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\picture\\kykpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\picture\\kykpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\picture\\kykpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\picture\\kykpicture9.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\picture\\kykpicture4.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\stop\\kykstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\stop\\kykstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\stop\\kykstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\stop\\kykstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\stop\\kykstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\stop\\kykstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\stop\\kykstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\stop\\kykstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\stop\\kykstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\stop\\kykstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\record\\kykrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\record\\kykrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\record\\kykrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\record\\kykrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\record\\kykrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\record\\kykrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\record\\kykrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\record\\kykrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\record\\kykrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\kyk\\record\\kykrecord9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "lcw",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\camera\\lcwcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\camera\\lcwcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\camera\\lcwcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\camera\\lcwcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\camera\\lcwcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\camera\\lcwcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\camera\\lcwcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\camera\\lcwcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\camera\\lcwcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\camera\\lcwcamera9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\end\\lcwend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\end\\lcwend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\end\\lcwend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\end\\lcwend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\end\\lcwend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\end\\lcwend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\end\\lcwend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\end\\lcwend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\end\\lcwend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\end\\lcwend9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\picture\\lcwpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\picture\\lcwpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\picture\\lcwpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\picture\\lcwpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\picture\\lcwpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\picture\\lcwpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\picture\\lcwpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\picture\\lcwpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\picture\\lcwpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\picture\\lcwpicture9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\stop\\lcwstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\stop\\lcwstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\stop\\lcwstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\stop\\lcwstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\stop\\lcwstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\stop\\lcwstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\stop\\lcwstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\stop\\lcwstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\stop\\lcwstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\stop\\lcwstop9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\record\\lcwrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\record\\lcwrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\record\\lcwrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\record\\lcwrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\record\\lcwrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\record\\lcwrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\record\\lcwrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\record\\lcwrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\record\\lcwrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lcw\\record\\lcwrecord9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "ljh",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\camera\\ljhcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\camera\\ljhcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\camera\\ljhcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\camera\\ljhcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\camera\\ljhcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\camera\\ljhcamera9.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\camera\\ljhcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\camera\\ljhcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\camera\\ljhcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\camera\\ljhcamera7.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\end\\ljhend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\end\\ljhend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\end\\ljhend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\end\\ljhend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\end\\ljhend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\end\\ljhend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\end\\ljhend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\end\\ljhend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\end\\ljhend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\end\\ljhend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\picture\\ljhpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\picture\\ljhpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\picture\\ljhpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\picture\\ljhpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\picture\\ljhpicture8.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\picture\\ljhpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\picture\\ljhpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\picture\\ljhpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\picture\\ljhpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\picture\\ljhpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\stop\\ljhstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\stop\\ljhstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\stop\\ljhstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\stop\\ljhstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\stop\\ljhstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\stop\\ljhstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\stop\\ljhstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\stop\\ljhstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\stop\\ljhstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\stop\\ljhstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\record\\ljhrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\record\\ljhrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\record\\ljhrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\record\\ljhrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\record\\ljhrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\record\\ljhrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\record\\ljhrecord6.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\record\\ljhrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\record\\ljhrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ljh\\record\\ljhrecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "lma",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\camera\\lmacamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\camera\\lmacamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\camera\\lmacamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\camera\\lmacamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\camera\\lmacamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\camera\\lmacamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\camera\\lmacamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\camera\\lmacamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\camera\\lmacamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\camera\\lmacamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\end\\lmaend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\end\\lmaend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\end\\lmaend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\end\\lmaend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\end\\lmaend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\end\\lmaend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\end\\lmaend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\end\\lmaend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\end\\lmaend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\end\\lmaend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\picture\\lmapicture1.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\picture\\lmapicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\picture\\lmapicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\picture\\lmapicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\picture\\lmapicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\picture\\lmapicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\picture\\lmapicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\picture\\lmapicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\picture\\lmapicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\picture\\lmapicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\stop\\lmastop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\stop\\lmastop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\stop\\lmastop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\stop\\lmastop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\stop\\lmastop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\stop\\lmastop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\stop\\lmastop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\stop\\lmastop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\stop\\lmastop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\stop\\lmastop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\record\\lmarecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\record\\lmarecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\record\\lmarecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\record\\lmarecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\record\\lmarecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\record\\lmarecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\record\\lmarecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\record\\lmarecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\record\\lmarecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lma\\record\\lmarecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "lmh",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\camera\\lmhcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\camera\\lmhcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\camera\\lmhcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\camera\\lmhcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\camera\\lmhcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\camera\\lmhcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\camera\\lmhcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\camera\\lmhcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\camera\\lmhcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\camera\\lmhcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\end\\lmhend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\end\\lmhend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\end\\lmhend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\end\\lmhend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\end\\lmhend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\end\\lmhend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\end\\lmhend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\end\\lmhend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\end\\lmhend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\end\\lmhend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\picture\\lmhpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\picture\\lmhpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\picture\\lmhpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\picture\\lmhpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\picture\\lmhpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\picture\\lmhpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\picture\\lmhpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\picture\\lmhpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\picture\\lmhpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\picture\\lmhpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\stop\\lmhstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\stop\\lmhstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\stop\\lmhstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\stop\\lmhstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\stop\\lmhstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\stop\\lmhstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\stop\\lmhstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\stop\\lmhstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\stop\\lmhstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\stop\\lmhstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\record\\lmhrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\record\\lmhrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\record\\lmhrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\record\\lmhrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\record\\lmhrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\record\\lmhrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\record\\lmhrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\record\\lmhrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\record\\lmhrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\lmh\\record\\lmhrecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "mjh",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\camera\\mjhcamera6.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\camera\\mjhcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\camera\\mjhcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\camera\\mjhcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\camera\\mjhcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\camera\\mjhcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\camera\\mjhcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\camera\\mjhcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\camera\\mjhcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\camera\\mjhcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\end\\mjhend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\end\\mjhend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\end\\mjhend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\end\\mjhend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\end\\mjhend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\end\\mjhend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\end\\mjhend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\end\\mjhend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\end\\mjhend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\end\\mjhend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\picture\\mjhpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\picture\\mjhpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\picture\\mjhpicture11.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\picture\\mjhpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\picture\\mjhpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\picture\\mjhpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\picture\\mjhpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\picture\\mjhpicture9.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\picture\\mjhpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\picture\\mjhpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\picture\\mjhpicture5.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\stop\\mjhstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\stop\\mjhstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\stop\\mjhstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\stop\\mjhstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\stop\\mjhstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\stop\\mjhstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\stop\\mjhstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\stop\\mjhstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\stop\\mjhstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\stop\\mjhstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\record\\mjhrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\record\\mjhrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\record\\mjhrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\record\\mjhrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\record\\mjhrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\record\\mjhrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\record\\mjhrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\record\\mjhrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\record\\mjhrecord9.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\mjh\\record\\mjhrecord1.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "nkj",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\camera\\nkjcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\camera\\nkjcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\camera\\nkjcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\camera\\nkjcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\camera\\nkjcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\camera\\nkjcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\camera\\nkjcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\camera\\nkjcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\camera\\nkjcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\camera\\nkjcamera9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\end\\nkjend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\end\\nkjend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\end\\nkjend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\end\\nkjend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\end\\nkjend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\end\\nkjend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\end\\nkjend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\end\\nkjend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\end\\nkjend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\end\\nkjend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\picture\\nkjpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\picture\\nkjpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\picture\\nkjpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\picture\\nkjpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\picture\\nkjpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\picture\\nkjpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\picture\\nkjpicture9.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\picture\\nkjpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\picture\\nkjpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\picture\\nkjpicture7.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\stop\\nkjstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\stop\\nkjstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\stop\\nkjstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\stop\\nkjstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\stop\\nkjstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\stop\\nkjstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\stop\\nkjstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\stop\\nkjstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\stop\\nkjstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\stop\\nkjstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\record\\nkjrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\record\\nkjrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\record\\nkjrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\record\\nkjrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\record\\nkjrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\record\\nkjrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\record\\nkjrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\record\\nkjrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\record\\nkjrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\nkj\\record\\nkjrecord9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "p001",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\11.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\12.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\13.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\14.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\15.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\16.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\17.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\18.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\19.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\20.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\21.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\22.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\23.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\camera\\24.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\11.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\12.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\13.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\14.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\15.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\16.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\17.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\18.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\19.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\20.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\21.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\22.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\23.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\24.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\end\\25.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\11.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\12.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\13.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\14.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\15.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\16.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\17.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\18.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\19.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\20.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\21.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\22.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\23.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\picture\\24.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\11.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\12.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\13.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\14.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\15.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\16.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\17.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\18.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\19.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\20.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\21.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\22.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\23.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\stop\\24.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\11.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\12.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\13.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\14.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\15.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\16.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\17.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\18.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\19.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\20.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\21.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\22.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\23.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\p001\\record\\24.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "psk",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\camera\\pskcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\camera\\pskcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\camera\\pskcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\camera\\pskcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\camera\\pskcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\camera\\pskcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\camera\\pskcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\camera\\pskcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\camera\\pskcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\camera\\pskcamera9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\end\\pskend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\end\\pskend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\end\\pskend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\end\\pskend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\end\\pskend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\end\\pskend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\end\\pskend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\end\\pskend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\end\\pskend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\end\\pskend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\picture\\pskpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\picture\\pskpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\picture\\pskpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\picture\\pskpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\picture\\pskpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\picture\\pskpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\picture\\pskpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\picture\\pskpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\picture\\pskpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\picture\\pskpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\stop\\pskstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\stop\\pskstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\stop\\pskstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\stop\\pskstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\stop\\pskstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\stop\\pskstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\stop\\pskstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\stop\\pskstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\stop\\pskstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\stop\\pskstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\record\\pskrecord1.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\record\\pskrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\record\\pskrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\record\\pskrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\record\\pskrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\record\\pskrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\record\\pskrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\record\\pskrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\record\\pskrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\psk\\record\\pskrecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ptj",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\camera\\ptjcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\camera\\ptjcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\camera\\ptjcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\camera\\ptjcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\camera\\ptjcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\camera\\ptjcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\camera\\ptjcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\camera\\ptjcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\camera\\ptjcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\camera\\ptjcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\end\\ptjend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\end\\ptjend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\end\\ptjend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\end\\ptjend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\end\\ptjend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\end\\ptjend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\end\\ptjend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\end\\ptjend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\end\\ptjend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\end\\ptjend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\picture\\ptjpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\picture\\ptjpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\picture\\ptjpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\picture\\ptjpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\picture\\ptjpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\picture\\ptjpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\picture\\ptjpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\picture\\ptjpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\picture\\ptjpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\picture\\ptjpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\stop\\ptjstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\stop\\ptjstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\stop\\ptjstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\stop\\ptjstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\stop\\ptjstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\stop\\ptjstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\stop\\ptjstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\stop\\ptjstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\stop\\ptjstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\stop\\ptjstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\record\\ptjrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\record\\ptjrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\record\\ptjrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\record\\ptjrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\record\\ptjrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\record\\ptjrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\record\\ptjrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\record\\ptjrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\record\\ptjrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ptj\\record\\ptjrecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "sjs",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\camera\\sjscamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\camera\\sjscamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\camera\\sjscamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\camera\\sjscamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\camera\\sjscamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\camera\\sjscamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\camera\\sjscamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\camera\\sjscamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\camera\\sjscamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\camera\\sjscamera9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\end\\sjsend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\end\\sjsend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\end\\sjsend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\end\\sjsend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\end\\sjsend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\end\\sjsend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\end\\sjsend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\end\\sjsend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\end\\sjsend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\end\\sjsend9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\picture\\sjspicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\picture\\sjspicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\picture\\sjspicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\picture\\sjspicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\picture\\sjspicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\picture\\sjspicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\picture\\sjspicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\picture\\sjspicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\picture\\sjspicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\picture\\sjspicture9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\stop\\sjsstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\stop\\sjsstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\stop\\sjsstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\stop\\sjsstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\stop\\sjsstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\stop\\sjsstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\stop\\sjsstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\stop\\sjsstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\stop\\sjsstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\stop\\sjsstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\record\\sjsrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\record\\sjsrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\record\\sjsrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\record\\sjsrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\record\\sjsrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\record\\sjsrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\record\\sjsrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\record\\sjsrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\record\\sjsrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjs\\record\\sjsrecord9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "sjy",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\camera\\sjycamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\camera\\sjycamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\camera\\sjycamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\camera\\sjycamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\camera\\sjycamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\camera\\sjycamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\camera\\sjycamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\camera\\sjycamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\camera\\sjycamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\camera\\sjycamera9.wav"
+                    ],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\end\\sjyend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\end\\sjyend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\end\\sjyend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\end\\sjyend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\end\\sjyend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\end\\sjyend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\end\\sjyend9.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\end\\sjyend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\end\\sjyend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\end\\sjyend6.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\picture\\sjypicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\picture\\sjypicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\picture\\sjypicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\picture\\sjypicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\picture\\sjypicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\picture\\sjypicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\picture\\sjypicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\picture\\sjypicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\picture\\sjypicture9.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\picture\\sjypicture5.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\stop\\sjystop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\stop\\sjystop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\stop\\sjystop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\stop\\sjystop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\stop\\sjystop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\stop\\sjystop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\stop\\sjystop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\stop\\sjystop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\stop\\sjystop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\stop\\sjystop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\record\\sjyrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\record\\sjyrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\record\\sjyrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\record\\sjyrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\record\\sjyrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\record\\sjyrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\record\\sjyrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\record\\sjyrecord9.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\record\\sjyrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\sjy\\record\\sjyrecord6.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ydh",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\camera\\ydhcamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\camera\\ydhcamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\camera\\ydhcamera11.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\camera\\ydhcamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\camera\\ydhcamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\camera\\ydhcamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\camera\\ydhcamera5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\camera\\ydhcamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\camera\\ydhcamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\camera\\ydhcamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\camera\\ydhcamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\end\\ydhend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\end\\ydhend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\end\\ydhend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\end\\ydhend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\end\\ydhend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\end\\ydhend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\end\\ydhend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\end\\ydhend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\end\\ydhend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\end\\ydhend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\picture\\ydhpicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\picture\\ydhpicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\picture\\ydhpicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\picture\\ydhpicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\picture\\ydhpicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\picture\\ydhpicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\picture\\ydhpicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\picture\\ydhpicture7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\picture\\ydhpicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\picture\\ydhpicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\stop\\ydhstop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\stop\\ydhstop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\stop\\ydhstop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\stop\\ydhstop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\stop\\ydhstop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\stop\\ydhstop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\stop\\ydhstop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\stop\\ydhstop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\stop\\ydhstop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\stop\\ydhstop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\record\\ydhrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\record\\ydhrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\record\\ydhrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\record\\ydhrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\record\\ydhrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\record\\ydhrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\record\\ydhrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\record\\ydhrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\record\\ydhrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\ydh\\record\\ydhrecord9.wav"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "yjy",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\camera\\yjycamera1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\camera\\yjycamera2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\camera\\yjycamera3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\camera\\yjycamera4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\camera\\yjycamera5.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\camera\\yjycamera10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\camera\\yjycamera6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\camera\\yjycamera7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\camera\\yjycamera8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\camera\\yjycamera9.wav"
+                    ]
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\end\\yjyend1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\end\\yjyend10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\end\\yjyend2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\end\\yjyend3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\end\\yjyend4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\end\\yjyend5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\end\\yjyend6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\end\\yjyend7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\end\\yjyend8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\end\\yjyend9.wav"
+                    ]
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\picture\\yjypicture1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\picture\\yjypicture10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\picture\\yjypicture2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\picture\\yjypicture3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\picture\\yjypicture4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\picture\\yjypicture5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\picture\\yjypicture6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\picture\\yjypicture7.wav"
+                    ],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\picture\\yjypicture8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\picture\\yjypicture9.wav"
+                    ]
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\stop\\yjystop1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\stop\\yjystop10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\stop\\yjystop2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\stop\\yjystop3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\stop\\yjystop4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\stop\\yjystop5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\stop\\yjystop6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\stop\\yjystop7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\stop\\yjystop8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\stop\\yjystop9.wav"
+                    ]
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\record\\yjyrecord1.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\record\\yjyrecord10.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\record\\yjyrecord2.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\record\\yjyrecord3.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\record\\yjyrecord4.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\record\\yjyrecord5.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\record\\yjyrecord6.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\record\\yjyrecord7.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\record\\yjyrecord8.wav",
+                        "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB\\yjy\\record\\yjyrecord9.wav"
+                    ],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "kdh2",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "kjh2",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": []
+                }
+            ]
+        },
+        {
+            "name": "lse",
+            "commands": [
+                {
+                    "command": "camera",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "end",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "picture",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "stop",
+                    "saturation_data": [],
+                    "normal_data": []
+                },
+                {
+                    "command": "record",
+                    "saturation_data": [],
+                    "normal_data": []
+                }
+            ]
+        }
+    ]
+}

@@ -40,6 +40,7 @@ def draw_multi_graphes(data_list, label_list, row, col):
 
 
 
+
 def draw_single_graph(data, title_name):
     plt.figure()
     plt.plot(data)
@@ -52,6 +53,8 @@ def draw_single_graph(data, title_name):
     # plt.show()
 
     return
+
+
 
 
 def generate_txt_file():
@@ -120,7 +123,7 @@ def read_txt_file():
             full_data_16000.append(np.asarray(new_line_0[:-1]), dtype=np.float32)
             full_data_20000.append(np.asarray(new_line_1[:-1]), dtype=np.float32)
             full_data_mid.append(np.asarray(new_line_2[:-1]), dtype=np.float32)
-            
+
 
 
 
