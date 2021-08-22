@@ -7,6 +7,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+import os
+os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
+
 # train_data_path = "D:\\train_data_.npz"
 # train_data_path = "D:\\train_data_mid_.npz"
 # train_data_path = "D:\\train_data_small_2sec_.npz"
@@ -14,13 +17,18 @@ import seaborn as sns
 # train_data_path = "D:\\train_data_mid_2sec_backup_.npz"
 # train_data_path = "D:\\train_data_mid_2sec_random_.npz"
 # train_data_path = "D:\\train_data_small_2sec_random_.npz"
-train_data_path = "D:\\train_data_small_16000_random_.npz"
+# train_data_path = "D:\\train_data_small_16000_random_.npz"
 # train_data_path = "D:\\train_data_00.npz"
+# train_data_path = "D:\\train_data_small_20000_random_.npz"
+# train_data_path = "D:\\train_data_mini_20000_random_.npz"
+train_data_path = "D:\\train_data_middle_20000_random_.npz"
 
 
 # test_data_path = "D:\\test_data_.npz"
 # test_data_path = "D:\\test_data_2sec_.npz"
-test_data_path = "D:\\test_data_16000_.npz"
+# test_data_path = "D:\\test_data_16000_.npz"
+# test_data_path = "D:\\test_data_mini_16000_.npz"
+test_data_path = "D:\\test_data_20000_.npz"
 
 loaded_data_00 = np.load(train_data_path)
 train_data_00 = loaded_data_00['data']
@@ -69,7 +77,6 @@ class residual_cnn_block_2D(layers.Layer):
 
 
 
-
 #%% 
 class CNN_block(layers.Layer):
 
@@ -89,32 +96,38 @@ class CNN_block(layers.Layer):
                                        padding='same')
         conv2d_layer_4 = layers.Conv2D(self.chan_size*4, (3, 3),
                                        padding='same')
+        conv2d_layer_5 = layers.Conv2D(self.chan_size*5, (3, 3),
+                                       padding='same')
 
         
         inputs = layers.BatchNormalization()(inputs)
 
         x = conv2d_layer_1(inputs)
-        x = layers.MaxPooling2D((2, 2))(x)
+        # x = layers.MaxPooling2D((2, 2), padding='same')(x)
         x = layers.BatchNormalization()(x)
         x = tf.nn.relu(x)
 
         x = conv2d_layer_2(x)
-        x = layers.MaxPooling2D((2, 2))(x)
+        x = layers.MaxPooling2D((2, 2), padding='same')(x)
         x = layers.BatchNormalization()(x)
         x = tf.nn.relu(x)
 
         x = conv2d_layer_3(x)
-        x = layers.MaxPooling2D((2, 2))(x)
+        x = layers.MaxPooling2D((2, 2), padding='same')(x)
         x = layers.BatchNormalization()(x)
         x = tf.nn.relu(x)
 
         x = conv2d_layer_4(x)
-        x = layers.MaxPooling2D((2, 2))(x)
+        x = layers.MaxPooling2D((2, 2), padding='same')(x)
+        x = layers.BatchNormalization()(x)
+        x = tf.nn.relu(x)
+        
+        x = conv2d_layer_5(x)
+        x = layers.MaxPooling2D((2, 2), padding='same')(x)
         x = layers.BatchNormalization()(x)
         x = tf.nn.relu(x)
 
         return x
-
 
 
 
@@ -155,7 +168,7 @@ test_dataset = tf.data.Dataset.from_generator(generate_test_data,
 output_signature=(
                     tf.TensorSpec(shape=(None,), dtype=tf.float32),
                     tf.TensorSpec(shape=(), dtype=tf.int32)
-)).shuffle(5000).batch(64)
+)).shuffle(5000).batch(16)
 # args=(test_data_path))
 test_dataset = test_dataset.with_options(options)
 
@@ -165,109 +178,106 @@ test_dataset = test_dataset.with_options(options)
 mirrored_strategy = tf.distribute.MirroredStrategy(
     cross_device_ops=tf.distribute.HierarchicalCopyAllReduce())
 
-tensor_slice_size = 32
-tensor_shift_size = 16
+tensor_slice_size = 50
+tensor_shift_size = 25
 tensor_gap_size = tensor_slice_size-tensor_shift_size
 
-cnn_chan_size = 32
+cnn_chan_size = 64
 
 
 
 
+#%%
 with mirrored_strategy.scope():
 
-    input_sig = tf.keras.Input(shape=(16000,))
+    input_sig = tf.keras.Input(shape=(20000,))
 
-    x = tf.signal.stft(input_sig, frame_length=255, frame_step=128)
-
-    x = tf.abs(x)
-
-    tmp_shape = x.shape
-    print('\n\n\n')
-    print(tmp_shape)
-    print('\n\n\n')
-
-    temp_size = 0
-    x0 = tf.slice(  x, begin=[0, temp_size,0], 
-                    size=[  -1, 
-                            tensor_slice_size, tmp_shape[-1]])
-
-    temp_size += tensor_gap_size
-    x1 = tf.slice(  x, begin=[0, temp_size,0], 
-                    size=[  -1, 
-                            tensor_slice_size, tmp_shape[-1]])
-
-    temp_size += tensor_gap_size
-    x2 = tf.slice(  x, begin=[0, temp_size,0], 
-                    size=[  -1, 
-                            tensor_slice_size, tmp_shape[-1]])
-
-    temp_size += tensor_gap_size
-    x3 = tf.slice(  x, begin=[0, temp_size,0], 
-                    size=[  -1, 
-                            tensor_slice_size-(temp_size+tensor_slice_size-tmp_shape[-2]), tmp_shape[-1]])
-
-    # temp_size += tensor_gap_size
-    # x4 = tf.slice(  x, begin=[0, temp_size,0], 
-    #                 size=[  -1, 
-    #                         tensor_slice_size, tmp_shape[-1]])
-
-    # temp_size += tensor_gap_size
-    # x5 = tf.slice(  x, begin=[0, temp_size,0], 
-    #                 size=[  -1, 
-    #                         tensor_slice_size, tmp_shape[-1]])
-
-    # temp_size += tensor_gap_size
-    # x6 = tf.slice(  x, begin=[0, temp_size,0], 
-    #                 size=[  -1, 
-    #                         tensor_slice_size-(512-tmp_shape[-2]), 
-    #                         tmp_shape[-1]])
-
-    temp_size += tensor_gap_size
-    print(temp_size)
-    x7 = tf.slice(  x, begin=[0, temp_size,0], 
-                    size=[  -1, 
-                            tmp_shape[-2]-temp_size, 
-                            tmp_shape[-1]])
-
+    print(input_sig)
+    print(input_sig.shape)
     
+    x0 = tf.slice(input_sig, begin=[0, 0], size=[-1, 4000])
+    x1 = tf.slice(input_sig, begin=[0, 2000], size=[-1, 4000])
+    x2 = tf.slice(input_sig, begin=[0, 4000], size=[-1, 4000])
+    x3 = tf.slice(input_sig, begin=[0, 6000], size=[-1, 4000])
+    x4 = tf.slice(input_sig, begin=[0, 8000], size=[-1, 4000])
+    x5 = tf.slice(input_sig, begin=[0, 10000], size=[-1, 4000])
+    x6 = tf.slice(input_sig, begin=[0, 12000], size=[-1, 4000])
+    x7 = tf.slice(input_sig, begin=[0, 14000], size=[-1, 4000])
+    x8 = tf.slice(input_sig, begin=[0, 16000], size=[-1, 4000])
+
+    x0 = tf.signal.stft(x0, frame_length=255, frame_step=128)
+    x1 = tf.signal.stft(x1, frame_length=255, frame_step=128)
+    x2 = tf.signal.stft(x2, frame_length=255, frame_step=128)
+    x3 = tf.signal.stft(x3, frame_length=255, frame_step=128)
+    x4 = tf.signal.stft(x4, frame_length=255, frame_step=128)
+    x5 = tf.signal.stft(x5, frame_length=255, frame_step=128)
+    x6 = tf.signal.stft(x6, frame_length=255, frame_step=128)
+    x7 = tf.signal.stft(x7, frame_length=255, frame_step=128)
+    x8 = tf.signal.stft(x8, frame_length=255, frame_step=128)
+
+    x0 = tf.abs(x0)
+    x1 = tf.abs(x1)
+    x2 = tf.abs(x2)
+    x3 = tf.abs(x3)
+    x4 = tf.abs(x4)
+    x5 = tf.abs(x5)
+    x6 = tf.abs(x6)
+    x7 = tf.abs(x7)
+    x8 = tf.abs(x8)
+
+    # tmp_shape = x.shape
+    # print('\n\n\n')
+    # print(tmp_shape)
+    # print('\n\n\n')
+
     x0 = tf.expand_dims(x0, -1)
     x1 = tf.expand_dims(x1, -1)
     x2 = tf.expand_dims(x2, -1)
     x3 = tf.expand_dims(x3, -1)
-    # x4 = tf.expand_dims(x4, -1)
-    # x5 = tf.expand_dims(x5, -1)
-    # x6 = tf.expand_dims(x6, -1)
+    x4 = tf.expand_dims(x4, -1)
+    x5 = tf.expand_dims(x5, -1)
+    x6 = tf.expand_dims(x6, -1)
     x7 = tf.expand_dims(x7, -1)
+    x8 = tf.expand_dims(x8, -1)
 
        
-    x0 = preprocessing.Resizing(32, 64)(x0) 
+    x0 = preprocessing.Resizing(32, 32)(x0) 
     x0 = layers.BatchNormalization()(x0)
 
-    x1 = preprocessing.Resizing(32, 64)(x1) 
+    x1 = preprocessing.Resizing(32, 32)(x1) 
     x1 = layers.BatchNormalization()(x1)
 
-    x2 = preprocessing.Resizing(32, 64)(x2) 
+    x2 = preprocessing.Resizing(32, 32)(x2) 
     x2 = layers.BatchNormalization()(x2)
 
-    x3 = preprocessing.Resizing(32, 64)(x3) 
+    x3 = preprocessing.Resizing(32, 32)(x3) 
     x3 = layers.BatchNormalization()(x3)
 
-    # x4 = preprocessing.Resizing(32, 32)(x4) 
-    # x5 = preprocessing.Resizing(32, 32)(x5) 
-    # x6 = preprocessing.Resizing(32, 32)(x6) 
-    x7 = preprocessing.Resizing(32, 64)(x7) 
+    x4 = preprocessing.Resizing(32, 32)(x4) 
+    x4 = layers.BatchNormalization()(x4)
+
+    x5 = preprocessing.Resizing(32, 32)(x5) 
+    x5 = layers.BatchNormalization()(x5)
+
+    x6 = preprocessing.Resizing(32, 32)(x6) 
+    x6 = layers.BatchNormalization()(x6)
+
+    x7 = preprocessing.Resizing(32, 32)(x7) 
     x7 = layers.BatchNormalization()(x7) 
+
+    x8 = preprocessing.Resizing(32, 32)(x8) 
+    x8 = layers.BatchNormalization()(x8) 
 
 
     cnn_block_0 = CNN_block(channel_size=cnn_chan_size)
     cnn_block_1 = CNN_block(channel_size=cnn_chan_size)
     cnn_block_2 = CNN_block(channel_size=cnn_chan_size)
     cnn_block_3 = CNN_block(channel_size=cnn_chan_size)
-    # cnn_block_4 = CNN_block(channel_size=cnn_chan_size)
-    # cnn_block_5 = CNN_block(channel_size=cnn_chan_size)
-    # cnn_block_6 = CNN_block(channel_size=cnn_chan_size)
+    cnn_block_4 = CNN_block(channel_size=cnn_chan_size)
+    cnn_block_5 = CNN_block(channel_size=cnn_chan_size)
+    cnn_block_6 = CNN_block(channel_size=cnn_chan_size)
     cnn_block_7 = CNN_block(channel_size=cnn_chan_size)
+    cnn_block_8 = CNN_block(channel_size=cnn_chan_size)
 
     x0 = cnn_block_0(x0)
     x0 = layers.BatchNormalization()(x0)
@@ -281,38 +291,51 @@ with mirrored_strategy.scope():
     x3 = cnn_block_3(x3)
     x3 = layers.BatchNormalization()(x3)
 
-    # x4 = cnn_block_4(x4)
-    # x5 = cnn_block_5(x5)
-    # x6 = cnn_block_6(x6)
+    x4 = cnn_block_4(x4)
+    x4 = layers.BatchNormalization()(x4)
+
+    x5 = cnn_block_5(x5)
+    x5 = layers.BatchNormalization()(x5)
+
+    x6 = cnn_block_6(x6)
+    x6 = layers.BatchNormalization()(x6)
+
     x7 = cnn_block_7(x7)
     x7 = layers.BatchNormalization()(x7)
+
+    x8 = cnn_block_8(x8)
+    x8 = layers.BatchNormalization()(x8)
 
 
     x0 = layers.Flatten()(x0)
     x1 = layers.Flatten()(x1)
     x2 = layers.Flatten()(x2)
     x3 = layers.Flatten()(x3)
-    # x4 = layers.Flatten()(x4)
-    # x5 = layers.Flatten()(x5)
-    # x6 = layers.Flatten()(x6)
+    x4 = layers.Flatten()(x4)
+    x5 = layers.Flatten()(x5)
+    x6 = layers.Flatten()(x6)
     x7 = layers.Flatten()(x7)
+    x8 = layers.Flatten()(x8)
 
 
     x0 = tf.expand_dims(x0, -2)
     x1 = tf.expand_dims(x1, -2)
     x2 = tf.expand_dims(x2, -2)
     x3 = tf.expand_dims(x3, -2)
-    # x4 = tf.expand_dims(x4, -2)
-    # x5 = tf.expand_dims(x5, -2)
-    # x6 = tf.expand_dims(x6, -2)
+    x4 = tf.expand_dims(x4, -2)
+    x5 = tf.expand_dims(x5, -2)
+    x6 = tf.expand_dims(x6, -2)
     x7 = tf.expand_dims(x7, -2)
+    x8 = tf.expand_dims(x8, -2)
     
     
     # print(x0)
     x = tf.concat([ x0, x1, x2, x3, 
-                    # x4, 
-                    # x5, x6, 
-                    x7], -2)
+                    x4, 
+                    x5, x6, 
+                    x7,
+                    x8,
+                    ], -2)
     
     print("**************************", x)
     
@@ -322,14 +345,16 @@ with mirrored_strategy.scope():
     # x = layers.BatchNormalization()(x)
     # x = layers.LSTM(128)(x)
     # x = layers.BatchNormalization()(x)
-
+    
+    x = layers.Bidirectional(layers.LSTM(128, return_sequences=True))(x)
+    x = layers.BatchNormalization()(x)
     x = layers.Bidirectional(layers.LSTM(128, return_sequences=True))(x)
     x = layers.BatchNormalization()(x)
     x = layers.Bidirectional(layers.LSTM(128))(x)
     x = layers.BatchNormalization()(x)
 
-    x = layers.Dropout(0.25)(x)
-    x = layers.Dense(128)(x)
+    # x = layers.Dropout(0.25)(x)
+    # x = layers.Dense(128)(x)
     x = layers.Dropout(0.5)(x)
     answer = layers.Dense(6, activation='softmax')(x)
 
@@ -347,22 +372,27 @@ with mirrored_strategy.scope():
         metrics=["accuracy"],
     )
 
+
+
 #%%
-history = model.fit(train_dataset, epochs=10)
+history = model.fit(train_dataset, epochs=12)
+
+
 
 #%%
 eval_loss, eval_acc = model.evaluate(test_dataset)
 
-# print('\n\n')
-# print("loss : {}, accuracy : {}".format(eval_loss, eval_acc))
-# print('\n\n')
+print('\n\n')
+print("loss : {}, accuracy : {}".format(eval_loss, eval_acc))
+print('\n\n')
+
 
 
 #%%
 ## convert tflite
 converter = tf.lite.TFLiteConverter.from_keras_model(model)
 converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS,
-                                       tf.lite.OpsSet.SELECT_TF_OPS]
+                                        tf.lite.OpsSet.SELECT_TF_OPS]
 tflite_model = converter.convert()
 open('D:\\test_tflite_file_lstm_1_slice.tflite', 'wb').write(tflite_model)
 

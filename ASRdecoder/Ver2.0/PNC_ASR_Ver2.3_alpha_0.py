@@ -23,7 +23,7 @@ start_time, end_time = float(), float()
 
 front_size = 4000
 tail_size = 4000
-full_size = 16000
+full_size = 20000
 
 voice_trigger = 200
 std_trigger = 1.0
@@ -48,11 +48,11 @@ test_bool = False
 command_label_num = 6
 
 # command_tflite_file = 'D:\\test_tflite_file.tflite'
-# command_tflite_file = 'D:\\test_tflite_file_cnn_0.tflite'
+command_tflite_file = 'D:\\test_tflite_file_cnn_0.tflite'
 # command_tflite_file = 'D:\\test_tflite_file_cnn_1_slice.tflite'
 # command_tflite_file = 'D:\\test_tflite_file_rnet_0.tflite'
 # command_tflite_file = 'D:\\test_tflite_file_rnet_1_slice.tflite'
-command_tflite_file = 'D:\\test_tflite_file_lstm_1_slice.tflite'
+# command_tflite_file = 'D:\\test_tflite_file_lstm_1_slice.tflite'
 
 command_interpreter = tf.lite.Interpreter(model_path=command_tflite_file)
 command_interpreter.allocate_tensors()
@@ -219,7 +219,7 @@ def cut_input_signal_v3(data, file_pointer, **kwargs):
     file_pointer.write("\n")
     file_pointer.write(str(start_index) + "\n")
 
-    front_size = 4000
+    front_size = 5000
     temp = gap_frame_shift*start_index-front_size
 
     if temp <= 0:

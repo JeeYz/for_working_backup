@@ -1,9 +1,14 @@
+from pickle import STACK_GLOBAL
 import numpy as np
 import json
 import os
+from numpy.core.shape_base import stack
 
 from scipy.io import wavfile
 import librosa
+
+import time
+import random
 
 sr = 16000 # sample rate
 
@@ -26,23 +31,16 @@ command_dict = {
                 }
 
 rate_list = [
-                # 1.10, 
+                1.10, 
                 1.0,
                 # 0.9,
             ]
 
-# random_list = [
-#                     4500, 
-#                     4800,
-#                     5100, 
-#                     5400,
-#                     5700, 
-#                     6000,
-#                     6300, 
-#                     6600,
-#                     6900,
-#                     7200,
-#                     7500,
+# random_value = [
+#                     # 3000, 3500, 4000, 4500,
+#                     # 5000, 5500, 6000, 6500
+#                     2000, 3000, 4000,
+#                     5000, 6000,
 #                 ]
 
 none_label_num = 5
@@ -182,7 +180,7 @@ def cut_input_signal_v5(data, **kwargs):
         else:
             start_index = 0
 
-    front_size = 6000
+    front_size = 5000
     
     temp = gap_frame_shift*start_index-front_size
 
@@ -611,6 +609,65 @@ def read_json_file():
 
 
 
+
+
+def devide_data(train_data_file):
+
+    train_data_list = list()
+    test_data_list = list()
+
+    temp_command = "null"
+    temp_speaker = "null"
+    stack_file = list()
+
+    for i,one_file in enumerate(train_data_file):
+        print(i, '\t', one_file)
+
+        temp_line = one_file.split("\\")
+        this_command = temp_line[-2]
+        this_speaker = temp_line[-3]
+
+        if temp_command == "null":
+            temp_command = this_command
+            temp_speaker = this_speaker
+        
+        if temp_command != this_command or temp_speaker != this_speaker:
+
+            print(one_file, temp_command, this_command, temp_speaker, this_speaker, len(stack_file))
+
+            if len(stack_file) > 1:
+                max_num = len(stack_file)-1
+                temp_num = random.randint(0, max_num)
+                test_data_list.append(stack_file[temp_num])
+                del stack_file[temp_num]
+
+            for one in stack_file:
+                train_data_list.append(one)
+
+            stack_file = list()
+            stack_file.append(one_file)
+            temp_command = this_command
+            temp_speaker = this_speaker
+
+        else:
+            stack_file.append(one_file)
+    
+    if len(stack_file) > 1:
+        max_num = len(stack_file)-1
+        temp_num = random.randint(0, max_num)
+        test_data_list.append(stack_file[temp_num])
+        del stack_file[temp_num]
+
+    for one in stack_file:
+        train_data_list.append(one)
+
+    stack_file = list()
+
+    return train_data_list, test_data_list
+
+
+
+
 def main():
 
     # norm_data, null_list = read_json_file()
@@ -629,17 +686,14 @@ def main():
     # train data 생성
 
     # train_data_file_name = "D:\\train_data_mini_20000_random_"
-    # train_data_file_name = "D:\\train_data_middle_20000_random_3_"
-    # train_data_file_name = "D:\\train_data_middle_20000_random_4_"
-    # train_data_file_name = "D:\\train_data_middle_20000_random_5_"
-    # train_data_file_name = "D:\\train_data_middle_20000_random_6_"
-    # train_data_file_name = "D:\\train_data_middle_20000_random_7_"
-    train_data_file_name = "D:\\train_data_middle_20000_random_8_"
+    # train_data_file_name = "D:\\train_data_middle_20000_random_"
+    train_data_file_name = "D:\\train_data_middle_20000_random_confirm_0_"
     # train_data_file_name = "D:\\train_data_test_20000_random_"
 
 
 
-    train_data_files = search_all_satu_files()
+    train_data_ori = search_all_satu_files()
+    train_data_files, test_data_files = devide_data(train_data_ori)
 
     print("generate train data...")
 
@@ -649,14 +703,12 @@ def main():
 
     random_value = list()
 
-    random_num = 10
+    random_num = 20
 
     while len(random_value)<random_num:
-        rand_val = np.random.randint(50, 75)*100
+        rand_val = np.random.randint(45, 80)*100
         if rand_val not in random_value:
             random_value.append(rand_val)
-
-    # random_value = random_list
 
     label_list = make_label_list(train_data_files, random_value, kind_of_data="train")
 
@@ -668,9 +720,16 @@ def main():
     label_num = 0
     count_num = 0
 
+
+    print(len(train_data_files), len(label_list))
+    print(len(train_data_ori), len(train_data_files), len(test_data_files))
+    # time.sleep(1000)
+
+
     for i, one_file in enumerate(train_data_files):
 
         one_data = read_wav_file(file_path=one_file)
+        one_data = np.array(one_data, dtype=np.float32)
         one_data = standardize_signal(one_data)
 
         for rv in random_value:
@@ -734,41 +793,43 @@ def main():
 
     # test data 생성
 
-    # print("hello, world~!!")
+    print("hello, world~!!")
     # files_list = list()
-    # # files_list = find_files(filepath='D:\\Speech\\test',
-    # #             file_ext='.wav')
+    # files_list = find_files(filepath='D:\\Speech\\test',
+    #             file_ext='.wav')
     # files_list = find_files(filepath='D:\\voice_data_backup\\test',
     #             file_ext='.wav')
-    # # print(files_list)
+    # print(files_list)
 
-    # test_data_set = list()
-    # label_list = list()
+    test_data_set = list()
+    label_list = list()
 
-    # label_list = make_label_list(files_list, [], kind_of_data="test")
+    # label_list = make_label_list(files_list, kind_of_data="test")
+    label_list = make_label_list(test_data_files, [], kind_of_data="test")
 
-    # print('\n', len(label_list))
+    print('\n', len(label_list))
 
     # for i, one_file in enumerate(files_list):
+    for i, one_file in enumerate(test_data_files):
 
-    #     one_data = read_wav_file(file_path=one_file)
-    #     one_data = standardize_signal(one_data)
+        one_data = read_wav_file(file_path=one_file)
+        one_data = standardize_signal(one_data)
 
-    #     result = cut_input_signal_v5(one_data, frame_size=400, shift_size=200)
+        result = cut_input_signal_v5(one_data, frame_size=400, shift_size=200)
 
-    #     # draw_graph(result)
+        # draw_graph(result)
 
-    #     result = fit_determined_size(result)
-    #     # print(len(result))
-    #     # result = add_noise_data(result)
+        result = fit_determined_size(result)
+        # print(len(result))
+        # result = add_noise_data(result)
 
-    #     test_data_set.append(result)
+        test_data_set.append(result)
 
-    #     print("\r{}th file is done...".format(i), end='')
+        print("\r{}th file is done...".format(i), end='')
 
-    # write_numpy_file(test_data_set,
-    #                 label_numpy=np.array(label_list), 
-    #                 default_filename='D:\\test_data_20000_')
+    write_numpy_file(test_data_set,
+                    label_numpy=np.array(label_list), 
+                    default_filename='D:\\test_data_20000_confirm_0_')
 
 
 

@@ -7,6 +7,7 @@ import numpy as np
 
 file_ext = ".wav"
 parent_folder = "D:\\voice_data_backup\\PNC_DB_ALL"
+# parent_folder = "D:\\voice_data_backup\\ASR_audio_files\\train"
 
 command_list = [
 
@@ -14,7 +15,6 @@ command_list = [
         "stop", "record"
 
     ]
-
 
 
 
@@ -55,7 +55,6 @@ def initialization_of_dict(data_dict):
         
         data_dict["speakers"].append(temp)
         
-
     return data_dict 
 
 
@@ -74,12 +73,20 @@ def determine_condition(file_name):
 
     # 조건 0 and 1
     if max_value != 32767   \
-                or         \
+                and         \
             min_value != -32768:                        
 
         return 1
     else:
         return 0
+
+    # if max_value != 32767   \
+    #             or         \
+    #         min_value != -32768:                        
+
+    #     return 1
+    # else:
+    #     return 0
 
     # correct_data_num+=1
 
@@ -151,12 +158,30 @@ def write_json_file(whole_data):
 
 
 
+def search_all_satu_files():
+
+    all_norm_data = list()
+
+    for (path, dir, files) in os.walk(parent_folder):   
+        for filename in files:
+            ext = os.path.splitext(filename)[-1]
+            if ext == file_ext:
+                file_name = path + "\\" + filename
+                cond = determine_condition(file_name)
+                if cond == 1:
+                    all_norm_data.append(file_name)
+
+    return all_norm_data
+
+
+
+
 def main():
 
-    whole_data = dict()
-    whole_data = initialization_of_dict(whole_data)
-    whole_data = search_wav_files(whole_data)
-    write_json_file(whole_data)
+    # whole_data = dict()
+    # whole_data = initialization_of_dict(whole_data)
+    # whole_data = search_wav_files(whole_data)
+    # write_json_file(whole_data)
 
     return
 

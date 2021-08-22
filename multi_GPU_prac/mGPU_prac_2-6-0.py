@@ -7,6 +7,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+import os
+os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
 
 # train_data_path = "D:\\train_data_.npz"
 # train_data_path = "D:\\train_data_mid_.npz"
@@ -16,14 +18,14 @@ import seaborn as sns
 # train_data_path = "D:\\train_data_mid_2sec_random_.npz"
 # train_data_path = "D:\\train_data_small_2sec_random_.npz"
 # train_data_path = "D:\\train_data_small_16000_random_.npz"
-# train_data_path = "D:\\train_data_big_16000_random_.npz"
+# train_data_path = "D:\\train_data_00.npz"
 # train_data_path = "D:\\train_data_small_20000_random_.npz"
 # train_data_path = "D:\\train_data_mini_20000_random_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_.npz"
+
 train_data_path = "D:\\train_data_middle_20000_random_1_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_2_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_confirm_0_.npz"
-# train_data_path = "D:\\train_data_00.npz"
 
 
 # test_data_path = "D:\\test_data_.npz"
@@ -31,7 +33,6 @@ train_data_path = "D:\\train_data_middle_20000_random_1_.npz"
 # test_data_path = "D:\\test_data_16000_.npz"
 # test_data_path = "D:\\test_data_mini_16000_.npz"
 test_data_path = "D:\\test_data_20000_.npz"
-# test_data_path = "D:\\test_data_20000_confirm_0_.npz"
 
 loaded_data_00 = np.load(train_data_path)
 train_data_00 = loaded_data_00['data']
@@ -41,7 +42,7 @@ loaded_data_01 = np.load(test_data_path)
 test_data_00 = loaded_data_01['data']
 test_label_00 = loaded_data_01['label']
 
-print(test_label_00.shape)
+
 
 #%% class -> residual cnn block
 class residual_cnn_block_2D(layers.Layer):
@@ -76,7 +77,6 @@ class residual_cnn_block_2D(layers.Layer):
         x = layers.Dropout(0.2)(x)
 
         return x
-
 
 
 
@@ -125,55 +125,6 @@ class CNN_block(layers.Layer):
         x = tf.nn.relu(x)
 
         return x
-    
-    
-    
-
-#%%
-class CNN_block_deep(layers.Layer):
-
-    def __init__(self, **kwarg):
-        super(CNN_block_deep, self).__init__()
-
-        if "channel_size" in kwarg.keys():
-            self.chan_size = kwarg['channel_size']
-
-
-    def __call__(self, inputs, **kwarg):
-        conv2d_layer_1 = layers.Conv2D(self.chan_size, (3, 3),
-                                       padding='same')
-        conv2d_layer_2 = layers.Conv2D(self.chan_size, (3, 3),
-                                       padding='same')
-        conv2d_layer_3 = layers.Conv2D(self.chan_size, (3, 3),
-                                       padding='same')
-        conv2d_layer_4 = layers.Conv2D(self.chan_size, (3, 3),
-                                       padding='same')
-
-        
-        inputs = layers.BatchNormalization()(inputs)
-
-        x = conv2d_layer_1(inputs)
-        # x = layers.MaxPooling2D((2, 2), padding='same')(x)
-        x = layers.BatchNormalization()(x)
-        x = tf.nn.relu(x)
-
-        x = conv2d_layer_2(x)
-        x = layers.MaxPooling2D((2, 2), padding='same')(x)
-        x = layers.BatchNormalization()(x)
-        x = tf.nn.relu(x)
-
-        x = conv2d_layer_3(x)
-        # x = layers.MaxPooling2D((2, 2), padding='same')(x)
-        x = layers.BatchNormalization()(x)
-        x = tf.nn.relu(x)
-
-        x = conv2d_layer_4(x)
-        x = layers.MaxPooling2D((2, 2), padding='same')(x)
-        x = layers.BatchNormalization()(x)
-        x = tf.nn.relu(x)
-
-        return x
-
 
 
 
@@ -202,7 +153,7 @@ train_dataset = tf.data.Dataset.from_generator(generate_train_data,
 output_signature=(
                     tf.TensorSpec(shape=(None,), dtype=tf.float32),
                     tf.TensorSpec(shape=(), dtype=tf.int32)
-)).shuffle(5000).batch(256)
+)).shuffle(5000).batch(128)
 # args=(train_data_path)),
 train_dataset = train_dataset.with_options(options)
 
@@ -214,7 +165,7 @@ test_dataset = tf.data.Dataset.from_generator(generate_test_data,
 output_signature=(
                     tf.TensorSpec(shape=(None,), dtype=tf.float32),
                     tf.TensorSpec(shape=(), dtype=tf.int32)
-)).shuffle(5000).batch(64)
+)).shuffle(5000).batch(16)
 # args=(test_data_path))
 test_dataset = test_dataset.with_options(options)
 
@@ -224,93 +175,113 @@ test_dataset = test_dataset.with_options(options)
 mirrored_strategy = tf.distribute.MirroredStrategy(
     cross_device_ops=tf.distribute.HierarchicalCopyAllReduce())
 
-tensor_slice_size = 128
-tensor_shift_size = 64
+tensor_slice_size = 50
+tensor_shift_size = 25
 tensor_gap_size = tensor_slice_size-tensor_shift_size
 
-cnn_chan_size = 128
+cnn_chan_size = 64
 
 
+
+
+#%%
 with mirrored_strategy.scope():
 
     input_sig = tf.keras.Input(shape=(20000,))
 
-    x = tf.signal.stft(input_sig, frame_length=255, frame_step=128)
+    print(input_sig)
+    print(input_sig.shape)
+    
+    x0 = tf.slice(input_sig, begin=[0, 0], size=[-1, 4000])
+    x1 = tf.slice(input_sig, begin=[0, 2000], size=[-1, 4000])
+    x2 = tf.slice(input_sig, begin=[0, 4000], size=[-1, 4000])
+    x3 = tf.slice(input_sig, begin=[0, 6000], size=[-1, 4000])
+    x4 = tf.slice(input_sig, begin=[0, 8000], size=[-1, 4000])
+    x5 = tf.slice(input_sig, begin=[0, 10000], size=[-1, 4000])
+    x6 = tf.slice(input_sig, begin=[0, 12000], size=[-1, 4000])
+    x7 = tf.slice(input_sig, begin=[0, 14000], size=[-1, 4000])
+    x8 = tf.slice(input_sig, begin=[0, 16000], size=[-1, 4000])
 
-    # x = tf.math.log(x)
+    x0 = tf.expand_dims(x0, -1)
+    x1 = tf.expand_dims(x1, -1)
+    x2 = tf.expand_dims(x2, -1)
+    x3 = tf.expand_dims(x3, -1)
+    x4 = tf.expand_dims(x4, -1)
+    x5 = tf.expand_dims(x5, -1)
+    x6 = tf.expand_dims(x6, -1)
+    x7 = tf.expand_dims(x7, -1)
+    x8 = tf.expand_dims(x8, -1)
 
-    x = tf.abs(x)
-        
-    x = tf.expand_dims(x, -1)
-           
-    # x = preprocessing.Resizing(32, 32)(x)
-    x = layers.BatchNormalization()(x)
-    
-    # cnn_block_0 = CNN_block(channel_size=cnn_chan_size)
-    # cnn_block_1 = CNN_block(channel_size=cnn_chan_size*4)
-    
-    cnn_block_0 = CNN_block_deep(channel_size=cnn_chan_size)
-    cnn_block_1 = CNN_block_deep(channel_size=cnn_chan_size*2)
-    cnn_block_2 = CNN_block_deep(channel_size=cnn_chan_size*3)
-    cnn_block_3 = CNN_block_deep(channel_size=cnn_chan_size*4)
-    cnn_block_4 = CNN_block_deep(channel_size=cnn_chan_size*5)
-    cnn_block_5 = CNN_block_deep(channel_size=cnn_chan_size*6)
-    cnn_block_6 = CNN_block_deep(channel_size=cnn_chan_size*7)
-    
-    # x = cnn_block_0(x)
-    # x = cnn_block_1(x)
-    # x = cnn_block_2(x)
-    # x = cnn_block_3(x)
-    # x = cnn_block_4(x)
-    # x = cnn_block_1(x)
-    
-    
-    x = layers.Conv2D(128, (3, 3), padding='same')(x)
-    x = layers.MaxPooling2D((4, 4), padding='same')(x)
-    # x = layers.BatchNormalization()(x)
-    x = tf.nn.relu(x)
-    x = layers.BatchNormalization()(x)
-        
-    x = layers.Conv2D(128, (3, 3), padding='same')(x)
-    x = layers.MaxPooling2D((4, 4), padding='same')(x)
-    # x = layers.BatchNormalization()(x)
-    x = tf.nn.relu(x)
-    x = layers.BatchNormalization()(x)
-    
-    x = layers.Conv2D(256, (3, 3), padding='same')(x)
-    x = layers.MaxPooling2D((2, 2), padding='same')(x)
-    # x = layers.BatchNormalization()(x)
-    x = tf.nn.relu(x)
-    x = layers.BatchNormalization()(x)
-    
-    x = layers.Conv2D(256, (3, 3), padding='same')(x)
-    x = layers.MaxPooling2D((2, 2), padding='same')(x)
-    # x = layers.BatchNormalization()(x)
-    x = tf.nn.relu(x)
-    x = layers.BatchNormalization()(x)
-    
-    x = layers.Conv2D(512, (3, 3), padding='same')(x)
-    x = layers.MaxPooling2D((2, 2), padding='same')(x)
-    # x = layers.BatchNormalization()(x)
-    x = tf.nn.relu(x)
-    x = layers.BatchNormalization()(x)
-    
-    x = layers.Conv2D(512, (3, 3), padding='same')(x)
-    x = layers.MaxPooling2D((2, 2), padding='same')(x)
-    # x = layers.BatchNormalization()(x)
-    x = tf.nn.relu(x)
-    x = layers.BatchNormalization()(x)
-    
+    x0 = tf.expand_dims(x0, -1)
+    x1 = tf.expand_dims(x1, -1)
+    x2 = tf.expand_dims(x2, -1)
+    x3 = tf.expand_dims(x3, -1)
+    x4 = tf.expand_dims(x4, -1)
+    x5 = tf.expand_dims(x5, -1)
+    x6 = tf.expand_dims(x6, -1)
+    x7 = tf.expand_dims(x7, -1)
+    x8 = tf.expand_dims(x8, -1)
 
-    x = layers.Flatten()(x)
+
+    x0 = layers.MaxPooling2D(pool_size=(8, 1), padding='same')(x0)
+    x1 = layers.MaxPooling2D(pool_size=(8, 1), padding='same')(x1)
+    x2 = layers.MaxPooling2D(pool_size=(8, 1), padding='same')(x2)
+    x3 = layers.MaxPooling2D(pool_size=(8, 1), padding='same')(x3)
+    x4 = layers.MaxPooling2D(pool_size=(8, 1), padding='same')(x4)
+    x5 = layers.MaxPooling2D(pool_size=(8, 1), padding='same')(x5)
+    x6 = layers.MaxPooling2D(pool_size=(8, 1), padding='same')(x6)
+    x7 = layers.MaxPooling2D(pool_size=(8, 1), padding='same')(x7)
+    x8 = layers.MaxPooling2D(pool_size=(8, 1), padding='same')(x8)
+
+
+    x0 = layers.Flatten()(x0)
+    x1 = layers.Flatten()(x1)
+    x2 = layers.Flatten()(x2)
+    x3 = layers.Flatten()(x3)
+    x4 = layers.Flatten()(x4)
+    x5 = layers.Flatten()(x5)
+    x6 = layers.Flatten()(x6)
+    x7 = layers.Flatten()(x7)
+    x8 = layers.Flatten()(x8)
+
+
+    x0 = tf.expand_dims(x0, -2)
+    x1 = tf.expand_dims(x1, -2)
+    x2 = tf.expand_dims(x2, -2)
+    x3 = tf.expand_dims(x3, -2)
+    x4 = tf.expand_dims(x4, -2)
+    x5 = tf.expand_dims(x5, -2)
+    x6 = tf.expand_dims(x6, -2)
+    x7 = tf.expand_dims(x7, -2)
+    x8 = tf.expand_dims(x8, -2)
+    
+    
+    # print(x0)
+    x = tf.concat([ x0, x1, x2, x3, 
+                    x4, 
+                    x5, x6, 
+                    x7,
+                    x8,
+                    ], -2)
+    
+    print("**************************", x)
     
     x = layers.BatchNormalization()(x)
+
+    # x = layers.LSTM(1024)(x)
+    # x = layers.BatchNormalization()(x)
+    # x = layers.LSTM(128)(x)
+    # x = layers.BatchNormalization()(x)
+    
+    x = layers.Bidirectional(layers.LSTM(128, return_sequences=True, dropout=0.25, recurrent_dropout=0.25))(x)
+    x = layers.BatchNormalization()(x)
+    x = layers.Bidirectional(layers.LSTM(128, return_sequences=True, dropout=0.25, recurrent_dropout=0.25))(x)
+    x = layers.BatchNormalization()(x)
+    x = layers.Bidirectional(layers.LSTM(128, dropout=0.25, recurrent_dropout=0.25))(x)
+    x = layers.BatchNormalization()(x)
+
     x = layers.Dropout(0.25)(x)
-    x = layers.Dense(256)(x)
-    x = layers.Dropout(0.25)(x)
-    x = layers.Dense(256)(x)
-    x = layers.Dropout(0.25)(x)
-    x = layers.Dense(64)(x)
+    x = layers.Dense(128)(x)
     x = layers.Dropout(0.5)(x)
     answer = layers.Dense(6, activation='softmax')(x)
 
@@ -320,13 +291,15 @@ with mirrored_strategy.scope():
 
     model.summary()
 
-    tf.keras.utils.plot_model(model, "proto_model_with_shape_info_cnn_0.png", show_shapes=True)
+    tf.keras.utils.plot_model(model, "proto_model_with_shape_info_cnn_lstm_1.png", show_shapes=True)
 
     model.compile(
         loss=tf.keras.losses.SparseCategoricalCrossentropy(),
         optimizer=tf.keras.optimizers.Adam(),
         metrics=["accuracy"],
     )
+
+
 
 #%%
 model_class_weights = {
@@ -338,7 +311,7 @@ model_class_weights = {
                         5: 0.5
                            }
 
-history = model.fit(train_dataset, epochs=10,
+history = model.fit(train_dataset, epochs=20,
                     class_weight=model_class_weights,
                     )
 

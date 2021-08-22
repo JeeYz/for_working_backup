@@ -13,12 +13,19 @@ import seaborn as sns
 # train_data_path = "D:\\train_data_small_2sec_.npz"
 # train_data_path = "D:\\train_data_mid_2sec_.npz"
 # train_data_path = "D:\\train_data_mid_2sec_backup_.npz"
-train_data_path = "D:\\train_data_mid_2sec_random_.npz"
+# train_data_path = "D:\\train_data_mid_2sec_random_.npz"
+# train_data_path = "D:\\train_data_small_2sec_random_.npz"
+# train_data_path = "D:\\train_data_small_16000_random_.npz"
+# train_data_path = "D:\\train_data_small_20000_random_.npz"
+# train_data_path = "D:\\train_data_mini_20000_random_.npz"
+train_data_path = "D:\\train_data_middle_20000_random_.npz"
 # train_data_path = "D:\\train_data_00.npz"
 
 
 # test_data_path = "D:\\test_data_.npz"
-test_data_path = "D:\\test_data_2sec_.npz"
+# test_data_path = "D:\\test_data_2sec_.npz"
+# test_data_path = "D:\\test_data_16000_.npz"
+test_data_path = "D:\\test_data_20000_.npz"
 
 
 loaded_data_00 = np.load(train_data_path)
@@ -61,7 +68,7 @@ class residual_cnn_block_2D(layers.Layer):
         x = tf.math.add(y, x)
         x = tf.nn.relu(x)
         # x = layers.MaxPooling2D(pool_size=(2, 1), padding='same')(x)
-        x = layers.Dropout(0.2)(x)
+        x = layers.Dropout(0.5)(x)
 
         return x
 
@@ -142,7 +149,7 @@ train_dataset = tf.data.Dataset.from_generator(generate_train_data,
 output_signature=(
                     tf.TensorSpec(shape=(None,), dtype=tf.float32),
                     tf.TensorSpec(shape=(), dtype=tf.int32)
-)).shuffle(5000).batch(1024)
+)).shuffle(5000).batch(128)
 # args=(train_data_path)),
 train_dataset = train_dataset.with_options(options)
 
@@ -181,29 +188,74 @@ with mirrored_strategy.scope():
     
     x = tf.expand_dims(x, -1)
         
-    x = preprocessing.Resizing(32, 32)(x) 
-    x = layers.BatchNormalization()(x)
+    # x = preprocessing.Resizing(32, 32)(x) 
+    # x = layers.BatchNormalization()(x)
 
-    res_block_0 = residual_cnn_block_2D(channel_size=[64, 64])
-    res_block_1 = residual_cnn_block_2D(channel_size=[128, 128])
-    res_block_2 = residual_cnn_block_2D(channel_size=[256, 256])
+    res_block_0 = residual_cnn_block_2D(channel_size=[32, 32])
+    res_block_1 = residual_cnn_block_2D(channel_size=[32, 32])
 
-    x = res_block_0(x)
-    x = layers.MaxPooling2D((2, 2))(x)
-    x = layers.BatchNormalization()(x)    
+    res_block_2 = residual_cnn_block_2D(channel_size=[64, 64])
+    res_block_3 = residual_cnn_block_2D(channel_size=[64, 64])
+    
+    res_block_4 = residual_cnn_block_2D(channel_size=[64, 64])
+    res_block_5 = residual_cnn_block_2D(channel_size=[64, 64])
+    
+    res_block_6 = residual_cnn_block_2D(channel_size=[128, 128])
+    res_block_7 = residual_cnn_block_2D(channel_size=[128, 128])
+    
+    res_block_8 = residual_cnn_block_2D(channel_size=[128, 128])
+    res_block_9 = residual_cnn_block_2D(channel_size=[128, 128])
+    
+    res_block_10 = residual_cnn_block_2D(channel_size=[256, 256])
+    res_block_11 = residual_cnn_block_2D(channel_size=[256, 256])
+    
+    res_block_12 = residual_cnn_block_2D(channel_size=[512, 512])
+    
+    res_block_13 = residual_cnn_block_2D(channel_size=[512, 512])
 
-    x = res_block_1(x)
-    x = layers.MaxPooling2D((2, 2))(x)
-    x = layers.BatchNormalization()(x)
+    # x = res_block_0(x)
+    # x = res_block_1(x)
+    # x = layers.MaxPooling2D((2, 2), padding='same')(x)
+    # x = layers.BatchNormalization()(x)    
 
-    x = res_block_2(x)
-    x = layers.MaxPooling2D((2, 2))(x)
+    # x = res_block_2(x)
+    # x = res_block_3(x)
+    # x = layers.MaxPooling2D((2, 2), padding='same')(x)
+    # x = layers.BatchNormalization()(x)
+
+    # x = res_block_4(x)
+    # x = res_block_5(x)
+    # x = layers.MaxPooling2D((2, 2), padding='same')(x)
+    
+    # x = res_block_6(x)
+    x = res_block_7(x)
+    x = layers.MaxPooling2D((4, 4), padding='same')(x)
+    # x = layers.BatchNormalization()(x)
+
+    # x = res_block_8(x)
+    x = res_block_9(x)
+    x = layers.MaxPooling2D((4, 4), padding='same')(x)
+    
+    # x = res_block_10(x)
+    x = res_block_11(x)
+    x = layers.MaxPooling2D((2, 2), padding='same')(x)
+    
+    x = res_block_12(x)
+    x = layers.MaxPooling2D((2, 2), padding='same')(x)
+    
+    x = res_block_13(x)
+    x = layers.MaxPooling2D((2, 2), padding='same')(x)
 
     x = layers.Flatten()(x)
 
     x = layers.BatchNormalization()(x)
-    # x = layers.Dropout(0.25)(x)
-    # x = layers.Dense(256)(x)
+    # x = layers.LayerNormalization()(x)
+    x = layers.Dropout(0.25)(x)
+    x = layers.Dense(1000)(x)
+    x = layers.Dropout(0.25)(x)
+    x = layers.Dense(1000)(x)
+    x = layers.Dropout(0.25)(x)
+    x = layers.Dense(200)(x)
     x = layers.Dropout(0.5)(x)
     answer = layers.Dense(6, activation='softmax')(x)
 
@@ -222,7 +274,7 @@ with mirrored_strategy.scope():
     )
 
 #%%
-history = model.fit(train_dataset, epochs=15)
+history = model.fit(train_dataset, epochs=20)
 
 #%%
 eval_loss, eval_acc = model.evaluate(test_dataset)
@@ -244,14 +296,15 @@ print('\n\n')
 print("loss : {}, accuracy : {}".format(eval_loss, eval_acc))
 print('\n\n')
 
-commands=['camera', 'picture', 'record', 'stop', 'end', 'None']
+# commands=['camera', 'picture', 'record', 'stop', 'end', 'None']
 
-y_pred = np.argmax(model.predict(test_data_00), axis=1)
-y_true = test_label_00
+# y_pred = np.argmax(model.predict(test_data_00), axis=1)
+# y_true = test_label_00
 
-confusion_mtx = tf.math.confusion_matrix(y_true, y_pred)
-plt.figure(figsize=(8,6))
-sns.heatmap(confusion_mtx, xticklables=commands, yticklabels=commands, annot=True, fmt='g')
-plt.xlabel('Prediction')
-plt.ylabel('Label')
-plt.show()
+# confusion_mtx = tf.math.confusion_matrix(y_true, y_pred)
+# plt.figure(figsize=(8,6))
+# sns.heatmap(confusion_mtx, xticklables=commands, yticklabels=commands, annot=True, fmt='g')
+# plt.xlabel('Prediction')
+# plt.ylabel('Label')
+# plt.show()
+
