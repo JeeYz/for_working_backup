@@ -10,19 +10,63 @@ import seaborn as sns
 import os
 import copy
 
+from tensorflow.python.keras.backend import dropout
+
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
 
-# train_data_path = "D:\\train_data_small_20000_random_.npz"
-# train_data_path = "D:\\train_data_mini_20000_random_.npz"
-# train_data_path = "D:\\train_data_middle_20000_random_.npz"
-
-train_data_path = "D:\\train_data_middle_20000_random_1_.npz"
+# train_data_path = "D:\\train_data_middle_20000_random_1_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_2_.npz"
-# train_data_path = "D:\\train_data_middle_20000_random_confirm_0_.npz"
-
+# train_data_path = "D:\\train_data_middle_20000_random_3_.npz"
+# train_data_path = "D:\\train_data_middle_20000_random_4_.npz"
+train_data_path = "D:\\train_data_middle_20000_random_5_.npz"
+# train_data_path = "D:\\train_data_middle_20000_random_6_.npz"
+# train_data_path = "D:\\train_data_middle_20000_random_7_.npz"
+# train_data_path = "D:\\train_data_middle_20000_random_8_.npz"
 
 test_data_path = "D:\\test_data_20000_.npz"
 
+
+#%% variables
+# 에포크 
+EPOCH_NUM = 10
+# CNN 초기값
+INIT_CNN_CHAN = 32
+# LSTM 셀 초기값
+INIT_LSTM_CELL = 128
+
+# ResNet 채널 초기값
+INIT_RESNET_CH = 16
+
+# 뉴런의 개수
+TAIL_DENSE_NUM = 64
+NORM_DENSE_NUM = 128
+
+# 신호 나누는 값 기준
+DIVIDE_SIZE = 4000
+DIV_SHIFT_SIZE = 2000
+FULL_SIZE = 20000
+# 모델 레이어 값
+DENSE_LAYERS_NUM = 3
+CNN_LAYERS_NUM = 5
+LSTM_LAYERS_NUM = 3
+BILSTM_LAYERS_NUM = 3
+RESNET_LAYERS_NUM = 6
+TAIL_DENSE_LAYERS_NUM = 2
+
+# 전처리 부분 레이어 값
+DENSE_FEATURE_NUM = 3
+CONV_FEATURE_NUM = 3
+RESNET_FEATURE_NUM = 2
+# 리사이즈 값
+RESIZE_SIZE = 32
+# 배치 사이즈
+TRAIN_BATCH_SIZE = 256
+# 레이블 개수
+NUM_LABELS = 6
+
+
+
+#%%
 loaded_data_00 = np.load(train_data_path)
 train_data_00 = loaded_data_00['data']
 train_label_00 = loaded_data_00['label']
@@ -44,8 +88,6 @@ class residual_block(layers.Layer):
         conv2d_layer_1 = layers.Conv2D(self.ch_size, (3, 3), padding='same')
         conv2d_layer_2 = layers.Conv2D(self.ch_size, (3, 3), padding='same')
 
-        init_val = copy.deepcopy(input_x)
-
         x = conv2d_layer_1(input_x)
         x = layers.BatchNormalization()(x)
         x = tf.nn.relu(x)
@@ -53,7 +95,7 @@ class residual_block(layers.Layer):
         x = conv2d_layer_2(x)
         x = layers.BatchNormalization()(x)
 
-        y = layers.Conv2D(self.ch_size, (1, 1), padding='same')(init_val)
+        y = layers.Conv2D(self.ch_size, (1, 1), padding='same')(input_x)
         x = tf.math.add(y, x)
         x = tf.nn.relu(x)
 
@@ -68,21 +110,34 @@ class residual_layers(layers.Layer):
     def __init__(self, num_of_layers):
         super(residual_layers, self).__init__()
 
-        init_ch = 32
+        init_ch = INIT_RESNET_CH
         
         self.layers_list = list()
+        
+        temp_layers_list = list()
 
         for i in range(1, (num_of_layers+1)):
             temp = residual_block(init_ch*i)
             self.layers_list.append(temp)
+            temp = layers.Conv2D(init_ch*i, (3, 3), activation=None, padding='valid', strides=2)
+            self.layers_list.append(temp)
+            
+        for one_layer in self.layers_list:
+            temp_layers_list.append(one_layer)
+        
+        temp_layers_list.append(layers.Flatten())
+            
+        self.resnet_blocks = tf.keras.Sequential(temp_layers_list)
 
 
     def __call__(self, input_x):
 
-        x = input_x
+        # x = input_x
 
-        for one_layer in self.layers_list:
-            x = one_layer(x)
+        # for one_layer in self.layers_list:
+        #     x = one_layer(x)
+        
+        x = self.resnet_blocks(input_x)
 
         return x
 
@@ -134,6 +189,125 @@ class autoencoder_snn_block(layers.Layer):
 
 
 
+#%%
+class dense_layers(layers.Layer):
+    def __init__(self, num_of_layers, **kwargs):
+        super(dense_layers, self).__init__()
+
+        if "dropout_bool" in kwargs.keys():
+            dropout_bool = kwargs["dropout_bool"]
+        else:
+            dropout_bool = True
+
+        layers_list = list()
+
+        layers_list.append(layers.BatchNormalization())
+        for i in range(num_of_layers):
+            layers_list.append(layers.Dense(NORM_DENSE_NUM))
+            if dropout_bool == True:
+                layers_list.append(layers.Dropout(0.25))
+
+        self.dlayers = tf.keras.Sequential(layers_list)
+
+    def __call__(self, input_x):
+        return self.dlayers(input_x)
+
+
+
+#%%
+class conv2d_layers(layers.Layer):
+    def __init__(self, num_of_layers):
+        super(conv2d_layers, self).__init__()
+
+        init_ch_num = INIT_CNN_CHAN
+        layers_list = list()
+
+        layers_list.append(layers.BatchNormalization())
+        for i in range(num_of_layers):
+            layers_list.append(layers.Conv2D(   
+                                                init_ch_num*(i+1), 
+                                                (3, 3), 
+                                                padding='same', 
+                                                activation='relu', 
+                                                strides=2,
+                                            ))
+            layers_list.append(layers.BatchNormalization())
+            
+        layers_list.append(layers.Flatten())
+
+        self.clayers = tf.keras.Sequential(layers_list)        
+
+    def __call__(self, input_x):
+        return self.clayers(input_x)
+
+
+
+#%%
+class lstm_layers(layers.Layer):
+    def __init__(self, num_of_layers):
+        super(lstm_layers, self).__init__()
+
+        layers_list = list()
+        init_cells = INIT_LSTM_CELL
+
+        layers_list.append(layers.BatchNormalization())
+        for i in range(num_of_layers):
+            layers_list.append(layers.LSTM(init_cells, return_sequences=True))
+
+        layers_list.append(layers.LSTM(init_cells))
+
+        self.lslayers = tf.keras.Sequential(layers_list)
+
+    def __call__(self, input_x):
+        return self.lslayers(input_x)
+
+
+
+#%%
+class bilstm_layers(layers.Layer):
+    def __init__(self, num_of_layers):
+        super(bilstm_layers, self).__init__()
+
+        layers_list = list()
+        init_cells = INIT_LSTM_CELL
+
+        layers_list.append(layers.BatchNormalization())
+        for i in range(num_of_layers):
+            layers_list.append(layers.Bidirectional(layers.LSTM(init_cells, return_sequences=True)))
+        
+        layers_list.append(layers.Bidirectional(layers.LSTM(init_cells)))
+
+        self.bilslayers = tf.keras.Sequential(layers_list)
+
+    def __call__(self, input_x):
+        return self.bilslayers(input_x)
+
+
+class tail_dense_layers(layers.Layer):
+    def __init__(self, num_of_layers, **kwargs):
+        super(tail_dense_layers, self).__init__()
+
+        if "dropout_bool" in kwargs.keys():
+            dropout_bool = kwargs["dropout_bool"]
+        else:
+            dropout_bool = True
+
+        layers_list = list()
+
+        # layers_list.append(layers.Flatten())
+        layers_list.append(layers.BatchNormalization())
+        for i in range(num_of_layers):
+            layers_list.append(layers.Dense(TAIL_DENSE_NUM))
+            if dropout_bool == True:
+                layers_list.append(layers.Dropout(0.25))
+
+        self.dlayers = tf.keras.Sequential(layers_list)
+
+    def __call__(self, input_x):
+        return self.dlayers(input_x)
+
+
+
 #%% 실험 1-1
 class experiment_models(layers.Layer):
     def __init__(self, **kwargs):
@@ -152,171 +326,140 @@ class experiment_models(layers.Layer):
         if "num_of_labels" in kwargs.keys():
             self.num_of_labels = kwargs["num_of_labels"]
         else:
-            self.num_of_labels = 6
+            self.num_of_labels = NUM_LABELS
 
-        self.init_ch_num = 32
-        self.init_cells = 64
-
-        self.dense_block = self.generate_dense_layers(2)
-        self.conv2d_block = self.generate_conv_layers(5)
-        self.lstm_block = self.generate_lstm_layers(3)
-        self.bilstm_block = self.generate_bilstm_layers(3)
-        self.residual_blocks = residual_layers(3)
+        self.dense_block = dense_layers(DENSE_LAYERS_NUM)
+        self.conv2d_block = conv2d_layers(CNN_LAYERS_NUM)
+        self.lstm_block = lstm_layers(LSTM_LAYERS_NUM)
+        self.bilstm_block = bilstm_layers(BILSTM_LAYERS_NUM)
+        self.residual_blocks = residual_layers(RESNET_LAYERS_NUM)
         self.autoencoder_cnn_blocks = autoencoder_cnn_block()
         self.autoencoder_nn_blocks = autoencoder_snn_block()
+        self.tail_block = tail_dense_layers(TAIL_DENSE_LAYERS_NUM)
+
+        self.dense_feature = dense_layers(DENSE_FEATURE_NUM)
+        self.cnn_feature = conv2d_layers(CONV_FEATURE_NUM)
+        self.resnet_feature = residual_layers(RESNET_FEATURE_NUM)
+        self.ae_cnn_feature = autoencoder_cnn_block()
+        self.ae_nn_feature = autoencoder_snn_block()
+
+
+
+    def stft_function(self, input_x):
+
+        x = tf.signal.stft(input_x, frame_length=255, frame_step=128)
+        x = tf.abs(x)
+        x = tf.expand_dims(x, -1)
+
+        if self.resize_bool == True:    
+            x = preprocessing.Resizing(RESIZE_SIZE, RESIZE_SIZE)(x)
+            x = layers.BatchNormalization()(x)
+
+        return x
+
+
+    
+    def divide_function(self, input_x, **kwargs):
+
+        prepro_flag = "None"
+
+        full_size = FULL_SIZE
+
+        if "pre_flag" in kwargs.keys():
+            prepro_flag = kwargs['pre_flag']
+
+        dv_size = DIVIDE_SIZE
+        sh_size = DIV_SHIFT_SIZE
+
+        dv_position = 0
+
+        data_list = list()
+        new_data_list = list()
         
+        while True:
+            
+            temp = tf.slice(input_x, begin=[0, dv_position], size=[-1, dv_size])
+            data_list.append(temp)
+            dv_position = dv_position+sh_size
+
+            if (dv_position+dv_size) > full_size:
+                break
+
+        for one_dv in data_list:
+
+            if prepro_flag == 'cnn':
+                one_dv = self.stft_function(one_dv)
+                temp_data = self.cnn_feature(one_dv)
+                temp_data = layers.Flatten()(temp_data)
+                temp_data = tf.expand_dims(temp_data, -2)
+                new_data_list.append(temp_data)
+
+            elif prepro_flag == 'resnet':
+                one_dv = self.stft_function(one_dv)
+                temp_data = self.resnet_feature(one_dv)
+                temp_data = layers.Flatten()(temp_data)
+                temp_data = tf.expand_dims(temp_data, -2)
+                new_data_list.append(temp_data)
+
+            elif prepro_flag == 'ae_dense':
+                temp_data = self.ae_nn_feature(one_dv)
+                temp_data = tf.expand_dims(temp_data, -2)
+                new_data_list.append(temp_data)
+
+            elif prepro_flag == 'ae_cnn':
+                one_dv = self.stft_function(one_dv)
+                temp_data = self.ae_cnn_feature(one_dv)
+                temp_data = layers.Flatten()(temp_data)
+                temp_data = tf.expand_dims(temp_data, -2)
+                new_data_list.append(temp_data)
+
+            else:
+                temp_data = self.dense_feature(one_dv)
+                temp_data = tf.expand_dims(temp_data, -2)
+                new_data_list.append(temp_data)
+
+        x = self.concat_function_2(new_data_list)        
+
+        return x
 
 
 
-    def generate_bilstm_layers(self, num_of_layers):
-        layers_list = list()
+    def concat_function_2(self,input_x):
 
-        layers_list.append(layers.BatchNormalization())
+        x = tf.concat(input_x, -2)
 
-        for i in range(num_of_layers):
-            layers_list.append(layers.Bidirectional(layers.LSTM(self.init_cells, return_sequences=True)))
-        
-        layers_list.append(layers.Bidirectional(layers.LSTM(self.init_cells)))
-
-        return tf.keras.Sequential(layers_list)
-
-
-
-    def generate_lstm_layers(self, num_of_layers):
-        layers_list = list()
-
-        layers_list.append(layers.BatchNormalization())
-
-        for i in range(num_of_layers):
-            layers_list.append(layers.LSTM(self.init_cells, return_sequences=True))
-
-        layers_list.append(layers.LSTM(self.init_cells))
-
-        return tf.keras.Sequential(layers_list)
-
-
-
-    def generate_conv_layers(self, num_of_layers):
-
-        layers_list = list()
-
-        layers_list.append(layers.BatchNormalization())
-
-        for i in range(num_of_layers):
-            layers_list.append(layers.Conv2D(   
-                                                self.init_ch_num*(i+1), 
-                                                (3, 3), 
-                                                padding='same', 
-                                                activation='relu', 
-                                                strides=2,
-                                            ))
-            layers_list.append(layers.BatchNormalization())
-
-        return tf.keras.Sequential(layers_list)
-
-
-
-    def generate_dense_layers(self, num_of_layers):
-
-        layers_list = list()
-
-        layers_list.append(layers.BatchNormalization())
-
-        for i in range(num_of_layers):
-            layers_list.append(layers.Dense(256))
-            layers_list.append(layers.Dropout(0.25))
-
-        return tf.keras.Sequential(layers_list)
-
-
-
-    def func_of_1(self, input_x):
-
-
-
-        return result
-
-
-
-    def func_of_2(self, input_x):
-
-        
-
-        return result
-
-
-
-    def func_of_3(self, input_x):
-
-        
-
-        return result
+        return x
 
         
 
     def __call__(self, input_x):
 
+        x = self.stft_function(input_x)
         
+        # x = self.dense_block(x)
+        # x = self.conv2d_block(x)
+        # x = self.lstm_block(x)
+        # x = self.bilstm_block(x)
+        # x = self.residual_blocks(x)
+        # x = self.autoencoder_cnn_blocks(x)
+        # x = self.autoencoder_nn_blocks(x)
+        # x = self.tail_block(x)
 
-        x = tf.signal.stft(input_x, frame_length=255, frame_step=128)
+        # x = self.dense_feature(x)
+        # x = self.cnn_feature(x)
+        # x = self.resnet_feature(x)
+        # x = self.ae_cnn_feature(x)
+        # x = self.ae_nn_feature(x)
+        
+        # x = self.autoencoder_cnn_blocks(x)
+        # x = self.conv2d_block(x)
+        
+        x = self.residual_blocks(x)
+        
+        x = self.tail_block(x)
+        
+        # x = layers.Flatten()(x)
 
-        x = tf.abs(x)
-            
-        x = tf.expand_dims(x, -1)
-
-        if self.resize_bool == True:    
-            x = preprocessing.Resizing(32, 32)(x)
-            x = layers.BatchNormalization()(x)
-        
-        
-        
-        x = layers.Conv2D(128, (3, 3), padding='same')(x)
-        x = layers.MaxPooling2D((4, 4), padding='same')(x)
-        # x = layers.BatchNormalization()(x)
-        x = tf.nn.relu(x)
-        x = layers.BatchNormalization()(x)
-            
-        x = layers.Conv2D(128, (3, 3), padding='same')(x)
-        x = layers.MaxPooling2D((4, 4), padding='same')(x)
-        # x = layers.BatchNormalization()(x)
-        x = tf.nn.relu(x)
-        x = layers.BatchNormalization()(x)
-        
-        x = layers.Conv2D(256, (3, 3), padding='same')(x)
-        x = layers.MaxPooling2D((2, 2), padding='same')(x)
-        # x = layers.BatchNormalization()(x)
-        x = tf.nn.relu(x)
-        x = layers.BatchNormalization()(x)
-        
-        x = layers.Conv2D(256, (3, 3), padding='same')(x)
-        x = layers.MaxPooling2D((2, 2), padding='same')(x)
-        # x = layers.BatchNormalization()(x)
-        x = tf.nn.relu(x)
-        x = layers.BatchNormalization()(x)
-        
-        x = layers.Conv2D(512, (3, 3), padding='same')(x)
-        x = layers.MaxPooling2D((2, 2), padding='same')(x)
-        # x = layers.BatchNormalization()(x)
-        x = tf.nn.relu(x)
-        x = layers.BatchNormalization()(x)
-        
-        x = layers.Conv2D(512, (3, 3), padding='same')(x)
-        x = layers.MaxPooling2D((2, 2), padding='same')(x)
-        # x = layers.BatchNormalization()(x)
-        x = tf.nn.relu(x)
-        x = layers.BatchNormalization()(x)
-        
-
-        x = layers.Flatten()(x)
-        
-        x = layers.BatchNormalization()(x)
-        x = layers.Dropout(0.25)(x)
-        x = layers.Dense(256)(x)
-        x = layers.Dropout(0.25)(x)
-        x = layers.Dense(256)(x)
-        x = layers.Dropout(0.25)(x)
-        x = layers.Dense(64)(x)
-        x = layers.Dropout(0.5)(x)
         result = layers.Dense(self.num_of_labels, activation='softmax')(x)
 
         return result
@@ -347,7 +490,7 @@ train_dataset = tf.data.Dataset.from_generator(generate_train_data,
 output_signature=(
                     tf.TensorSpec(shape=(None,), dtype=tf.float32),
                     tf.TensorSpec(shape=(), dtype=tf.int32)
-)).shuffle(5000).batch(128)
+)).shuffle(5000).batch(TRAIN_BATCH_SIZE)
 # args=(train_data_path)),
 train_dataset = train_dataset.with_options(options)
 
@@ -369,76 +512,16 @@ test_dataset = test_dataset.with_options(options)
 mirrored_strategy = tf.distribute.MirroredStrategy(
     cross_device_ops=tf.distribute.HierarchicalCopyAllReduce())
 
-tensor_slice_size = 50
-tensor_shift_size = 25
-tensor_gap_size = tensor_slice_size-tensor_shift_size
-
-cnn_chan_size = 64
-
-
 
 
 #%%
 with mirrored_strategy.scope():
 
-    input_sig = tf.keras.Input(shape=(20000,))
+    input_sig = tf.keras.Input(shape=(FULL_SIZE,))
 
-    print(input_sig)
-    print(input_sig.shape)
+    experiment_model_layers = experiment_models()
     
-    x0 = tf.slice(input_sig, begin=[0, 0], size=[-1, 4000])
-    x1 = tf.slice(input_sig, begin=[0, 2000], size=[-1, 4000])
-    x2 = tf.slice(input_sig, begin=[0, 4000], size=[-1, 4000])
-    x3 = tf.slice(input_sig, begin=[0, 6000], size=[-1, 4000])
-    x4 = tf.slice(input_sig, begin=[0, 8000], size=[-1, 4000])
-    x5 = tf.slice(input_sig, begin=[0, 10000], size=[-1, 4000])
-    x6 = tf.slice(input_sig, begin=[0, 12000], size=[-1, 4000])
-    x7 = tf.slice(input_sig, begin=[0, 14000], size=[-1, 4000])
-    x8 = tf.slice(input_sig, begin=[0, 16000], size=[-1, 4000])
-
-    cnn_layer_0 = CNN_block()
-    cnn_layer_1 = CNN_block()
-    cnn_layer_2 = CNN_block()
-    cnn_layer_3 = CNN_block()
-    cnn_layer_4 = CNN_block()
-    cnn_layer_5 = CNN_block()
-    cnn_layer_6 = CNN_block()
-    cnn_layer_7 = CNN_block()
-    cnn_layer_8 = CNN_block()
-
-    x0 = cnn_layer_0(x0)
-    x1 = cnn_layer_1(x1)
-    x2 = cnn_layer_2(x2)
-    x3 = cnn_layer_3(x3)
-    x4 = cnn_layer_4(x4)
-    x5 = cnn_layer_5(x5)
-    x6 = cnn_layer_6(x6)
-    x7 = cnn_layer_7(x7)
-    x8 = cnn_layer_8(x8)
-
-        
-    x = tf.concat([ x0, x1, x2, x3, 
-                    x4, 
-                    x5, x6, 
-                    x7,
-                    x8,
-                    ], -2)
-
-    
-    
-    x = layers.BatchNormalization()(x)
-
-    x = layers.Bidirectional(layers.LSTM(128, return_sequences=True, dropout=0.25, recurrent_dropout=0.25))(x)
-    x = layers.BatchNormalization()(x)
-    x = layers.Bidirectional(layers.LSTM(128, return_sequences=True, dropout=0.25, recurrent_dropout=0.25))(x)
-    x = layers.BatchNormalization()(x)
-    x = layers.Bidirectional(layers.LSTM(128, dropout=0.25, recurrent_dropout=0.25))(x)
-    x = layers.BatchNormalization()(x)
-
-    x = layers.Dropout(0.25)(x)
-    x = layers.Dense(256)(x)
-    x = layers.Dropout(0.5)(x)
-    answer = layers.Dense(6, activation='softmax')(x)
+    answer = experiment_model_layers(input_sig)
 
     model = tf.keras.Model(inputs=input_sig, outputs=answer)
 
@@ -464,7 +547,7 @@ model_class_weights = {
                         5: 0.5
                            }
 
-history = model.fit(train_dataset, epochs=20,
+history = model.fit(train_dataset, epochs=EPOCH_NUM,
                     class_weight=model_class_weights,
                     )
 
@@ -481,14 +564,14 @@ print('\n\n')
 result_of_predict = model.predict(test_data_00)
 result_arg = tf.math.argmax(result_of_predict, 1).numpy()
 
-result_of_predict_train_data = model.predict(train_data_00)
-result_arg_train_data = tf.math.argmax(result_of_predict_train_data, 1).numpy()
+# result_of_predict_train_data = model.predict(train_data_00)
+# result_arg_train_data = tf.math.argmax(result_of_predict_train_data, 1).numpy()
 
 
 
 
 #%% F1 Score 계산하기
-labels_num = 6
+labels_num = NUM_LABELS
 
 confusion_matrix = np.zeros((labels_num, labels_num), dtype=np.int16)
 
@@ -532,7 +615,8 @@ for i in range(labels_num):
 
 print('\n')
 for i in range(labels_num):
-    print("{} label : precision : {}, recall : {}".format(i, precisions[i], recalls[i]))
+    f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
+    print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
 
 print('\n')
 
@@ -554,78 +638,90 @@ print("accuracy 1 : {}".format(total_acc_1))
 
 
 #%% F1 Score 계산하기
-labels_num_td = 6
+# labels_num_td = NUM_LABELS
 
-confusion_matrix = np.zeros((labels_num_td, labels_num_td), dtype=np.int32)
+# confusion_matrix = np.zeros((labels_num_td, labels_num_td), dtype=np.int32)
 
-length_of_true_ans = len(train_label_00)
-print('\n\n')
-print(length_of_true_ans)
-print(len(result_arg_train_data))
-print(len(train_label_00))
-print(len(train_data_00))
+# length_of_true_ans = len(train_label_00)
+# print('\n\n')
+# print(length_of_true_ans)
+# print(len(result_arg_train_data))
+# print(len(train_label_00))
+# print(len(train_data_00))
 
-temp_num = 0
+# temp_num = 0
 
-for i in range(length_of_true_ans):
-    x_axis = int(train_label_00[i])
-    y_axis = int(result_arg_train_data[i])
-    if x_axis < 0 or y_axis < 0:
-        temp_num+=1
-    confusion_matrix[x_axis, y_axis]+=1
+# for i in range(length_of_true_ans):
+#     x_axis = int(train_label_00[i])
+#     y_axis = int(result_arg_train_data[i])
+#     if x_axis < 0 or y_axis < 0:
+#         temp_num+=1
+#     confusion_matrix[x_axis, y_axis]+=1
 
-print(temp_num)
-
-
-print('\n')
-print(confusion_matrix)
-print('\n')
-
-sum_ax_0 = np.sum(confusion_matrix, axis=0)
-sum_ax_1 = np.sum(confusion_matrix, axis=1)
-
-print('\n')
-print(sum_ax_0)
-print(sum_ax_1)
-print('\n')
-
-precisions = list()
-recalls = list()
-
-for i in range(labels_num_td):
-
-    if sum_ax_0[i] != 0:
-        temp_val = confusion_matrix[i][i]/sum_ax_0[i]
-        precisions.append(temp_val)
-    else:
-        precisions.append(0.0)
-
-    if sum_ax_1[i] != 0:
-        temp_val = confusion_matrix[i][i]/sum_ax_1[i]
-        recalls.append(temp_val)
-    else:
-        precisions.append(0.0)
+# print(temp_num)
 
 
-print('\n')
-for i in range(labels_num_td):
-    print("{} label : precision : {}, recall : {}".format(i, precisions[i], recalls[i]))
+# print('\n')
+# print(confusion_matrix)
+# print('\n')
 
-print('\n')
+# sum_ax_0 = np.sum(confusion_matrix, axis=0)
+# sum_ax_1 = np.sum(confusion_matrix, axis=1)
 
-temp_sum = 0
-for i in range(labels_num_td):
-    temp_sum+=confusion_matrix[i][i]
+# print('\n')
+# print(sum_ax_0)
+# print(sum_ax_1)
+# print('\n')
 
-total_acc = temp_sum/np.sum(sum_ax_0)
-total_acc_1 = temp_sum/len(train_label_00)
+# precisions = list()
+# recalls = list()
 
-print("number of test data : {a}".format(a=len(train_label_00)))
-print("sum of right answers : {b}".format(b=temp_sum))
-print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
-print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
-print("accuracy : {}".format(total_acc))
-print("accuracy 1 : {}".format(total_acc_1))
+# for i in range(labels_num_td):
+
+#     if sum_ax_0[i] != 0:
+#         temp_val = confusion_matrix[i][i]/sum_ax_0[i]
+#         precisions.append(temp_val)
+#     else:
+#         precisions.append(0.0)
+
+#     if sum_ax_1[i] != 0:
+#         temp_val = confusion_matrix[i][i]/sum_ax_1[i]
+#         recalls.append(temp_val)
+#     else:
+#         precisions.append(0.0)
+
+
+# print('\n')
+# for i in range(labels_num_td):
+#     f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
+#     print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
+
+# print('\n')
+
+# temp_sum = 0
+# for i in range(labels_num_td):
+#     temp_sum+=confusion_matrix[i][i]
+
+# total_acc = temp_sum/np.sum(sum_ax_0)
+# total_acc_1 = temp_sum/len(train_label_00)
+
+# print("number of test data : {a}".format(a=len(train_label_00)))
+# print("sum of right answers : {b}".format(b=temp_sum))
+# print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
+# print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
+# print("accuracy : {}".format(total_acc))
+# print("accuracy 1 : {}".format(total_acc_1))
+
+
+
+#%%
+# convert tflite
+
+# converter = tf.lite.TFLiteConverter.from_keras_model(model)
+# converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS,
+#                                        tf.lite.OpsSet.SELECT_TF_OPS]
+# tflite_model = converter.convert()
+# open('D:\\test_tflite_file_cnn_0.tflite', 'wb').write(tflite_model)
 
 
 
