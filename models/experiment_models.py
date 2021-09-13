@@ -18,8 +18,8 @@ os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
 # train_data_path = "D:\\train_data_middle_20000_random_2_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_3_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_4_.npz"
-train_data_path = "D:\\train_data_middle_20000_random_5_.npz"
-# train_data_path = "D:\\train_data_middle_20000_random_6_.npz"
+# train_data_path = "D:\\train_data_middle_20000_random_5_.npz"
+train_data_path = "D:\\train_data_middle_20000_random_6_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_7_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_8_.npz"
 
@@ -30,9 +30,13 @@ test_data_path = "D:\\test_data_20000_.npz"
 # 에포크 
 EPOCH_NUM = 10
 # CNN 초기값
-INIT_CNN_CHAN = 32
+INIT_CNN_CHAN = 16
+
+# AE 초기값
+INIT_AE_CHAN = 4
+
 # LSTM 셀 초기값
-INIT_LSTM_CELL = 128
+INIT_LSTM_CELL = 32
 
 # ResNet 채널 초기값
 INIT_RESNET_CH = 16
@@ -45,18 +49,19 @@ NORM_DENSE_NUM = 128
 DIVIDE_SIZE = 4000
 DIV_SHIFT_SIZE = 2000
 FULL_SIZE = 20000
+
 # 모델 레이어 값
 DENSE_LAYERS_NUM = 3
-CNN_LAYERS_NUM = 5
+CNN_LAYERS_NUM = 7
 LSTM_LAYERS_NUM = 3
 BILSTM_LAYERS_NUM = 3
 RESNET_LAYERS_NUM = 6
-TAIL_DENSE_LAYERS_NUM = 2
+TAIL_DENSE_LAYERS_NUM = 1
 
 # 전처리 부분 레이어 값
 DENSE_FEATURE_NUM = 3
-CONV_FEATURE_NUM = 3
-RESNET_FEATURE_NUM = 2
+CONV_FEATURE_NUM = 5
+RESNET_FEATURE_NUM = 4
 # 리사이즈 값
 RESIZE_SIZE = 32
 # 배치 사이즈
@@ -90,14 +95,16 @@ class residual_block(layers.Layer):
 
         x = conv2d_layer_1(input_x)
         x = layers.BatchNormalization()(x)
-        x = tf.nn.relu(x)
+        # x = tf.nn.relu(x)
+        x = layers.ReLU(max_value=6)(x)
 
         x = conv2d_layer_2(x)
         x = layers.BatchNormalization()(x)
 
         y = layers.Conv2D(self.ch_size, (1, 1), padding='same')(input_x)
         x = tf.math.add(y, x)
-        x = tf.nn.relu(x)
+        # x = tf.nn.relu(x)
+        x = layers.ReLU(max_value=6)(x)
 
         x = layers.Dropout(0.2)(x)
 
@@ -119,7 +126,7 @@ class residual_layers(layers.Layer):
         for i in range(1, (num_of_layers+1)):
             temp = residual_block(init_ch*i)
             self.layers_list.append(temp)
-            temp = layers.Conv2D(init_ch*i, (3, 3), activation=None, padding='valid', strides=2)
+            temp = layers.Conv2D(init_ch*i, (3, 3), activation=None, padding='same', strides=2)
             self.layers_list.append(temp)
             
         for one_layer in self.layers_list:
@@ -132,11 +139,6 @@ class residual_layers(layers.Layer):
 
     def __call__(self, input_x):
 
-        # x = input_x
-
-        # for one_layer in self.layers_list:
-        #     x = one_layer(x)
-        
         x = self.resnet_blocks(input_x)
 
         return x
@@ -147,16 +149,18 @@ class residual_layers(layers.Layer):
 class autoencoder_cnn_block(layers.Layer):
     def __init__(self, **kwargs):
         super(autoencoder_cnn_block, self).__init__()
-
+        
+        init_ch = INIT_AE_CHAN
+        
         self.encoder = tf.keras.Sequential([ 
-                    layers.Conv2D(8, (3,3), activation='relu', padding='same', strides=2),
-                    layers.Conv2D(16, (3,3), activation='relu', padding='same', strides=2),
-                    layers.Conv2D(32, (3,3), activation='relu', padding='same', strides=2),])
+                    layers.Conv2D(init_ch, (3,3), activation='relu', padding='same', strides=2),
+                    layers.Conv2D(init_ch*2, (3,3), activation='relu', padding='same', strides=2),
+                    layers.Conv2D(init_ch*4, (3,3), activation='relu', padding='same', strides=2),])
 
         self.decoder = tf.keras.Sequential([
-                    layers.Conv2DTranspose(32, kernel_size=3, strides=2, activation='relu', padding='same'),
-                    layers.Conv2DTranspose(16, kernel_size=3, strides=2, activation='relu', padding='same'),
-                    layers.Conv2DTranspose(8, kernel_size=3, strides=2, activation='relu', padding='same'),
+                    layers.Conv2DTranspose(init_ch*4, kernel_size=3, strides=2, activation='relu', padding='same'),
+                    layers.Conv2DTranspose(init_ch*2, kernel_size=3, strides=2, activation='relu', padding='same'),
+                    layers.Conv2DTranspose(init_ch, kernel_size=3, strides=2, activation='relu', padding='same'),
                     layers.Conv2D(1, kernel_size=(3,3), activation='sigmoid', padding='same')])
 
     def call(self, x):
@@ -202,8 +206,8 @@ class dense_layers(layers.Layer):
         layers_list = list()
 
         layers_list.append(layers.BatchNormalization())
-        for i in range(num_of_layers):
-            layers_list.append(layers.Dense(NORM_DENSE_NUM))
+        for i in reversed(range(1, num_of_layers+1)):
+            layers_list.append(layers.Dense(NORM_DENSE_NUM*i))
             if dropout_bool == True:
                 layers_list.append(layers.Dropout(0.25))
 
@@ -234,6 +238,7 @@ class conv2d_layers(layers.Layer):
             layers_list.append(layers.BatchNormalization())
             
         layers_list.append(layers.Flatten())
+        layers_list.append(layers.Dropout(0.25))
 
         self.clayers = tf.keras.Sequential(layers_list)        
 
@@ -305,7 +310,96 @@ class tail_dense_layers(layers.Layer):
 
     def __call__(self, input_x):
         return self.dlayers(input_x)
+    
+    
+    
+#%%
+class preprocessing_layer(layers.Layer):
+    def __init__(self, **kwargs):
+        super(preprocessing_layer, self).__init__()
+        self.divided_num = self.make_div_number()
+        
+        if "prepro_flag" in kwargs.keys():
+            self.prepro_flag = kwargs["prepro_flag"]
+        else:
+            self.prepro_flag = None
+            
+        if "resize_bool" in kwargs.keys():
+            self.resize_bool = kwargs["resize_bool"]
+        else:
+            self.resize_bool = False
+        
+        self.pre_layers = list()
+        
+        for i in range(self.divided_num):
+            temp = self.gen_layers()
+            self.pre_layers.append(temp)
+            
+        
+    
+    def make_div_number(self):
+        
+        return (FULL_SIZE-DIVIDE_SIZE)//DIV_SHIFT_SIZE+1
+    
+    
+    def gen_layers(self):
+        
+        if self.prepro_flag == 'cnn':
+            temp_layer = conv2d_layers(CONV_FEATURE_NUM)
+    
+        elif self.prepro_flag == 'resnet':
+            temp_layer = residual_layers(RESNET_FEATURE_NUM)
+            
+        elif self.prepro_flag == 'ae_dense':
+            temp_layer = autoencoder_snn_block()
+    
+        elif self.prepro_flag == 'ae_cnn':
+            temp_layer = autoencoder_cnn_block()
+    
+        else:
+            temp_layer = dense_layers(DENSE_FEATURE_NUM)
+        
+        return temp_layer
+        
+    
+    
+    def stft_function(self, input_x):
 
+        x = tf.signal.stft(input_x, frame_length=255, frame_step=128)
+        x = tf.abs(x)
+        x = tf.expand_dims(x, -1)
+
+        if self.resize_bool == True:    
+            x = preprocessing.Resizing(RESIZE_SIZE, RESIZE_SIZE)(x)
+            x = layers.BatchNormalization()(x)
+
+        return x    
+    
+    
+    def concat_function_2(self, input_x):
+
+        x = tf.concat(input_x, -2)
+
+        return x
+    
+        
+    def __call__(self, input_x):
+        
+        new_data_list = list()
+        
+        for one_d, one_layer in zip(input_x, self.pre_layers):
+            if self.prepro_flag == 'ae_cnn' or self.prepro_flag == 'cnn' or self.prepro_flag == 'resnet':
+                one_d = self.stft_function(one_d)
+            temp_data = one_layer(one_d)
+            temp_data = layers.Flatten()(temp_data)
+            temp_data = tf.expand_dims(temp_data, -2)
+            new_data_list.append(temp_data)
+            
+        x = self.concat_function_2(new_data_list)        
+        return x
+        
+    
+         
 
 
 #%% 실험 1-1
@@ -313,15 +407,6 @@ class experiment_models(layers.Layer):
     def __init__(self, **kwargs):
         super(experiment_models, self).__init__()
 
-        if "experiment_num" in kwargs.keys():
-            self.exper_num = kwargs["experiment_num"]
-        else:
-            self.exper_num = 1
-
-        if "resize_bool" in kwargs.keys():
-            self.resize_bool = kwargs["resize_bool"]
-        else:
-            self.resize_bool = False
 
         if "num_of_labels" in kwargs.keys():
             self.num_of_labels = kwargs["num_of_labels"]
@@ -336,37 +421,15 @@ class experiment_models(layers.Layer):
         self.autoencoder_cnn_blocks = autoencoder_cnn_block()
         self.autoencoder_nn_blocks = autoencoder_snn_block()
         self.tail_block = tail_dense_layers(TAIL_DENSE_LAYERS_NUM)
-
-        self.dense_feature = dense_layers(DENSE_FEATURE_NUM)
-        self.cnn_feature = conv2d_layers(CONV_FEATURE_NUM)
-        self.resnet_feature = residual_layers(RESNET_FEATURE_NUM)
-        self.ae_cnn_feature = autoencoder_cnn_block()
-        self.ae_nn_feature = autoencoder_snn_block()
-
-
-
-    def stft_function(self, input_x):
-
-        x = tf.signal.stft(input_x, frame_length=255, frame_step=128)
-        x = tf.abs(x)
-        x = tf.expand_dims(x, -1)
-
-        if self.resize_bool == True:    
-            x = preprocessing.Resizing(RESIZE_SIZE, RESIZE_SIZE)(x)
-            x = layers.BatchNormalization()(x)
-
-        return x
-
+        
+        self.pre_proc_layer = preprocessing_layer(prepro_flag = 'resnet',
+                                                    # resize_bool = False,
+                                                  )
 
     
     def divide_function(self, input_x, **kwargs):
 
-        prepro_flag = "None"
-
         full_size = FULL_SIZE
-
-        if "pre_flag" in kwargs.keys():
-            prepro_flag = kwargs['pre_flag']
 
         dv_size = DIVIDE_SIZE
         sh_size = DIV_SHIFT_SIZE
@@ -374,7 +437,6 @@ class experiment_models(layers.Layer):
         dv_position = 0
 
         data_list = list()
-        new_data_list = list()
         
         while True:
             
@@ -384,81 +446,38 @@ class experiment_models(layers.Layer):
 
             if (dv_position+dv_size) > full_size:
                 break
-
-        for one_dv in data_list:
-
-            if prepro_flag == 'cnn':
-                one_dv = self.stft_function(one_dv)
-                temp_data = self.cnn_feature(one_dv)
-                temp_data = layers.Flatten()(temp_data)
-                temp_data = tf.expand_dims(temp_data, -2)
-                new_data_list.append(temp_data)
-
-            elif prepro_flag == 'resnet':
-                one_dv = self.stft_function(one_dv)
-                temp_data = self.resnet_feature(one_dv)
-                temp_data = layers.Flatten()(temp_data)
-                temp_data = tf.expand_dims(temp_data, -2)
-                new_data_list.append(temp_data)
-
-            elif prepro_flag == 'ae_dense':
-                temp_data = self.ae_nn_feature(one_dv)
-                temp_data = tf.expand_dims(temp_data, -2)
-                new_data_list.append(temp_data)
-
-            elif prepro_flag == 'ae_cnn':
-                one_dv = self.stft_function(one_dv)
-                temp_data = self.ae_cnn_feature(one_dv)
-                temp_data = layers.Flatten()(temp_data)
-                temp_data = tf.expand_dims(temp_data, -2)
-                new_data_list.append(temp_data)
-
-            else:
-                temp_data = self.dense_feature(one_dv)
-                temp_data = tf.expand_dims(temp_data, -2)
-                new_data_list.append(temp_data)
-
-        x = self.concat_function_2(new_data_list)        
-
-        return x
-
-
-
-    def concat_function_2(self,input_x):
-
-        x = tf.concat(input_x, -2)
-
-        return x
+            
+        return data_list
 
         
 
     def __call__(self, input_x):
-
-        x = self.stft_function(input_x)
         
-        # x = self.dense_block(x)
-        # x = self.conv2d_block(x)
+        
+        # RNN 계열 모델
+        
+        # x = self.divide_function(input_x)
+        # x = self.pre_proc_layer(x)
+        
         # x = self.lstm_block(x)
         # x = self.bilstm_block(x)
-        # x = self.residual_blocks(x)
-        # x = self.autoencoder_cnn_blocks(x)
-        # x = self.autoencoder_nn_blocks(x)
-        # x = self.tail_block(x)
+        
+        
+        # CNN 계열 모델
 
-        # x = self.dense_feature(x)
-        # x = self.cnn_feature(x)
-        # x = self.resnet_feature(x)
-        # x = self.ae_cnn_feature(x)
-        # x = self.ae_nn_feature(x)
-        
+        # x = self.autoencoder_nn_blocks(x)
         # x = self.autoencoder_cnn_blocks(x)
-        # x = self.conv2d_block(x)
         
+        # x = self.stft_function(input_x)
+        x = self.pre_proc_layer.stft_function(input_x)
+        
+        # x = self.conv2d_block(x)
         x = self.residual_blocks(x)
         
-        x = self.tail_block(x)
+        # x = self.dense_block(x)
         
-        # x = layers.Flatten()(x)
+        x = self.tail_block(x)
+    
 
         result = layers.Dense(self.num_of_labels, activation='softmax')(x)
 
@@ -544,7 +563,7 @@ model_class_weights = {
                         2: 1.0,
                         3: 1.0,
                         4: 1.0,
-                        5: 0.5
+                        5: 0.5,
                            }
 
 history = model.fit(train_dataset, epochs=EPOCH_NUM,
@@ -634,83 +653,6 @@ print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
 print("accuracy : {}".format(total_acc))
 print("accuracy 1 : {}".format(total_acc_1))
 
-
-
-
-#%% F1 Score 계산하기
-# labels_num_td = NUM_LABELS
-
-# confusion_matrix = np.zeros((labels_num_td, labels_num_td), dtype=np.int32)
-
-# length_of_true_ans = len(train_label_00)
-# print('\n\n')
-# print(length_of_true_ans)
-# print(len(result_arg_train_data))
-# print(len(train_label_00))
-# print(len(train_data_00))
-
-# temp_num = 0
-
-# for i in range(length_of_true_ans):
-#     x_axis = int(train_label_00[i])
-#     y_axis = int(result_arg_train_data[i])
-#     if x_axis < 0 or y_axis < 0:
-#         temp_num+=1
-#     confusion_matrix[x_axis, y_axis]+=1
-
-# print(temp_num)
-
-
-# print('\n')
-# print(confusion_matrix)
-# print('\n')
-
-# sum_ax_0 = np.sum(confusion_matrix, axis=0)
-# sum_ax_1 = np.sum(confusion_matrix, axis=1)
-
-# print('\n')
-# print(sum_ax_0)
-# print(sum_ax_1)
-# print('\n')
-
-# precisions = list()
-# recalls = list()
-
-# for i in range(labels_num_td):
-
-#     if sum_ax_0[i] != 0:
-#         temp_val = confusion_matrix[i][i]/sum_ax_0[i]
-#         precisions.append(temp_val)
-#     else:
-#         precisions.append(0.0)
-
-#     if sum_ax_1[i] != 0:
-#         temp_val = confusion_matrix[i][i]/sum_ax_1[i]
-#         recalls.append(temp_val)
-#     else:
-#         precisions.append(0.0)
-
-
-# print('\n')
-# for i in range(labels_num_td):
-#     f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
-#     print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
-
-# print('\n')
-
-# temp_sum = 0
-# for i in range(labels_num_td):
-#     temp_sum+=confusion_matrix[i][i]
-
-# total_acc = temp_sum/np.sum(sum_ax_0)
-# total_acc_1 = temp_sum/len(train_label_00)
-
-# print("number of test data : {a}".format(a=len(train_label_00)))
-# print("sum of right answers : {b}".format(b=temp_sum))
-# print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
-# print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
-# print("accuracy : {}".format(total_acc))
-# print("accuracy 1 : {}".format(total_acc_1))
 
 
 
