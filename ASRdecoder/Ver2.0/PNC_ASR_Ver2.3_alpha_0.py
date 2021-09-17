@@ -48,11 +48,14 @@ test_bool = False
 command_label_num = 6
 
 # command_tflite_file = 'D:\\test_tflite_file.tflite'
-command_tflite_file = 'D:\\test_tflite_file_cnn_0.tflite'
+# command_tflite_file = 'D:\\test_tflite_file_cnn_0.tflite'
 # command_tflite_file = 'D:\\test_tflite_file_cnn_1_slice.tflite'
 # command_tflite_file = 'D:\\test_tflite_file_rnet_0.tflite'
 # command_tflite_file = 'D:\\test_tflite_file_rnet_1_slice.tflite'
 # command_tflite_file = 'D:\\test_tflite_file_lstm_1_slice.tflite'
+
+command_tflite_file = 'D:\\test_tflite_file_0_.tflite'
+# command_tflite_file = 'D:\\test_tflite_file_1_.tflite'
 
 command_interpreter = tf.lite.Interpreter(model_path=command_tflite_file)
 command_interpreter.allocate_tensors()

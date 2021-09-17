@@ -185,6 +185,79 @@ def print_contents_of_dict():
 
 
 #%%
+def existence_dir():
+
+    dir_path = "D:\\voice_data_backup\\zeroth_none_label"
+
+    if not os.path.exists(dir_path):
+        os.makedirs(dir_path)
+
+    for one_key in text_wav_files_dict.keys():
+        temp = one_key.split("\\")[-2]
+        temp = dir_path + "\\" + temp
+        if not os.path.exists(temp):
+            os.makedirs(temp)
+    
+    return
+
+
+
+
+#%%
+def gen_none_labels_data():
+
+    dir_path = "D:\\voice_data_backup\\zeroth_none_label"
+
+    for one_key in text_wav_files_dict.keys():
+        temp = one_key.split("\\")[-2]
+        temp_file = one_key.split("\\")[-1].split(".")[-2]
+        temp = dir_path + "\\" + temp + "\\" + temp_file
+        
+        temp_cont = text_wav_files_dict[one_key]['content']
+        for i, one_cont in enumerate(temp_cont):
+            temp_wav_path = temp + "_" + str(i) + ".wav"
+            wavfile.write(temp_wav_path, 16000, one_cont['data'])
+
+    return
+
+
+
+
+#%%
+def check_content_data():
+
+    max_len = 0
+    max_len_2 = 0
+
+    exception_list = list()
+
+    for one_key in text_wav_files_dict.keys():
+        temp = text_wav_files_dict[one_key]
+        temp_cont = temp["content"]
+        for one_c in temp_cont:
+            tmp_len = len(one_c["data"])
+            if max_len < tmp_len:
+                max_len = tmp_len
+
+            tmp_len_2 = one_c["end"] - one_c["start"]
+            if max_len_2 < tmp_len_2:
+                max_len_2 = tmp_len_2
+
+            if tmp_len > 30000:
+                exception_list.append(temp["txt"])
+
+    print(max_len)
+    print(max_len_2)
+
+    print(len(exception_list))
+
+    return
+
+
+
+
+
+#%%
 def main():
 
     gen_text_wav_files_dict()
@@ -195,6 +268,11 @@ def main():
     check_labels_text()
     # print_contents_of_dict()
     delete_keyword()
+    check_content_data()
+
+    # existence_dir()
+
+    # gen_none_labels_data()
 
     return
 
