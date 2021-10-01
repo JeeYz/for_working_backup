@@ -54,7 +54,8 @@ command_label_num = 6
 # command_tflite_file = 'D:\\test_tflite_file_rnet_1_slice.tflite'
 # command_tflite_file = 'D:\\test_tflite_file_lstm_1_slice.tflite'
 
-command_tflite_file = 'D:\\test_tflite_file_0_.tflite'
+# command_tflite_file = 'D:\\test_tflite_file_0_.tflite'
+command_tflite_file = 'D:\\PNC_ASR_2.3_GEN_train_data_1.0_.tflite'
 # command_tflite_file = 'D:\\test_tflite_file_1_.tflite'
 
 command_interpreter = tf.lite.Interpreter(model_path=command_tflite_file)
