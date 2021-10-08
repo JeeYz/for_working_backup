@@ -12,6 +12,13 @@ import copy
 
 from tensorflow.python.keras.backend import dropout
 
+
+CONVERT_TFLITE_BOOL = False
+
+RESULT_GRAPH_BOOL = True
+
+
+
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
 
 # train_data_path = "D:\\train_data_middle_20000_random_1_.npz"
@@ -19,16 +26,18 @@ os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
 # train_data_path = "D:\\train_data_middle_20000_random_3_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_4_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_5_.npz"
-train_data_path = "D:\\train_data_middle_20000_random_6_.npz"
+# train_data_path = "D:\\train_data_middle_20000_random_6_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_7_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_8_.npz"
+train_data_path = 'D:\\GEN_train_data_Ver.1.0.npz'
 
-test_data_path = "D:\\test_data_20000_.npz"
+# test_data_path = "D:\\test_data_20000_.npz"
+test_data_path = 'D:\\GEN_train_data_Ver.1.0_test_.npz'
 
 
 #%% variables
 # 에포크 
-EPOCH_NUM = 10
+EPOCH_NUM = 30
 # CNN 초기값
 INIT_CNN_CHAN = 16
 
@@ -36,46 +45,54 @@ INIT_CNN_CHAN = 16
 INIT_AE_CHAN = 4
 
 # LSTM 셀 초기값
-INIT_LSTM_CELL = 32
+INIT_LSTM_CELL = 128
 
 # ResNet 채널 초기값
-INIT_RESNET_CH = 16
+INIT_RESNET_CH = 32
 
 # 뉴런의 개수
-TAIL_DENSE_NUM = 64
+TAIL_DENSE_NUM = 128
 NORM_DENSE_NUM = 128
 
 # 신호 나누는 값 기준
 DIVIDE_SIZE = 4000
 DIV_SHIFT_SIZE = 2000
-FULL_SIZE = 20000
+FULL_SIZE = 30000
 
 # 모델 레이어 값
 DENSE_LAYERS_NUM = 3
 CNN_LAYERS_NUM = 7
 LSTM_LAYERS_NUM = 3
 BILSTM_LAYERS_NUM = 3
-RESNET_LAYERS_NUM = 6
+RESNET_LAYERS_NUM = 7
 TAIL_DENSE_LAYERS_NUM = 1
 
 # 전처리 부분 레이어 값
 DENSE_FEATURE_NUM = 3
 CONV_FEATURE_NUM = 5
 RESNET_FEATURE_NUM = 4
-# 리사이즈 값
-RESIZE_SIZE = 32
+
 # 배치 사이즈
 TRAIN_BATCH_SIZE = 256
 # 레이블 개수
 NUM_LABELS = 6
 
+RESIZE_BOOL = False
+
+RESIZE_X = 32
+RESIZE_Y = 32
+
+
+
 
 
 #%%
+# loaded_data_00 = np.load(train_data_path, allow_pickle=True)
 loaded_data_00 = np.load(train_data_path)
 train_data_00 = loaded_data_00['data']
 train_label_00 = loaded_data_00['label']
 
+# loaded_data_01 = np.load(test_data_path, allow_pickle=True)
 loaded_data_01 = np.load(test_data_path)
 test_data_00 = loaded_data_01['data']
 test_label_00 = loaded_data_01['label']
@@ -370,7 +387,7 @@ class preprocessing_layer(layers.Layer):
         x = tf.expand_dims(x, -1)
 
         if self.resize_bool == True:    
-            x = preprocessing.Resizing(RESIZE_SIZE, RESIZE_SIZE)(x)
+            x = preprocessing.Resizing(RESIZE_X, RESIZE_Y)(x)
             x = layers.BatchNormalization()(x)
 
         return x    
@@ -423,7 +440,7 @@ class experiment_models(layers.Layer):
         self.tail_block = tail_dense_layers(TAIL_DENSE_LAYERS_NUM)
         
         self.pre_proc_layer = preprocessing_layer(prepro_flag = 'resnet',
-                                                    # resize_bool = False,
+                                                    resize_bool = RESIZE_BOOL,
                                                   )
 
     
@@ -458,7 +475,7 @@ class experiment_models(layers.Layer):
         
         # x = self.divide_function(input_x)
         # x = self.pre_proc_layer(x)
-        
+        # 
         # x = self.lstm_block(x)
         # x = self.bilstm_block(x)
         
@@ -567,7 +584,7 @@ model_class_weights = {
                            }
 
 history = model.fit(train_dataset, epochs=EPOCH_NUM,
-                    class_weight=model_class_weights,
+                    # class_weight=model_class_weights,
                     )
 
 #%%
@@ -583,8 +600,8 @@ print('\n\n')
 result_of_predict = model.predict(test_data_00)
 result_arg = tf.math.argmax(result_of_predict, 1).numpy()
 
-# result_of_predict_train_data = model.predict(train_data_00)
-# result_arg_train_data = tf.math.argmax(result_of_predict_train_data, 1).numpy()
+result_of_predict_train_data = model.predict(train_data_00)
+result_arg_train_data = tf.math.argmax(result_of_predict_train_data, 1).numpy()
 
 
 
@@ -631,13 +648,18 @@ for i in range(labels_num):
     else:
         precisions.append(0.0)
 
+f_result = open("D:\\result_acc.txt", "a")
 
 print('\n')
+f_result.write("\n\n")
 for i in range(labels_num):
     f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
     print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
+    f_result.write("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
+    f_result.write("\n")
 
 print('\n')
+f_result.write("\n")
 
 temp_sum = 0
 for i in range(labels_num):
@@ -647,11 +669,103 @@ total_acc = temp_sum/np.sum(sum_ax_0)
 total_acc_1 = temp_sum/len(test_label_00)
 
 print("number of test data : {a}".format(a=len(test_label_00)))
+f_result.write("number of test data : {a}".format(a=len(test_label_00)))
+f_result.write("\n")
 print("sum of right answers : {b}".format(b=temp_sum))
+f_result.write("sum of right answers : {b}".format(b=temp_sum))
+f_result.write("\n")
 print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
+f_result.write("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
+f_result.write("\n")
 print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
+f_result.write("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
+f_result.write("\n")
 print("accuracy : {}".format(total_acc))
+f_result.write("accuracy : {}".format(total_acc))
+f_result.write("\n")
 print("accuracy 1 : {}".format(total_acc_1))
+f_result.write("accuracy 1 : {}".format(total_acc_1))
+f_result.write("\n")
+
+f_result.close()
+
+
+
+
+#%% 훈련 데이터 테스트 F1 Score 계산하기
+labels_num = NUM_LABELS
+
+confusion_matrix = np.zeros((labels_num, labels_num), dtype=np.int64)
+
+# print('\n')
+# print(confusion_matrix)
+# print('\n')
+
+length_of_true_ans = len(train_data_00)
+
+for i in range(length_of_true_ans):
+    x_axis = int(train_label_00[i])
+    y_axis = int(result_arg_train_data[i])
+    confusion_matrix[x_axis, y_axis]+=1
+
+
+print('\n')
+print(confusion_matrix)
+print('\n')
+
+sum_ax_0 = np.sum(confusion_matrix, axis=0)
+sum_ax_1 = np.sum(confusion_matrix, axis=1)
+
+print('\n')
+print(sum_ax_0)
+print(sum_ax_1)
+print('\n')
+
+precisions = list()
+recalls = list()
+
+for i in range(labels_num):
+
+    if sum_ax_0[i] != 0:
+        temp_val = confusion_matrix[i][i]/sum_ax_0[i]
+        precisions.append(temp_val)
+    else:
+        precisions.append(0.0)
+
+    if sum_ax_1[i] != 0:
+        temp_val = confusion_matrix[i][i]/sum_ax_1[i]
+        recalls.append(temp_val)
+    else:
+        precisions.append(0.0)
+
+print('\n')
+
+for i in range(labels_num):
+    f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
+    print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
+    
+print("\n\n")
+    
+temp_sum = 0
+for i in range(labels_num):
+    temp_sum+=confusion_matrix[i][i]
+
+total_acc = temp_sum/np.sum(sum_ax_0)
+total_acc_1 = temp_sum/len(train_label_00)
+
+print("number of test data : {a}".format(a=len(train_label_00)))
+
+print("sum of right answers : {b}".format(b=temp_sum))
+
+print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
+
+print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
+
+print("accuracy : {}".format(total_acc))
+
+print("accuracy 1 : {}".format(total_acc_1))
+
+
 
 
 
@@ -659,31 +773,36 @@ print("accuracy 1 : {}".format(total_acc_1))
 #%%
 # convert tflite
 
-# converter = tf.lite.TFLiteConverter.from_keras_model(model)
-# converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS,
-#                                        tf.lite.OpsSet.SELECT_TF_OPS]
-# tflite_model = converter.convert()
-# open('D:\\test_tflite_file_cnn_0.tflite', 'wb').write(tflite_model)
+if CONVERT_TFLITE_BOOL == True:
+    # file_path = "D:\\test_tflite_file_0_.tflite"
+    file_path = "D:\\PNC_ASR_2.3_GEN_train_data_1.0_.tflite"
+    
+    converter = tf.lite.TFLiteConverter.from_keras_model(model)
+    converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS,
+                                            tf.lite.OpsSet.SELECT_TF_OPS]
+    tflite_model = converter.convert()
+    open(file_path, 'wb').write(tflite_model)
 
 
 
 
 #%%
-fig, loss_ax = plt.subplots()
-acc_ax = loss_ax.twinx()
-
-loss_ax.plot(history.history['loss'], 'y', label='train loss')
-
-loss_ax.set_xlabel('epoch')
-loss_ax.set_ylabel('loss')
-loss_ax.legend(loc='upper left')
-
-acc_ax.plot(history.history['accuracy'], 'b', label='train accuracy')
-
-acc_ax.set_ylabel('accuracy')
-acc_ax.legend(loc='upper left')
-
-plt.show()
+if RESULT_GRAPH_BOOL == True:
+    fig, loss_ax = plt.subplots()
+    acc_ax = loss_ax.twinx()
+    
+    loss_ax.plot(history.history['loss'], 'y', label='train loss')
+    
+    loss_ax.set_xlabel('epoch')
+    loss_ax.set_ylabel('loss')
+    loss_ax.legend(loc='upper left')
+    
+    acc_ax.plot(history.history['accuracy'], 'b', label='train accuracy')
+    
+    acc_ax.set_ylabel('accuracy')
+    acc_ax.legend(loc='upper left')
+    
+    plt.show()
 
 
 
