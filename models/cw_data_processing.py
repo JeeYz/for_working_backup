@@ -26,41 +26,61 @@ PRINT_PLT_BOOL = False
 TIME_STRETCH_NUM = 2
 X_AXIS_SIZE = 500
 GLOBAL_THRESHOLD_RATE = 0.1
+GLOBAL_THRESHOLD_RATE_TEST = 0.4
+GLOBAL_THRESHOLD_VALUE = 1000
 GLOBAL_NOISE_THRESHOLD_RATE = 0.001
 
 INCLUDE_NONE_FOR_AUG = False
 DO_NOT_INCLUDE_NONE = False
+DIVIDE_RIGHT_ANSWER = False
 
 POP_DATA_NUM = 3
-DATA_AUG_POSITION = 20
+DATA_AUG_POSITION = 15
 
 WRITE_OR_NOT = False
 
-PREPRO_SHIFT_SIZE = 256
-PREPRO_FRAME_SIZE = 512
+PREPRO_SHIFT_SIZE = 200
+PREPRO_FRAME_SIZE = 400
 
 HEAD_SIZE = 3000
 TAIL_SIZE = 3000
 
-NORM_STAN_PARA = 'stan'
+NORM_STAN_PARA = 'simple'
 
-temp_para = 0
+RANDOM_LIST_BOOL = True
+
+BLOCK_OF_RANDOM = 100
+
+MAX_SIGNAL_VALUE = 32768.0
+
+
+label_dict = {
+        'camera' : 0,
+        'picture' : 1,
+        'record' : 2,
+        'stop' : 3,
+        'end' : 4,
+        'none' : 5,
+    }
+
 
 
 #%%
 def main():
-    # gen_data = control_gen_data()
-    # gen_data.generate_data()
-    # gen_data.generate_test_data()
+    gen_data = control_gen_data()
+    gen_data.generate_data()
+    gen_data.generate_test_data()
 
     monitor_class = monitoring_train_data()
     # monitor_class.length_monitoring_wav_file("D:\\voice_data_backup\\PNC_DB_ALL")
     # monitor_class.check_data_with_plt_for_npz('D:\\GEN_train_data_Ver.1.0_test_.npz')
     # monitor_class.check_data_with_plt_for_npz_1('D:\\test_data_20000_.npz')
     
-    # monitor_class.check_data_with_plt_for_npz('D:\\GEN_train_data_Ver.1.0.npz',
-    #                                             num_view_data = 12,
-    #                                             view_command_label = 4,
+    # monitor_class.check_data_with_plt_for_npz(
+    #                                             'D:\\GEN_train_data_Ver.1.0.npz',
+    #                                             # 'D:\\GEN_train_data_Ver.1.0_test_.npz',
+    #                                             num_view_data = 30,
+    #                                             view_command_label = 5,
     #                                         )
 
     # monitor_class.check_data_with_plt_for_npz_1('D:\\train_data_middle_20000_random_5_.npz',
@@ -72,7 +92,7 @@ def main():
 
     # monitor_class.check_return_labels_rate()
 
-    monitor_class.draw_graphes()
+    # monitor_class.draw_graphes()
 
     return
 
@@ -82,15 +102,6 @@ class monitoring_train_data():
     def __init__(self):
 
         self.frame_size = PREPRO_FRAME_SIZE
-
-        self.label_dict = {
-                'camera' : 0,
-                'picture' : 1,
-                'record' : 2,
-                'stop' : 3,
-                'end' : 4,
-                'none' : 5,
-            }
 
         self.numpy_file_path = 'D:\\GEN_train_data_Ver.1.0.npz'
         self.numpy_test_file_path = 'D:\\GEN_train_data_Ver.1.0_test_.npz'
@@ -165,11 +176,14 @@ class monitoring_train_data():
 
             data_list = [data_0, data_1, data_2, data_3,]
 
-            self.draw_multi_data(len(data_list), data_list, idx, len(data_list[0]))
+            label_name = str(idx)+" "+one_file
+
+            self.draw_multi_data(len(data_list), data_list, label_name, len(data_list[0]))
 
             data_list = [data_4, data_5, data_6, data_7,]
             print(len(data_list[0]))
-            self.draw_multi_data(len(data_list), data_list, idx, len(data_list[0]))
+
+            # self.draw_multi_data(len(data_list), data_list, label_name, len(data_list[0]))
 
             
         print("end with...")
@@ -201,7 +215,7 @@ class monitoring_train_data():
         none_ans_list = list()
 
         for one in result_train_data_list:
-            if one['label'] in  self.label_dict.keys() and one['label'] != 'none':
+            if one['label'] in  label_dict.keys() and one['label'] != 'none':
                 right_ans_list.append(one)
             else:
                 none_ans_list.append(one)
@@ -250,7 +264,7 @@ class monitoring_train_data():
             #     self.draw_simple_graph(data)
             #     print(i, one_file)
 
-            # if cond_2 in self.label_dict.keys():
+            # if cond_2 in label_dict.keys():
             #     _, data = wavfile.read(one_file)
             #     self.draw_simple_graph(data)
 
@@ -343,12 +357,12 @@ class monitoring_train_data():
                 data_para+=1
 
                 if data_para == num_view_data:
-                    self.draw_multi_data(num_view_data, data_list, view_command_label)
+                    self.draw_multi_data(num_view_data, data_list, view_command_label, FULL_SIZE)
                     data_para = 0
                     data_list = list()
 
         try:
-            self.draw_multi_data(num_view_data, data_list, view_command_label)
+            self.draw_multi_data(num_view_data, data_list, view_command_label, FULL_SIZE)
         except IndexError:
             print("IndexError")
             print(num_view_data, len(data_list), view_command_label)
@@ -399,7 +413,7 @@ class monitoring_train_data():
                 data_para+=1
 
                 if data_para == num_view_data:
-                    self.draw_multi_data(num_view_data, data_list, view_command_label)
+                    self.draw_multi_data(num_view_data, data_list, view_command_label, FULL_SIZE)
                     data_para = 0
                     data_list = list()
 
@@ -509,15 +523,6 @@ class control_gen_data():
         # self.gen_data = list()
         # self.gen_test_data = list()
 
-        self.label_dict = {
-                'camera' : 0,
-                'picture' : 1,
-                'record' : 2,
-                'stop' : 3,
-                'end' : 4,
-                'none' : 5,
-            }
-
         self.numpy_file_path = 'D:\\GEN_train_data_Ver.1.0.npz'
         self.numpy_test_file_path = 'D:\\GEN_train_data_Ver.1.0_test_.npz'
 
@@ -556,6 +561,7 @@ class control_gen_data():
         if INCLUDE_NONE_FOR_AUG == False:
             none_label_data = self.check_mod_labels_for_alldata(none_label_data)
             none_label_data = self.check_data_length(none_label_data)
+            none_label_data = []
             gen_data.extend(none_label_data) 
 
         # print(gen_data)
@@ -565,6 +571,8 @@ class control_gen_data():
                 gen_data = self.standardize_data(gen_data)
             elif NORM_STAN_PARA=='norm':
                 gen_data = self.normalize_data(gen_data)
+            elif NORM_STAN_PARA=='simple':
+                gen_data = self.simple_norm_data(gen_data)
 
             self.write_numpy_file(gen_data, self.numpy_file_path)
 
@@ -586,7 +594,7 @@ class control_gen_data():
             label_list.append(one_dict['label'])
             filename_list.append(one_dict['filename'])
 
-        # data_list = np.array(data_list, dtype=np.float64)
+        # data_list = np.array(data_list, dtype=np.float32)
         label_list = np.array(label_list, dtype=np.int16)
 
         np.savez(target_path, data=data_list, 
@@ -608,12 +616,12 @@ class control_gen_data():
 
         for one_dict in gen_data:
             temp = one_dict['label']
-            if temp not in self.label_dict.keys():
+            if temp not in label_dict.keys():
                 one_dict['label'] = 'none'
 
         for one_dict in gen_data:
             temp = one_dict['label']
-            one_dict['label'] = self.label_dict[temp]
+            one_dict['label'] = label_dict[temp]
 
         return gen_data
 
@@ -628,7 +636,15 @@ class control_gen_data():
             if temp not in labels_list:
                 labels_list.append(temp)
 
+        new_print_list = list()
+        for one in labels_list:
+            if one in label_dict.keys():
+                new_print_list.append(one)
+            else:
+                new_print_list.append("null")
+
         print(labels_list)
+        print(new_print_list)
 
 
     def print_data_with_json_dump(self, tmp_dict):
@@ -662,6 +678,8 @@ class control_gen_data():
                 result_data = self.standardize_data(result_data)
             elif NORM_STAN_PARA=='norm':
                 result_data = self.normalize_data(result_data)
+            elif NORM_STAN_PARA=='simple':
+                result_data = self.simple_norm_data(result_data)
 
             self.write_numpy_file(result_data, self.numpy_test_file_path)
 
@@ -680,7 +698,16 @@ class control_gen_data():
             tmp_data = one_dict['data']
             min_val = np.min(tmp_data)
             max_val = np.max(tmp_data)
-            one_dict['data'] = ((tmp_data-min_val)/(max_val-min_val))*2.0-1.0
+            one_dict['data'] = ((tmp_data-min_val)/(max_val-min_val)-0.5)*2
+        return gen_data
+
+
+    def simple_norm_data(self, gen_data):
+
+        for one_dict in gen_data:
+            tmp_data = one_dict['data']
+            one_dict['data'] = np.array(tmp_data, dtype=np.float32)/MAX_SIGNAL_VALUE
+
         return gen_data
 
 
@@ -706,6 +733,7 @@ class Preprocessing_data():
 
         self.full_size = FULL_SIZE
         self.threshold_rate = GLOBAL_THRESHOLD_RATE
+        self.threshold_rate_test = GLOBAL_THRESHOLD_RATE_TEST
         self.noise_threshold_rate = GLOBAL_NOISE_THRESHOLD_RATE
 
         self.frame_size = PREPRO_FRAME_SIZE
@@ -785,8 +813,8 @@ class Preprocessing_data():
         # front_random_data = front_random_data*self.noise_threshold_rate
         # tail_random_data = tail_random_data*self.noise_threshold_rate
 
-        front_random_data = np.zeros(tmp_front_num, dtype=np.float64)
-        tail_random_data = np.zeros(tmp_tail_num, dtype=np.float64)
+        front_random_data = np.zeros(tmp_front_num, dtype=np.float32)
+        tail_random_data = np.zeros(tmp_tail_num, dtype=np.float32)
 
         tmp = np.append(front_random_data, input_data)
         output_data = np.append(tmp, tail_random_data)
@@ -888,7 +916,7 @@ class Preprocessing_data():
             #     print("\noccur warning...\n")
             #     continue
 
-            w_data = np.array(w_data, dtype=np.float64)
+            w_data = np.array(w_data, dtype=np.float32)
             train_data_dict[one_file] = w_data
 
         return train_data_dict
@@ -952,13 +980,17 @@ class Preprocessing_data():
         return mean_list
 
 
-    def cut_one_wav_file(self, input_data):
+    def cut_one_wav_file(self, input_data, data_flag):
 
         frame_start_list = self.make_frame_list(len(input_data))
         mean_list = self.gen_mean_list(input_data, frame_start_list)
 
         max_mag = np.max(mean_list)
-        threshold_val = max_mag*self.threshold_rate
+
+        if data_flag == 'train':
+            threshold_val = max_mag*self.threshold_rate
+        elif data_flag == 'test':
+            threshold_val = max_mag*self.threshold_rate_test
 
         start_idx = 0
         end_idx = 0
@@ -1007,8 +1039,8 @@ class Preprocessing_data():
         # tmp_fdata = tmp_fdata * self.noise_threshold_rate
         # tmp_edata = tmp_edata * self.noise_threshold_rate
 
-        tmp_fdata = np.zeros(half_fullsize, dtype=np.float64)
-        tmp_edata = np.zeros(half_fullsize, dtype=np.float64)
+        tmp_fdata = np.zeros(half_fullsize, dtype=np.float32)
+        tmp_edata = np.zeros(half_fullsize, dtype=np.float32)
 
         tmp_data = np.append(tmp_fdata, tmp_data)
         tmp_data = np.append(tmp_data, tmp_edata)
@@ -1036,8 +1068,8 @@ class Preprocessing_data():
         mid_point = (tmp_end+tmp_start)//2 + half_fullsize
         # print(len(tmp_data), mid_point, tmp_start, tmp_end)
 
-        tmp_fdata = np.zeros(half_fullsize, dtype=np.float64)
-        tmp_edata = np.zeros(half_fullsize, dtype=np.float64)
+        tmp_fdata = np.zeros(half_fullsize, dtype=np.float32)
+        tmp_edata = np.zeros(half_fullsize, dtype=np.float32)
 
         tmp_data = np.append(tmp_fdata, tmp_data)
         tmp_data = np.append(tmp_data, tmp_edata)
@@ -1065,8 +1097,12 @@ class Preprocessing_data():
         for one_key in data_dict.keys():
 
             tmp_data = data_dict[one_key]
-            
-            output_data_dict = self.cut_one_wav_file(tmp_data)
+
+            if data_flag == 'train': 
+                output_data_dict = self.cut_one_wav_file(tmp_data, 'train')
+            elif data_flag == 'test':
+                output_data_dict = self.cut_one_wav_file(tmp_data, 'test')
+
             
             # if output_data_dict['start'] < HEAD_SIZE:
             #     print(output_data_dict['start'], one_key)
@@ -1109,9 +1145,9 @@ class Preprocessing_data():
         min_value = np.min(data)
 
         # 조건 0 and 1
-        if max_value != 32767   \
+        if max_value < 32767   \
                     and         \
-                min_value != -32768:                        
+                min_value > -32767:                        
 
             return 1
         else:
@@ -1150,15 +1186,6 @@ class Augment_data():
 
         self.para_num = 0
 
-        self.label_dict = {
-                'camera' : 0,
-                'picture' : 1,
-                'record' : 2,
-                'stop' : 3,
-                'end' : 4,
-                'none' : 5,
-            }
-
 
     def add_noise_data(self, input_data, asize):
 
@@ -1168,7 +1195,7 @@ class Augment_data():
         # front_random_data = np.random.randint(low_val, high_val, asize)
         # front_random_data = front_random_data*self.noise_threshold_rate
 
-        front_random_data = np.zeros(asize, dtype=np.float64)
+        front_random_data = np.zeros(asize, dtype=np.float32)
 
         return front_random_data
 
@@ -1201,8 +1228,8 @@ class Augment_data():
             # temp_random_data_2 = np.random.randint(low_val, high_val, temp_num_2)    
             # temp_random_data_2 = temp_random_data_2*self.noise_threshold_rate
 
-            temp_random_data_1 = np.zeros(temp_num_1, dtype=np.float64)    
-            temp_random_data_2 = np.zeros(temp_num_2, dtype=np.float64)    
+            temp_random_data_1 = np.zeros(temp_num_1, dtype=np.float32)    
+            temp_random_data_2 = np.zeros(temp_num_2, dtype=np.float32)    
 
             temp_data = np.append(temp_random_data_1, input_data)
             temp_data = np.append(temp_data, temp_random_data_2)
@@ -1237,14 +1264,14 @@ class Augment_data():
                 if cond1 > 0:
                     # print(len(aug_data), len(return_noise))
                     temp_data = np.append(return_noise, init_data)
-                    # temp_data = np.array(temp_data, dtype=np.float64)
+                    # temp_data = np.array(temp_data, dtype=np.float32)
                     new_data = temp_data[0: self.full_size]
                     # new_data = temp_data[0: self.full_size]
                     # print(len(temp_data), len(new_data))
                 else:
                     # print(len(aug_data), len(return_noise))
                     temp_data = np.append(init_data, return_noise)
-                    # temp_data = np.array(temp_data, dtype=np.float64)
+                    # temp_data = np.array(temp_data, dtype=np.float32)
                     t_size = -1*self.full_size
                     new_data = temp_data[t_size:]
                     # print(len(temp_data), len(new_data))
@@ -1256,7 +1283,7 @@ class Augment_data():
             if len(new_data) != self.full_size:
                 new_data = self.fit_full_size(new_data)
 
-            # new_data = np.array(new_data, dtype=np.float64)
+            # new_data = np.array(new_data, dtype=np.float32)
 
             temp['data'] = new_data
             temp['label'] = init_label
@@ -1266,9 +1293,74 @@ class Augment_data():
 
             self.para_num += 1
             # if self.para_num%10 == 0:
-            print("{} th data generated...".format(self.para_num), end='\r')
+            # print("{} th data generated...".format(self.para_num), end='\r')
 
         return new_data_list
+
+
+    def plt_for_error(self, input_data):
+
+        print(input_data['start'], input_data['end'], 
+                input_data['end']-input_data['start']
+            )
+        print(input_data['data'])
+        fig = plt.figure()
+        plt.plot(input_data['data'])
+        plt.show()
+
+        return
+
+
+    def make_aug_list_random(self, data_dict):
+
+        start_list = list()
+        end_list = list()
+
+        tmp_start = data_dict['start']
+        tmp_end = data_dict['end']
+
+        start_list.append(tmp_start)
+        end_list.append(tmp_end)
+
+        gap_start_end = tmp_end - tmp_start
+
+        if tmp_end == 0:
+            self.plt_for_error(data_dict['data'])
+
+        temp = copy.deepcopy(tmp_start)
+
+        # 리미트를 정해줘야함
+        minus_gap = -1*tmp_start//BLOCK_OF_RANDOM
+        plus_gap = (self.full_size-tmp_end)//BLOCK_OF_RANDOM
+        
+        para_size = (-1*minus_gap+plus_gap)
+
+        if minus_gap < plus_gap:
+            for i in range(DATA_AUG_POSITION):
+                new_start_val = np.random.randint(minus_gap, plus_gap)
+
+                if new_start_val == 0:
+                    continue
+
+                new_start_val = new_start_val*BLOCK_OF_RANDOM
+                new_start_val += tmp_start
+
+                while True:
+                    if new_start_val in start_list:
+                        break
+                    else:
+                        start_list.append(new_start_val)
+                        end_list.append(new_start_val+gap_start_end)
+                        break
+                
+                if para_size == len(start_list):
+                    break
+
+        
+        data_dict['start'] = start_list
+        data_dict['end'] = end_list
+
+        return data_dict
 
 
     def make_aug_list(self, data_dict):
@@ -1279,38 +1371,15 @@ class Augment_data():
         tmp_start = data_dict['start']
         tmp_end = data_dict['end']
 
-        # print("before start of data dict : {start}".format(start=data_dict['start']))
-
         start_list.append(tmp_start)
         end_list.append(tmp_end)
 
         gap_start_end = tmp_end - tmp_start
         if tmp_end == 0:
-            print(tmp_start, tmp_end, gap_start_end)
-            print(data_dict['data'])
-            fig = plt.figure()
-            plt.plot(data_dict['data'])
-            plt.show()
-
-        # temp = copy.deepcopy(tmp_start)
-        # while True:
-        #     temp  = temp - self.position_aug_frame
-        #     if temp < 0:
-        #         break
-
-        #     start_list.append(temp)
-        #     end_list.append(temp+gap_start_end)
-
-        #     if len(start_list) > DATA_AUG_POSITION:
-        #         break
-
-        # for i in range(POP_DATA_NUM):
-        #     if len(start_list) > 1:
-        #         start_list.pop()
-        #     if len(end_list) > 1:
-        #         end_list.pop()
+            self.plt_for_error(data_dict['data'])
 
         temp = copy.deepcopy(tmp_start)
+
         while True:
             temp  = temp + self.position_aug_frame
             if (temp+gap_start_end) > self.full_size:
@@ -1320,16 +1389,8 @@ class Augment_data():
             if len(start_list) >= DATA_AUG_POSITION:
                 break
 
-        # for i in range(POP_DATA_NUM):
-        #     if len(start_list) > 1:
-        #         start_list.pop()
-        #     if len(end_list) > 1:
-        #         end_list.pop()
-
         data_dict['start'] = start_list
         data_dict['end'] = end_list
-
-        # print("after start of data dict : {start}".format(start=data_dict['start']))
 
         return data_dict
 
@@ -1343,25 +1404,26 @@ class Augment_data():
         tmp_end = end_idx + TAIL_SIZE
 
         if tmp_start < 0:
-            data_dict['start'] = 0
+            tmp_start = 0
 
         if tmp_end > self.full_size:
-            data_dict['end'] = self.full_size
+            tmp_end = self.full_size
 
-        # if data_dict['end'] != self.full_size:
-        #     temp_gap = self.full_size - data_dict['end']
-        #     data_dict['end'] = self.full_size
-        #     data_dict['start']+=temp_gap
+        # what are these lines??
+        # if data_dict['start'] != 0:
+        #     temp_gap = copy.deepcopy(data_dict['start'])
+        #     data_dict['start'] = 0
+        #     data_dict['end']-=temp_gap
 
-        if data_dict['start'] != 0:
-            temp_gap = copy.deepcopy(data_dict['start'])
-            data_dict['start'] = 0
-            data_dict['end']-=temp_gap
+        data_dict['start'] = tmp_start
+        data_dict['end'] = tmp_end
 
         return data_dict
 
 
     def read_data_list(self, input_list):
+
+        monitoring_class = monitoring_train_data()
 
         new_list = list()
         temp_class = Preprocessing_data()
@@ -1371,7 +1433,7 @@ class Augment_data():
 
         for one_dict in input_list:
             # print(one_dict['label'])
-            if one_dict['label'] in self.label_dict.keys() and one_dict['label'] != 'none':
+            if one_dict['label'] in label_dict.keys() and one_dict['label'] != 'none':
                 temp_new_right_ans_label.append(one_dict)
             else:
                 temp_new_none_ans_label.append(one_dict)
@@ -1379,6 +1441,9 @@ class Augment_data():
         print("****************")
         print(len(temp_new_right_ans_label))
         print(len(temp_new_none_ans_label))
+
+        if DIVIDE_RIGHT_ANSWER == False:
+            temp_new_right_ans_label.extend(temp_new_none_ans_label)
 
         for one_data in temp_new_right_ans_label:
             # data, label, mid_val
@@ -1395,16 +1460,29 @@ class Augment_data():
                 tmp_data = copy.deepcopy(init_data)
                 
                 aug_data = librosa.effects.time_stretch(tmp_data, r)
+                aug_data = np.array(aug_data, dtype=np.float32)
                 
-                return_dict = temp_class.cut_one_wav_file(aug_data)
+                return_dict = temp_class.cut_one_wav_file(aug_data, 'train')
+                # print(return_dict['start'], return_dict['end'])
 
                 return_dict = self.new_start_end_index(return_dict, temp_class)
-                return_dict = self.make_aug_list(return_dict)
+                # print(return_dict['start'], return_dict['end'])
 
-                gen_aug_data = self.gen_aug_data(return_dict, one_data)
+                if RANDOM_LIST_BOOL == True:
+                    # print(return_dict, one_data['label'])
+                    return_dict = self.make_aug_list_random(return_dict)
+                    # print(return_dict['start'])
+                    # monitoring_class.draw_simple_graph(return_dict['data'])
+                    gen_aug_data = self.gen_aug_data(return_dict, one_data)
+                else:
+                    return_dict = self.make_aug_list(return_dict)
+                    gen_aug_data = self.gen_aug_data(return_dict, one_data)
+
                 new_list.extend(gen_aug_data)
             
-        new_list.extend(temp_new_none_ans_label)
+        
+        if DIVIDE_RIGHT_ANSWER == True:
+            new_list.extend(temp_new_none_ans_label)
 
         print("total data num : {len}".format(len=len(new_list)))
 
