@@ -31,14 +31,18 @@ class Signal_Trigger():
         for one_dict in mean_list:
             if one_dict['mean_value'] > GLOBAL_THRESHOLD:
                 start_index = one_dict['start_index']
+                break
             
         for one_dict in reversed(mean_list):
             if one_dict['mean_value'] > GLOBAL_THRESHOLD:
-                end_index = one_dict['start_index']
+                end_index = one_dict['start_index'] + PREPRO_FRAME_SIZE
+                break
         
         data_dict['data'] = input_data
         data_dict['start_index'] = start_index
         data_dict['end_index'] = end_index
+        data_dict['gap_start_end'] = end_index-start_index
+        data_dict['data_length'] = len(input_data)
 
         return data_dict 
 
@@ -51,6 +55,7 @@ class Signal_Trigger():
 
         result_list = [i*PREPRO_SHIFT_SIZE for i in range(range_num)]
 
+        #%% 무한 반복 루프 제거
         while True:
             temp = result_list[-1]+PREPRO_FRAME_SIZE
             if temp > data_size:
@@ -69,6 +74,7 @@ class Signal_Trigger():
             mean_value = np.mean(np.abs(temp_data))
             temp_dict['start_index'] = idx
             temp_dict['mean_value'] = mean_value
+
             result_mean_list.append(temp_dict)
 
         return result_mean_list 

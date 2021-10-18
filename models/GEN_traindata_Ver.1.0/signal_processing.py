@@ -24,10 +24,12 @@ class Signal_Processing():
 
     def detect_saturation_signal(self, files_list):
 
-        num = 0
-        a = len(files_list)
+        deleted_num= 0
+
+        length_of_list = len(files_list)
         print("start detecting saturation signals...")
-        print("input data length : {length}".format(length=a))
+        print("input data length : {length}".format(length=length_of_list ))
+
         for one_file in reversed(files_list):
             filename = one_file['filename']
             sr, data = wavfile.read(filename)
@@ -42,11 +44,11 @@ class Signal_Processing():
             else:
                 idx_num = files_list.index(one_file)
                 del files_list[idx_num]
-                num += 1
+                deleted_num  += 1
             
-        a = len(files_list)
-        print("output data length : {length}".format(length=a))
-        print("{dnum} data is deleted...".format(dnum=num))
+        length_of_list  = len(files_list)
+        print("output data length : {length}".format(length=length_of_list ))
+        print("{dnum} data is deleted...".format(dnum=deleted_num))
         print('\n')
 
         return files_list

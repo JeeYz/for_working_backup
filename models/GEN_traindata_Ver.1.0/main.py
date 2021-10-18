@@ -7,6 +7,7 @@ import signal_processing as spro
 import test_and_check as tcheck
 import augment_processing as augp
 import trigger_algorithm as trigal
+import modifying_data_and_info as moddi
 
 
 def main():
@@ -26,6 +27,7 @@ def main():
     print("test data volume : {num}".format(num=len(test_data_list)))
     print("\n")
 
+    #%% ###########################################################
     signal_process_class = spro.Signal_Processing()
 
     train_data_list = signal_process_class.detect_saturation_signal(train_data_list)   
@@ -36,29 +38,52 @@ def main():
     monitoring = tcheck.Monitoring_Check()
     monitoring.check_number_of_labels(train_data_list)
 
+    #%% ###########################################################
     augment_process_class = augp.Augment_Process()
 
     train_data_list = augment_process_class.time_stretch_process(train_data_list)
 
     train_data_list = signal_process_class.standardize_data(train_data_list)
 
-    print(json.dumps(train_data_list, 
-                    sort_keys=False, indent=4, default=str, 
+    print(json.dumps(
+                    train_data_list[0], 
+                    sort_keys=False, 
+                    indent=4, 
+                    default=str, 
                     ensure_ascii=False
-                ))
+    ))
+    print(json.dumps(
+                    train_data_list[-1], 
+                    sort_keys=False, 
+                    indent=4, 
+                    default=str, 
+                    ensure_ascii=False
+    ))
 
+    #%% ###########################################################
     trig_class = trigal.Signal_Trigger()
     train_data_list = trig_class.apply_trigger_algorithm(train_data_list)
-    
 
-    print(json.dumps(train_data_list, 
-                    sort_keys=False, indent=4, default=str, 
+    train_data_list = moddi.modifying_start_end_indexs(train_data_list)
+
+    print(json.dumps(
+                    train_data_list[0], 
+                    sort_keys=False, 
+                    indent=4, 
+                    default=str, 
                     ensure_ascii=False
-                ))
+    ))
+    print(json.dumps(
+                    train_data_list[-1], 
+                    sort_keys=False, 
+                    indent=4, 
+                    default=str, 
+                    ensure_ascii=False
+    ))
 
-    # train_data_list = signal_process_class.read_each_files_to_data(train_data_list)
-    # zeroth_none_data_list = signal_process_class.read_each_files_to_data(zeroth_none_data_list)
-    # test_data_list = signal_process_class.read_each_files_to_data(test_data_list)
+    monitoring.check_data_gap_size(train_data_list)
+    #%% ###########################################################
+
 
 
     return
