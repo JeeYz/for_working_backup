@@ -75,4 +75,24 @@ class Monitoring_Check():
 
 
 
+    def check_data_length(self, input_data_list):
+
+        for one_file in input_data_list:
+            for one_data in one_file['data']:
+                temp_length = one_data['data_length']
+                if temp_length != FULL_SIZE:
+                    try:
+                        raise Exception("데이터의 길이가 full size와 일치하지 않습니다.")
+                    except Exception as e:
+                        print(e)
+                        print("filename : {filename}, length : {length}".format(
+                            filename=one_file['filename'],
+                            length=temp_length,
+                        ))
+
+        return
+
+
+    
+
 

@@ -1,7 +1,9 @@
 import os
+from pickle import FALSE
 import sys
 from scipy.io import wavfile
 import wave
+from enum import Enum
 
 import numpy as np
 import json
@@ -32,6 +34,7 @@ GLOBAL_THRESHOLD_TEST = 1.0
 
 # boolean variables
 GEN_TRAIN_INCLUDE_NONE = False
+INCLUDE_ZEROTH_NONE =  False
 
 # variables for generating data 
 POP_DATA_NUM = 3
@@ -45,7 +48,7 @@ TAIL_SIZE = 2000
 
 NORM_STAN_PARA = 'stan'
 
-BLOCK_OF_RANDOM = 100
+BLOCK_OF_RANDOM = 400
 
 MAX_SIGNAL_VALUE = 32767.0
 MIN_SIGNAL_VALUE = -32768.0
@@ -59,6 +62,16 @@ label_dict = {
         'end' : 5,
         'none' : 0,
     }
+
+
+class Labels(Enum):
+    CAMERA = 1
+    PICTURE = 2 
+    RECORD = 3 
+    STOP = 4
+    END = 5
+    NONE = 0
+
 
 rate_list = [
                 1.10,

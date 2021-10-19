@@ -14,6 +14,7 @@ class File_Processing():
         files_list = self.except_bad_data(files_list)
         files_list = self.make_files_dictionary(files_list)
         files_list = self.detect_right_and_wrong(files_list)
+        files_list = self.detect_train_test_boolean(files_list)
 
         return files_list
 
@@ -77,6 +78,16 @@ class File_Processing():
         return result_list
 
 
+    def detect_train_test_boolean(self, files_list):
+
+        for one_file in files_list:
+            filename = one_file['filename']
+            if 'test' in filename:
+                one_file['train'] = False
+            else:
+                one_file['train'] = True
+
+        return files_list
     
 
 

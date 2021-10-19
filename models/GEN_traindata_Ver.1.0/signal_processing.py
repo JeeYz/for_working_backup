@@ -87,17 +87,6 @@ class Signal_Processing():
         return files_list
 
 
-    def cut_signal(self, files_list):
-
-        for one_data in files_list:
-            if one_data['data'] is not []:
-                for i, one in enumerate(one_data['data']):
-                    tmp_data = copy.deepcopy(one)
-                    # trigger input -> module -> output
-                    
-
-        return files_list
-
 
 
     
