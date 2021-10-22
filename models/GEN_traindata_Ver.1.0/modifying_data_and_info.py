@@ -24,6 +24,15 @@ def modifying_start_end_indexs(input_full_data_list):
     return input_full_data_list
 
 
+def fit_full_size_data(input_data):
+
+    gap_size = FULL_SIZE - len(input_data)
+    fit_padding = np.zeros(gap_size, dtype=TRAIN_DATA_TYPE)
+    result_data = np.append(input_data, fit_padding)
+
+    return result_data
+
+
 
 
 

@@ -67,21 +67,21 @@ label_dict = {
 
 #%%
 def main():
-    gen_data = control_gen_data()
-    gen_data.generate_data()
-    gen_data.generate_test_data()
+    # gen_data = control_gen_data()
+    # gen_data.generate_data()
+    # gen_data.generate_test_data()
 
     monitor_class = monitoring_train_data()
     # monitor_class.length_monitoring_wav_file("D:\\voice_data_backup\\PNC_DB_ALL")
     # monitor_class.check_data_with_plt_for_npz('D:\\GEN_train_data_Ver.1.0_test_.npz')
     # monitor_class.check_data_with_plt_for_npz_1('D:\\test_data_20000_.npz')
     
-    # monitor_class.check_data_with_plt_for_npz(
-    #                                             'D:\\GEN_train_data_Ver.1.0.npz',
-    #                                             # 'D:\\GEN_train_data_Ver.1.0_test_.npz',
-    #                                             num_view_data = 30,
-    #                                             view_command_label = 5,
-    #                                         )
+    monitor_class.check_data_with_plt_for_npz( 
+                                                'D:\\GEN_train_data_Ver.1.0.npz',
+                                                # 'D:\\GEN_train_data_Ver.1.0_test_.npz',
+                                                num_view_data = 30,
+                                                view_command_label = 5,
+                                            )
 
     # monitor_class.check_data_with_plt_for_npz_1('D:\\train_data_middle_20000_random_5_.npz',
     #                                             num_view_data = 20,

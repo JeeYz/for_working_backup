@@ -23,6 +23,7 @@ def write_numpy(data_list):
         if one_data['kind'] is 'train':
             np.savez(
                 numpy_traindata_files_path,
+                # numpy_traindata_files_path_zero,
                 data=one_data['data'],
                 label=one_data['label'],
             )
