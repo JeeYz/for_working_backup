@@ -30,19 +30,34 @@ def refine_loaded_data(whole_json_data):
                     target_key = one_key
             
                     data_dict_list = one_result[target_key]['data']
-                    result_list = gen_label_data(
+                    gen_label_data(
                         data_dict_list, 
                         one_result['dataID']
                     )
 
-                    temp_list.extend(result_list) 
 
-    return temp_list
+def find_files_path(input_filename):
+    return_filename = None
+    for (path, dir, files) in os.walk(CWdata_path):
+        for filename in files:
+            if input_filename==filename: 
+                temp = path+"\\"+filename
+                return_filename = temp
+                break
+    
+    try:
+        if os.path.isfile(temp):
+            pass
+        else:
+            raise Exception("현재 찾은 파일이 존재하지 않습니다.")
+    except Exception as e:
+        print(e)
+        
+    return return_filename 
 
 
 def gen_label_data(data_dict_list, speaker_name):
     result_list = list()
-    find_class = FindFilePath()
 
     for one_list in data_dict_list:
         data_dict = one_list['value']
@@ -54,63 +69,45 @@ def gen_label_data(data_dict_list, speaker_name):
             non_cmd_flag = False
 
         for i, one_filename in enumerate(data_dict):
-            temp_dict = dict()
-            temp = one_filename['file_name']
-            temp_dict['speaker'] = speaker_name
-            temp_dict['filename'] = temp
+            # temp_dict = GLOBAL_CW_TRAINDATA.set_whole_data_dict()
+            # temp = one_filename['file_name']
+            # temp_dict['speaker'] = speaker_name
+            # temp_dict['filename'] = temp
+
+            # if non_cmd_flag is True:
+            #     temp_dict['file_label'] = 0
+            # else:
+            #     temp_dict['file_label'] = gl_class.get_label(i)
+
+            # return_dict = find_files_path(temp_dict) 
+            # GLOBAL_CW_TRAINDATA.set_whole_data_list(return_dict)
+            # result_list.append(return_dict)
+
+            # 위 아래 비교
+
+            temp_filename = one_filename['file_name']
 
             if non_cmd_flag is True:
-                temp_dict['label'] = 0
+                temp_file_label = 0
             else:
-                temp_dict['label'] = gl_class.get_label(i)
+                temp_file_label = gl_class.get_label(i)
 
-            return_dict = find_class.get_filepath(temp_dict) 
-            result_list.append(return_dict)
+            return_filename = find_files_path(temp_filename) 
+
+            try:
+                return_dict = GLOBAL_CW_TRAINDATA.set_whole_data_dict(
+                    speaker=speaker_name,
+                    filename=return_filename,
+                    file_label=temp_file_label,
+                )
+            except TypeError as te:
+                print(te)
+                print("다음 for문으로 넘어 갑니다.")
+                continue
+
+            GLOBAL_CW_TRAINDATA.set_whole_data_list(return_dict)
         
-        print(i+1)
-
-    return result_list 
-
-
-class FindFilePath():
-    def __init__(self):
-        self.__data_path = CWdata_path
-        self.__cmd_files_path = self.set_cmd_path()
-        self.__nonecmd_files_path = self.set_nonecmd_path()
-
-    def get_filepath(self, one_data_dict):
-        temp_filename = one_data_dict['filename']
-
-        if one_data_dict['label'] is 0:
-            temp = self.__nonecmd_files_path+'\\'+temp_filename
-            one_data_dict['filename'] = temp
-        else:
-            temp = self.__cmd_files_path+'\\'+temp_filename
-            one_data_dict['filename'] = temp
-
-        return one_data_dict
-
-    def set_cmd_path(self):
-        for (path, dir, files) in os.walk(self.__data_path):
-            temp = path.split('\\')[-1]
-            if temp == 'cmd':
-                return path
-        try:
-            raise Exception("cmd 폴더 명이 존재하지 않습니다.")
-        except Exception as e:
-            print(e)
-            return None
-
-    def set_nonecmd_path(self):
-        for (path, dir, files) in os.walk(self.__data_path):
-            temp = path.split('\\')[-1]
-            if temp == 'noncmd':
-                return path
-        try:
-            raise Exception("noncmd 폴더 명이 존재하지 않습니다.")
-        except Exception as e:
-            print(e)
-            return None
+        print(i+1, end=' ')
 
 
 class GenLabels():
@@ -148,13 +145,7 @@ class GenLabels():
 
 def json_read_main():
     result = CW_load_json_files()
-    result_list = refine_loaded_data(result)
-    for r in result_list:
-        print(r)
-
-    print(len(result_list))
-
-    return
+    refine_loaded_data(result)
 
 
 

@@ -22,8 +22,9 @@ def write_numpy(data_list):
 
         if one_data['kind'] is 'train':
             np.savez(
-                numpy_traindata_files_path,
+                # numpy_traindata_files_path,
                 # numpy_traindata_files_path_zero,
+                numpy_traindata_file_CWdata, 
                 data=one_data['data'],
                 label=one_data['label'],
             )
@@ -49,16 +50,16 @@ def refine_data(data_list):
     test_dict['label'] = list()
     test_dict['kind'] = 'test'
 
-    for one_list in data_list:
-        for one_file in one_list:
-            for one_data in one_file['data']:
-                temp_label = label_dict[one_data['label']]
-                if one_file['train'] is True:
-                    train_dict['data'].append(one_data['data'])
-                    train_dict['label'].append(temp_label)
-                else:
-                    test_dict['data'].append(one_data['data'])
-                    test_dict['label'].append(temp_label)
+    for one_file in data_list:
+        # for one_file in one_list:
+        for one_data in one_file['data']:
+            temp_label = one_data['label']
+            if one_file['train'] is True:
+                train_dict['data'].append(one_data['data'])
+                train_dict['label'].append(temp_label)
+            else:
+                test_dict['data'].append(one_data['data'])
+                test_dict['label'].append(temp_label)
 
     return [train_dict, test_dict]
 

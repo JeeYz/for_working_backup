@@ -3,7 +3,7 @@
 from global_variables import *
 import modifying_data_and_info as moddata
 
-def check_number_of_labels(self, files_list):
+def check_number_of_labels(files_list):
 
     temp_list = list()
     for one_file in files_list:
@@ -28,7 +28,7 @@ def check_number_of_labels(self, files_list):
     return
 
 
-def check_data_gap_size(self, input_data_list):
+def check_data_gap_size(input_data_list):
 
     under_full_size_num  = 0
     over_full_size_num = 0
@@ -70,7 +70,7 @@ def check_data_gap_size(self, input_data_list):
 
 
 
-def check_data_length(self, input_data_list):
+def check_data_length(input_data_list):
 
     for one_file in input_data_list:
         for one_data in one_file['data']:
@@ -146,9 +146,11 @@ def draw_multi_graphes(input_data_list):
     for i, ax in enumerate(axs.flat):
         # print(input_data_list[i])
         if input_data_list[i][0] is None:
+        # if input_data_list[i] is None:
             break
         x = np.linspace(0, FULL_SIZE, num=FULL_SIZE)
-        y = input_data_list[i][0]
+        # y = input_data_list[i][0]
+        y = input_data_list[i]
         ax.plot(x, y)
         ax.set_title(input_data_list[i][1])
         ax.grid()

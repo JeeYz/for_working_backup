@@ -14,9 +14,11 @@ import scipy.signal as sps
 import time
 import copy
 import matplotlib.pyplot as plt
+from CW_class_data import TrainData
 
 # full size
-FULL_SIZE = 20000
+# FULL_SIZE = 20000
+FULL_SIZE = 40000
 
 # train data types
 TRAIN_DATA_TYPE = np.float32
@@ -96,12 +98,16 @@ CWdata_path = 'D:\\voice_data_backup\\CW_voice_data'
 
 
 # check traindata variables
-NUMBER_OF_GRAPH = 30
+NUMBER_OF_GRAPH = 20
 
 
 
 # Stereo 24bit 48,000Hz
 LABEL_BLOCK_SIZE = 5
+TARGET_SAMPLE_RATE = 16000
+RESOURCE_SAMPLE_RATE = 48000
+RESOURCE_SECS = 4
+RESOURCE_FULL_SIZE = RESOURCE_SAMPLE_RATE*RESOURCE_SECS
 
 class LabelsKorEng(Enum):
     # from 1 <- 요 순서대로 정렬되어 있음
@@ -138,7 +144,8 @@ class LabelsKorEng(Enum):
     ACCEPT=auto()               # 수락
     REJECT=auto()               # 거절
 
-
+# declare global class
+GLOBAL_CW_TRAINDATA = TrainData()
 
 
 
