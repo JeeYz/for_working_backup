@@ -36,7 +36,7 @@ def check_data_gap_size(input_data_list):
     print_result_list = list()
 
     for one_file in input_data_list:
-        for one_data in one_file['data']:
+        for one_data in one_file['file_data']:
             if one_data['gap_start_end'] <= FULL_SIZE:
                 under_full_size_num += 1
             else:
@@ -73,7 +73,7 @@ def check_data_gap_size(input_data_list):
 def check_data_length(input_data_list):
 
     for one_file in input_data_list:
-        for one_data in one_file['data']:
+        for one_data in one_file['file_data']:
             temp_length = one_data['data_length']
             if temp_length != FULL_SIZE:
                 try:

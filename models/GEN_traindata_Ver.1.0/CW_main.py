@@ -2,16 +2,6 @@
 from json import decoder
 from scipy import signal
 from global_variables import *
-import file_processing as fpro
-import signal_processing as spro
-import test_and_check as tcheck
-import augment_processing as augp
-import trigger_algorithm as trigal
-import modifying_data_and_info as moddi
-import none_aug_processing as nonepro
-import gen_data_files as gendata
-import CW_json_files_decoder as decoder
-import CW_signal_processing as cwsig
 
 
 def print_json_dump(target_dict):
@@ -29,32 +19,50 @@ def print_json_dump(target_dict):
 def main():
     #%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     decoder.json_read_main()
-
-    # print volume of data
-    # GLOBAL_CW_TRAINDATA.print_whole_train_data_info()
     GLOBAL_CW_TRAINDATA.print_whole_data_length()
 
     #%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-    cw_traindata_list = cwsig.receive_files_list()
-    print_json_dump(cw_traindata_list)
+    whole_data_list = GLOBAL_CW_TRAINDATA.get_whole_data_list()
+    cwsig.receive_files_list(whole_data_list )
 
-    raise Exception("프로그램을 종료합니다.")
+    GLOBAL_CW_TRAINDATA.print_whole_data_length()
 
     #%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-    cw_traindata_list = trigal.apply_trigger_algorithm(cw_traindata_list)
-    cw_traindata_list = moddi.modifying_start_end_indexs(cw_traindata_list)
+    whole_data_list = GLOBAL_CW_TRAINDATA.get_whole_data_list()
+    train_bool = GLOBAL_CW_TRAINDATA.get_traindata()['kind_of_data']
+    trigal.apply_trigger_algorithm(whole_data_list, train_bool)
+    GLOBAL_CW_TRAINDATA.print_whole_train_data_info()
+    GLOBAL_CW_TRAINDATA.print_whole_data_length()
 
-    print_json_dump(cw_traindata_list)
+    # temp = input("stop at check point...")
 
-    tcheck.check_data_gap_size(cw_traindata_list)
+    whole_data_list = GLOBAL_CW_TRAINDATA.get_whole_data_list()
+    moddi.modifying_start_end_indexs(whole_data_list)
+    GLOBAL_CW_TRAINDATA.print_whole_train_data_info()
+    GLOBAL_CW_TRAINDATA.print_whole_data_length()
+
+    whole_data_list = GLOBAL_CW_TRAINDATA.get_whole_data_list()
+    tcheck.check_data_gap_size(whole_data_list)
     
     #%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-    cw_traindata_list = augp.aug_position_process(cw_traindata_list) 
-    print_json_dump(cw_traindata_list)
+    whole_data_list = GLOBAL_CW_TRAINDATA.get_whole_data_list()
+
+    if AUGMENT_FLAG is 0:
+        moddi.make_fit_full_size_data(whole_data_list)
+        GLOBAL_CW_TRAINDATA.print_whole_train_data_info()
+        GLOBAL_CW_TRAINDATA.print_whole_data_length()
+    elif AUGMENT_FLAG is 1:
+        augp.aug_position_process(whole_data_list) 
+        GLOBAL_CW_TRAINDATA.print_whole_train_data_info()
+        GLOBAL_CW_TRAINDATA.print_whole_data_length()
+    elif AUGMENT_FLAG is 2:
+        augp.random_position_process(whole_data_list) 
+        GLOBAL_CW_TRAINDATA.print_whole_train_data_info()
+        GLOBAL_CW_TRAINDATA.print_whole_data_length()
+
+    tcheck.check_data_length(whole_data_list)
     
-    tcheck.check_data_length(cw_traindata_list)
-    
-    gendata.write_numpy(cw_traindata_list)
+    GLOBAL_CW_TRAINDATA.generate_numpy_file()
 
     return
     

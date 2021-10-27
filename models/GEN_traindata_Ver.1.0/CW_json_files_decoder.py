@@ -107,7 +107,6 @@ def gen_label_data(data_dict_list, speaker_name):
 
             GLOBAL_CW_TRAINDATA.set_whole_data_list(return_dict)
         
-        print(i+1, end=' ')
 
 
 class GenLabels():

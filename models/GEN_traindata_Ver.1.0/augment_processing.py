@@ -21,122 +21,142 @@ def add_zero_padding_back(input_data):
     return result_data
 
 
+def set_initial_dict(init_dict):
+    
+    init_data = init_dict['data']
+    temp_start = init_dict['start_index']
+    
+    temp_end_of_data = temp_start+FULL_SIZE
+
+    cond = len(init_data) < temp_end_of_data
+    if cond:
+        temp_data = add_zero_padding_back(init_data[temp_start:])
+    else:
+        temp = temp_start+FULL_SIZE
+        temp_data = init_data[temp_start:temp]
+
+    if len(temp_data) != FULL_SIZE:
+        raise Exception("데이터의 길이가 정해진 길이가 아닙니다.")
+    
+    init_dict['data'] = temp_data
+    init_dict['auged_position'] = 0
+    init_dict['data_length'] = len(temp_data)
+    init_dict['auged_boolean'] = True
+
+    return
+
+
 def aug_position_process(input_files_list):
 
     for one_file in input_files_list:
-        auged_data_list = list()
-        for one_data in one_file['data']:
+        init_dict = one_file['file_data'][0]
 
-            init_start = one_data['start_index']
-            init_end = one_data['end_index']
-            init_length = one_data['data_length']
-            init_data = one_data['data']
+        init_start = init_dict['start_index']
+        init_data = init_dict['data']
 
-            for i in range(DATA_AUG_POSITION):
-                shift_value_of_start = i*BLOCK_OF_RANDOM
-                temp_start = init_start-shift_value_of_start
+        for i in range(DATA_AUG_POSITION):
+            temp_dict = GLOBAL_CW_TRAINDATA.set_file_data_dict()
 
-                temp_dict = dict()
+            shift_value_of_start = int((i+1)*BLOCK_OF_RANDOM)
+            temp_start = int(init_start-shift_value_of_start)
 
-                if temp_start < 0:
-                    break
-                
-                temp_end_of_data = temp_start+FULL_SIZE
+            if temp_start < 0:
+                break
+            
+            temp_end_of_data = temp_start+FULL_SIZE
 
-                cond = len(init_data) < temp_end_of_data
-                if cond:
-                    temp_data = add_zero_padding_back(init_data[temp_start:])
-                else:
-                    temp = temp_start+FULL_SIZE
-                    temp_data = init_data[temp_start:temp]
+            cond = len(init_data) < temp_end_of_data
+            if cond:
+                temp_data = add_zero_padding_back(init_data[temp_start:])
+            else:
+                temp = temp_start+FULL_SIZE
+                temp_data = init_data[temp_start:temp]
 
-                if len(temp_data) != FULL_SIZE:
-                    raise Exception("데이터의 길이가 정해진 길이가 아닙니다.")
+            if len(temp_data) != FULL_SIZE:
+                raise Exception("데이터의 길이가 정해진 길이가 아닙니다.")
+            
+            temp_dict['data'] = temp_data
+            temp_dict['auged_position'] = shift_value_of_start
+            temp_dict['data_length'] = len(temp_data)
+            temp_dict['auged_boolean'] = True
+            temp_dict['data_label'] = one_file['file_label']
 
-                temp_dict['data'] = temp_data
-                temp_dict['auged_condition'] = shift_value_of_start
-                temp_dict['data_length'] = len(temp_data)
-                temp_dict['label'] = one_file['label']
+            one_file['file_data'].append(temp_dict)
 
-                auged_data_list.append(temp_dict)                    
+        set_initial_dict(init_dict)
 
-        one_file['data'] = auged_data_list
-
-    return input_files_list
-    
 
 def random_position_process(input_files_list):
 
     for one_file in input_files_list:
-        auged_data_list = list()
-        for one_data in one_file['data']:
+        init_dict = one_file['file_data'][0]
 
-            init_start = one_data['start_index']
-            init_end = one_data['end_index']
-            init_data = one_data['data']
-            init_gap_size = one_data['gap_start_end']
+        init_start = init_dict['start_index']
+        init_end = init_dict['end_index']
+        init_data = init_dict['data']
+        init_gap_size = init_dict['gap_start_end']
 
-            init_random_para = FULL_SIZE-init_gap_size
-            random_para = init_random_para//BLOCK_OF_RANDOM
-                
-            random_value_list = list()
+        init_random_para = FULL_SIZE-init_gap_size
+        random_para = init_random_para//BLOCK_OF_RANDOM
+            
+        random_value_list = list()
 
-            for i in range(DATA_AUG_POSITION):
+        for i in range(DATA_AUG_POSITION):
+            temp_dict = GLOBAL_CW_TRAINDATA.set_file_data_dict()
 
-                if i == 0:
-                    random_front_value = 0
-                else:
-                    random_front_value = np.random.randint(random_para)*BLOCK_OF_RANDOM
+            if i == 0:
+                random_front_value = 0
+            else:
+                random_front_value = np.random.randint(random_para)*BLOCK_OF_RANDOM
 
-                if random_front_value in random_value_list:
-                    continue
+            if random_front_value in random_value_list:
+                continue
 
-                random_value_list.append(random_front_value)
+            random_value_list.append(random_front_value)
 
-                temp_dict = dict()
+            temp_dict = dict()
 
-                temp_start = init_start-random_front_value
-                if temp_start < 0:
-                    temp_start = 0
+            temp_start = init_start-random_front_value
+            if temp_start < 0:
+                temp_start = 0
 
-                temp_end_of_data = temp_start+FULL_SIZE
+            temp_end_of_data = temp_start+FULL_SIZE
 
-                cond = len(init_data) < temp_end_of_data
-                if cond:
-                    temp_data = add_zero_padding_back(init_data[temp_start:])
-                else:
-                    temp = temp_start+FULL_SIZE
-                    temp_data = init_data[temp_start:temp]
+            cond = len(init_data) < temp_end_of_data
+            if cond:
+                temp_data = add_zero_padding_back(init_data[temp_start:])
+            else:
+                temp = temp_start+FULL_SIZE
+                temp_data = init_data[temp_start:temp]
 
-                if len(temp_data) != FULL_SIZE:
-                    print("initial data information")
-                    print("init. start : {start}, init. end : {end}, init. data length : {len}, init. gap size : {gap}".format(
-                        start=init_start,
-                        end=init_end,
-                        len=len(init_data),
-                        gap=init_gap_size,
-                    ))
-                    print("modified data information")
-                    print("start : {start}, end : {end}, data length : {len}, gap size : {gap}, random front size : {random}".format(
-                        start=temp_start,
-                        end=temp,
-                        len=len(temp_data),
-                        gap=temp-temp_start,
-                        random=random_front_value,
-                    ))
-                    print(one_file['filename'])
-                    raise Exception("데이터의 길이가 정해진 길이가 아닙니다.")
+            if len(temp_data) != FULL_SIZE:
+                print("initial data information")
+                print("init. start : {start}, init. end : {end}, init. data length : {len}, init. gap size : {gap}".format(
+                    start=init_start,
+                    end=init_end,
+                    len=len(init_data),
+                    gap=init_gap_size,
+                ))
+                print("modified data information")
+                print("start : {start}, end : {end}, data length : {len}, gap size : {gap}, random front size : {random}".format(
+                    start=temp_start,
+                    end=temp,
+                    len=len(temp_data),
+                    gap=temp-temp_start,
+                    random=random_front_value,
+                ))
+                print(one_file['filename'])
+                raise Exception("데이터의 길이가 정해진 길이가 아닙니다.")
 
-                temp_dict['data'] = temp_data
-                temp_dict['auged_condition'] = random_front_value
-                temp_dict['data_length'] = len(temp_data)
-                temp_dict['label'] = one_file['label']
+            temp_dict['data'] = temp_data
+            temp_dict['auged_position'] = random_front_value
+            temp_dict['data_length'] = len(temp_data)
+            temp_dict['auged_boolean'] = True
+            temp_dict['label'] = one_file['file_label']
 
-                auged_data_list.append(temp_dict)                    
+            one_file['file_data'].append(temp_dict)
 
-        one_file['data'] = auged_data_list
-
-    return input_files_list
+        set_initial_dict(init_dict)
 
 
 def random_position_zero_padding(input_files_list):
@@ -229,7 +249,7 @@ def random_position_zero_padding(input_files_list):
                 temp_dict['data'] = auged_data
                 temp_dict['position_value'] = random_front_value 
                 temp_dict['data_length'] = len(auged_data)
-                temp_dict['label'] = one_file['label']
+                temp_dict['label'] = one_file['file_label']
 
                 auged_data_list.append(temp_dict)                    
 

@@ -3,19 +3,16 @@ from global_variables import *
 import test_and_check as test
 
 
-def apply_trigger_algorithm(result_list):
+def apply_trigger_algorithm(input_data_list, train_bool):
 
-    for one_file in result_list:
-        for i,one_data in enumerate(one_file['data']):
-            result_dict = signal_trigger_algorithm(one_data, one_file['train'])
-            one_file['data'][i] = result_dict
-
-    return result_list
+    for one_file in input_data_list :
+        for i,one_data in enumerate(one_file['file_data']):
+            signal_trigger_algorithm(one_data, train_bool)
 
 
-def signal_trigger_algorithm(input_data, train_flag):
+def signal_trigger_algorithm(one_file_data, train_flag):
+    input_data = one_file_data['data']
 
-    data_dict = dict()
     init_data = copy.deepcopy(input_data)
 
     mean_list = make_mean_value_list(init_data)
@@ -23,7 +20,7 @@ def signal_trigger_algorithm(input_data, train_flag):
     start_index = 'none'
     end_index = 'none'
 
-    if train_flag is True:
+    if train_flag is 'train':
         threshold_ = GLOBAL_THRESHOLD
     else:
         threshold_ = GLOBAL_THRESHOLD_TEST
@@ -45,18 +42,10 @@ def signal_trigger_algorithm(input_data, train_flag):
         print(end_index, start_index)
         test.draw_single_graph(input_data)
     
-    if train_flag is False:
-        start_index = start_index+5000
-        if start_index < 0:
-            start_index = 0
-
-    data_dict['data'] = input_data
-    data_dict['start_index'] = start_index
-    data_dict['end_index'] = end_index
-    data_dict['gap_start_end'] = end_index-start_index
-    data_dict['data_length'] = len(input_data)
-
-    return data_dict 
+    one_file_data['start_index'] = start_index
+    one_file_data['end_index'] = end_index
+    one_file_data['gap_start_end'] = end_index-start_index
+    one_file_data['data_length'] = len(input_data)
 
 
 def make_mean_value_list(input_data):
@@ -90,6 +79,44 @@ def make_mean_value_list(input_data):
         result_mean_list.append(temp_dict)
 
     return result_mean_list 
+
+
+def signal_trigger_algorithm_for_decode(one_data):
+    init_data = copy.deepcopy(one_data)
+
+    mean_list = make_mean_value_list(init_data)
+
+    start_index = 'none'
+    end_index = 'none'
+
+    if train_flag is 'train':
+        threshold_ = GLOBAL_THRESHOLD
+    else:
+        threshold_ = GLOBAL_THRESHOLD_TEST
+
+    for one_dict in mean_list:
+        if one_dict['mean_value'] > threshold_:
+            start_index = one_dict['start_index']
+            break
+        
+    for one_dict in reversed(mean_list):
+        if one_dict['mean_value'] > threshold_:
+            end_index = one_dict['start_index'] + PREPRO_FRAME_SIZE
+            break
+
+    try:
+        a = end_index-start_index
+    except TypeError as e:
+        print(e)
+        print(end_index, start_index)
+        test.draw_single_graph(input_data)
+    
+    one_file_data['start_index'] = start_index
+    one_file_data['end_index'] = end_index
+    one_file_data['gap_start_end'] = end_index-start_index
+    one_file_data['data_length'] = len(input_data)
+
+    return result
 
 
 

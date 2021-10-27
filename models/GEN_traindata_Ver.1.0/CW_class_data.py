@@ -4,7 +4,22 @@ from global_variables import *
 
 
 class TrainData():
-    def __init__(self, **kwargs):
+    def __init__(self, *args, **kwargs):
+
+        if 'numpy_path' in kwargs.keys():
+            self.numpy_filepath = kwargs['numpy_path']
+        else:
+            self.numpy_filepath = None
+
+        if 'json_path' in kwargs.keys():
+            self.json_filepath = kwargs['json_path']
+        else:
+            self.json_filepath  = None
+
+        if 'dtype' in kwargs.keys():
+            self.global_dtype = kwargs['dtype']
+        else:
+            self.global_dtype = None
 
         if "kind" in kwargs.keys():
             self.data_kind = kwargs['kind']
@@ -80,12 +95,12 @@ class TrainData():
         if 'auged_boolean' in kwargs.keys():
             temp_dict['auged_boolean'] = kwargs['auged_boolean']
         else:
-            temp_dict['auged_boolean'] = None
+            temp_dict['auged_boolean'] = False
 
         if 'data' in kwargs.keys():
-            temp_dict['auged_data'] = kwargs['data']
+            temp_dict['data'] = kwargs['data']
         else:
-            temp_dict['auged_data'] = None
+            temp_dict['data'] = None
 
 
         return temp_dict
@@ -93,6 +108,10 @@ class TrainData():
 
     def get_traindata(self):
         return self.__traindata_dict
+
+
+    def get_whole_data_list(self):
+        return self.__traindata_dict['whole_data']
 
 
     def set_traindata_class(self, input_dict):
@@ -133,4 +152,36 @@ class TrainData():
         ))
 
 
+    def generate_json_file(self):
+        with open(self.json_filepath, 'w', encoding='utf-8') as jwf:
+            json.dump(self.__traindata_dict, jwf, indent='\t')
 
+
+    def generate_numpy_file(self):
+        data_list = list()
+        label_list = list()
+
+        whole_data_list = self.__traindata_dict['whole_data']
+
+        for one_file in whole_data_list:
+            for one_data in one_file['file_data']:
+                data_list.append(one_data['data'])
+                label_list.append(one_data['data_label'])
+
+        data_list = np.asarray(data_list, dtype=self.global_dtype)
+        label_list = np.asarray(label_list, dtype=np.int8)
+
+        np.savez(
+            self.numpy_filepath, 
+            data=data_list,
+            label=label_list,
+        )
+        
+
+
+
+
+if __name__ == '__main__':
+    print(FULL_SIZE)
+    print(json_file_CWdata)
+    print(numpy_traindata_file_CWdata)

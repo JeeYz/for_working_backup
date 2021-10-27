@@ -2,19 +2,19 @@
 from global_variables import *
 import signal_processing as spro
 
-def receive_files_list(input_files_list):
+def receive_files_list(input_data_list):
     num = 0
 
-    for one_file_dict in input_files_list:
+    for one_file_dict in input_data_list :
         gen_signal_data(one_file_dict)
-        print(num, end=' ')
         num += 1
-
-    return input_files_list
+        print(num, end='\r')
 
 
 def gen_signal_data(one_file_dict):
     one_filename = one_file_dict['filename']
+
+    print_sent = str()
 
     try:
         with wave.open(one_filename, 'rb') as wf:
@@ -24,16 +24,16 @@ def gen_signal_data(one_file_dict):
         return
 
     a = wavio.read(one_filename)
-    print(a, end=' ')
+    print_sent = str(a)+' '
 
     data0 = a.data[:, 0]
     data1 = a.data[:, 1]
 
     try:
         if data0.all() == data1.all():
-            print("True", end=' ')
+            print_sent += "True "
         else:
-            print("False", end=' ')
+            print_sent += "False"
             raise Exception("양 채널의 음성 데이터가 같지 않습니다.")
     except Exception as e:
         print(e)
@@ -45,6 +45,7 @@ def gen_signal_data(one_file_dict):
         zero_pad = np.zeros(temp_gap, dtype=a.data.dtype)
         curr_data = np.append(zero_pad, curr_data)
 
+    # standardization
     curr_data = (curr_data-np.mean(curr_data))/np.std(curr_data)
     curr_data = np.array(curr_data, dtype=TRAIN_DATA_TYPE)
 
@@ -57,13 +58,16 @@ def gen_signal_data(one_file_dict):
         print(len(curr_data))
         raise Exception("길이가 다릅니다.")
     
-    one_file_dict['data'] = list()
-    one_file_dict['data'].append(curr_data)
-    one_file_dict['train'] = True
+    temp_dict = GLOBAL_CW_TRAINDATA.set_file_data_dict(
+        label=one_file_dict['file_label'],
+        length=len(curr_data),
+        data=curr_data
+    )
 
-    print(np.max(curr_data), np.min(curr_data))
+    one_file_dict['file_data'].append(temp_dict)
 
-    return one_file_dict
+    print_sent = print_sent+str(np.max(curr_data))+' '+str(np.min(curr_data))
+    print(f'{print_sent}', end='\r')
 
 
 
