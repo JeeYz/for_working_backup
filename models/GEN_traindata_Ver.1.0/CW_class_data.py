@@ -178,6 +178,26 @@ class TrainData():
         )
         
 
+class DecodingData():
+    def __init__(self):
+        # private
+        self.__target_data = list()
+        # public
+        self.condition_num = 0
+
+    def get_target_data(self):
+        return self.__target_data
+
+    def set_none_target_data(self):
+        self.__target_data = list()
+
+    def standardization_data(self):
+
+        return
+
+    def add_a_sec_condition(self):
+        self.condition_num+=1
+
 
 
 

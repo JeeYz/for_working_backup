@@ -81,29 +81,28 @@ def make_mean_value_list(input_data):
     return result_mean_list 
 
 
-def signal_trigger_algorithm_for_decode(one_data):
-    init_data = copy.deepcopy(one_data)
+def fit_fullsize(input_data, end_index):
+    temp = end_index-len(input_data)
+    tail = np.zeros(temp, dtype=TRAIN_DATA_TYPE)
+    result = np.append(input_data, tail)
+    return result
+
+
+def signal_trigger_algorithm_for_decode(input_data):
+    init_data = copy.deepcopy(input_data)
 
     mean_list = make_mean_value_list(init_data)
 
     start_index = 'none'
     end_index = 'none'
 
-    if train_flag is 'train':
-        threshold_ = GLOBAL_THRESHOLD
-    else:
-        threshold_ = GLOBAL_THRESHOLD_TEST
+    threshold_ = GLOBAL_THRESHOLD
 
     for one_dict in mean_list:
         if one_dict['mean_value'] > threshold_:
             start_index = one_dict['start_index']
             break
         
-    for one_dict in reversed(mean_list):
-        if one_dict['mean_value'] > threshold_:
-            end_index = one_dict['start_index'] + PREPRO_FRAME_SIZE
-            break
-
     try:
         a = end_index-start_index
     except TypeError as e:
@@ -111,10 +110,12 @@ def signal_trigger_algorithm_for_decode(one_data):
         print(end_index, start_index)
         test.draw_single_graph(input_data)
     
-    one_file_data['start_index'] = start_index
-    one_file_data['end_index'] = end_index
-    one_file_data['gap_start_end'] = end_index-start_index
-    one_file_data['data_length'] = len(input_data)
+    end_index = start_index+FULL_SIZE
+
+    if end_index > len(init_data):
+        init_data = fit_fullsize(init_data, end_index)
+
+    result = init_data[start_index:end_index]
 
     return result
 

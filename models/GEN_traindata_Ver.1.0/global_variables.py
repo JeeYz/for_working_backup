@@ -36,7 +36,6 @@ import CW_signal_processing as cwsig
 
 
 # full size
-# FULL_SIZE = 20000
 FULL_SIZE = 40000
 
 # train data types
@@ -74,25 +73,6 @@ BLOCK_OF_RANDOM = 500
 
 MAX_SIGNAL_VALUE = 32767.0
 MIN_SIGNAL_VALUE = -32768.0
-
-# label dictionary
-label_dict = {
-        'camera' : 1,
-        'picture' : 2,
-        'record' : 3,
-        'stop' : 4,
-        'end' : 5,
-        'none' : 0,
-    }
-
-
-class Labels(Enum):
-    CAMERA = 1
-    PICTURE = 2 
-    RECORD = 3 
-    STOP = 4
-    END = 5
-    NONE = 0
 
 
 rate_list = [
@@ -138,6 +118,14 @@ AUGMENT_FLAG = 1
 # decoder audio constants
 CHUNK_SIZE = 400
 RECORDING_TIME = 4
+PER_SEC = TARGET_SAMPLE_RATE/CHUNK_SIZE
+
+NUM_CHANNEL = 1
+
+VOICE_TRIGGER = 200
+STD_TRIGGER = 1.0
+
+CMD_LABEL_NUM = 32
 
 
 class LabelsKorEng(Enum):
