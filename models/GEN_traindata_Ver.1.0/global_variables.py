@@ -14,7 +14,7 @@ import scipy.signal as sps
 import time
 import copy
 import matplotlib.pyplot as plt
-from CW_class_data import TrainData
+from CW_class_data import TrainData, DecodingData
 
 import tensorflow as tf
 import threading
@@ -49,7 +49,7 @@ GLOBAL_THRESHOLD_RATE_TEST = 0.4
 GLOBAL_THRESHOLD_VALUE = 1000
 GLOBAL_NOISE_THRESHOLD_RATE = 0.001
 
-GLOBAL_THRESHOLD = 1.0 
+GLOBAL_THRESHOLD = 2.0 
 GLOBAL_THRESHOLD_TEST = 1.5
 
 
@@ -99,7 +99,7 @@ test_data_path = "D:\\voice_data_backup\\test"
 
 CWdata_path = 'D:\\voice_data_backup\\CW_voice_data'
 
-tflite_file = "D:\\PNC_ASR_2.4_CW_data_.tflite"
+tflite_file = "D:\\PNC_ASR_2.4_CW_model_.tflite"
 
 
 # check traindata variables
@@ -119,11 +119,13 @@ AUGMENT_FLAG = 1
 CHUNK_SIZE = 400
 RECORDING_TIME = 4
 PER_SEC = TARGET_SAMPLE_RATE/CHUNK_SIZE
+RETURN_STACK_SIZE = (TARGET_SAMPLE_RATE/CHUNK_SIZE)*(RECORDING_TIME+1)
 
 NUM_CHANNEL = 1
 
 VOICE_TRIGGER = 200
 STD_TRIGGER = 1.0
+NORM_TRIGGER = 0.3
 
 CMD_LABEL_NUM = 32
 
@@ -169,6 +171,8 @@ GLOBAL_CW_TRAINDATA = TrainData(
     json_path=json_file_CWdata,
     numpy_path=numpy_traindata_file_CWdata,
 )
+
+GLOBAL_DECODING_DATA = DecodingData()
 
 
 

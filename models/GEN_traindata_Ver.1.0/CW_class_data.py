@@ -179,11 +179,15 @@ class TrainData():
         
 
 class DecodingData():
+    global PREPRO_SHIFT_SIZE
+    global PREPRO_FRAME_SIZE
     def __init__(self):
         # private
         self.__target_data = list()
         # public
         self.condition_num = 0
+        # simple global variable
+        self.stack_data = list()
 
     def get_target_data(self):
         return self.__target_data
@@ -191,12 +195,22 @@ class DecodingData():
     def set_none_target_data(self):
         self.__target_data = list()
 
-    def standardization_data(self):
+    def set_none_stack_data(self):
+        self.stack_data = list()
 
-        return
+    def set_condition_num_zero(self):
+        self.condition_num = 0
+
+    def standardization_data(self):
+        data = self.__target_data
+        self.__target_data = (data-np.mean(data))/np.std(data)
 
     def add_a_sec_condition(self):
         self.condition_num+=1
+
+    def set_target_data(self, input_data):
+        self.__target_data = input_data
+
 
 
 

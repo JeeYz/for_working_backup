@@ -1,6 +1,8 @@
 
 from global_variables import *
 import test_and_check as test
+# from global_variables import GLOBAL_THRESHOLD
+import global_variables as gv
 
 
 def apply_trigger_algorithm(input_data_list, train_bool):
@@ -52,13 +54,16 @@ def make_mean_value_list(input_data):
     result_list = list()
 
     data_size = len(input_data)
-    range_num = data_size//PREPRO_SHIFT_SIZE
+    # range_num = data_size//200
+    range_num = data_size//gv.PREPRO_SHIFT_SIZE
 
-    result_list = [i*PREPRO_SHIFT_SIZE for i in range(range_num)]
+    # result_list = [i*200 for i in range(range_num)]
+    result_list = [i*gv.PREPRO_SHIFT_SIZE for i in range(range_num)]
 
     #%% 무한 반복 루프 제거
     while True:
-        temp = result_list[-1]+PREPRO_FRAME_SIZE
+        temp = result_list[-1]+gv.PREPRO_FRAME_SIZE
+        # temp = result_list[-1]+400
         if temp > data_size:
             result_list.pop()
         else:
@@ -69,7 +74,8 @@ def make_mean_value_list(input_data):
     for idx in result_list:
         temp_dict = dict()
 
-        temp = idx+PREPRO_FRAME_SIZE
+        temp = idx+gv.PREPRO_FRAME_SIZE
+        # temp = idx+400
         temp_data = input_data[idx:temp]    
         
         mean_value = np.mean(np.abs(temp_data))
@@ -83,12 +89,14 @@ def make_mean_value_list(input_data):
 
 def fit_fullsize(input_data, end_index):
     temp = end_index-len(input_data)
-    tail = np.zeros(temp, dtype=TRAIN_DATA_TYPE)
+    tail = np.zeros(temp, dtype=gv.TRAIN_DATA_TYPE)
+    # tail = np.zeros(temp, dtype=np.float32)
     result = np.append(input_data, tail)
     return result
 
 
 def signal_trigger_algorithm_for_decode(input_data):
+    print(gv.GLOBAL_THRESHOLD)
     init_data = copy.deepcopy(input_data)
 
     mean_list = make_mean_value_list(init_data)
@@ -96,21 +104,19 @@ def signal_trigger_algorithm_for_decode(input_data):
     start_index = 'none'
     end_index = 'none'
 
-    threshold_ = GLOBAL_THRESHOLD
+    threshold_ = gv.GLOBAL_THRESHOLD
+    # threshold_ = 3.0
 
     for one_dict in mean_list:
         if one_dict['mean_value'] > threshold_:
             start_index = one_dict['start_index']
             break
-        
-    try:
-        a = end_index-start_index
-    except TypeError as e:
-        print(e)
-        print(end_index, start_index)
-        test.draw_single_graph(input_data)
-    
-    end_index = start_index+FULL_SIZE
+
+    if start_index == 'none'  :
+        return None
+
+    end_index = start_index+gv.FULL_SIZE
+    # end_index = start_index+40000
 
     if end_index > len(init_data):
         init_data = fit_fullsize(init_data, end_index)
@@ -121,6 +127,8 @@ def signal_trigger_algorithm_for_decode(input_data):
 
 
 
-
+if __name__ == '__main__':
+    print(FULL_SIZE)
+    print(PREPRO_FRAME_SIZE)
 
 

@@ -175,7 +175,11 @@ def draw_single_graph(input_data):
 
 if __name__ == '__main__':
     print('hello, world~!!')
-    check_traindata_npz_with_plt(numpy_traindata_files_path)
+    # check_traindata_npz_with_plt(numpy_traindata_files_path)
+    temp_path = "D:\\data_log_for_graph.npz"
+    loaded_data = np.load(temp_path)
+    tempdata = loaded_data['data']
+    draw_single_graph(tempdata)
 
 
 

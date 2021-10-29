@@ -1,16 +1,13 @@
 
+from os import write
+from numpy.core.defchararray import index
+from numpy.core.fromnumeric import mean
 from global_variables import *
 
-
-stack = list()
-
-num = 0
 start_time, end_time = float(), float()
-
 pady_size = 20
 
 ## global model
-test_bool = False
 
 ## keyword global model
 command_tflite_file = tflite_file
@@ -50,46 +47,54 @@ def calculate_mean_val(input_data):
     return np.mean(np.abs(input_data))
 
 
+def write_npz(input_data):
+    temp_path = "D:\\data_log_for_graph.npz"
+    np.savez(temp_path, data=input_data)
+
+
 #%%
 def receive_data(data, stack):
 
     data = np.asarray(data, dtype=TRAIN_DATA_TYPE)
-    mean_val = calculate_mean_val(data)
     norm_data = normalization_for_block(data)
+    mean_val = calculate_mean_val(norm_data)
 
     stack.extend(data)
 
     if len(stack) > TARGET_SAMPLE_RATE*(RECORDING_TIME+1):
         del stack[0:CHUNK_SIZE]
 
-    cond1
-    if float(VOICE_TRIGGER) <= float(mean_val) or num != 0:
-        num+=1
-        temp = 
-        if num == 80:
+    num = GLOBAL_DECODING_DATA.condition_num
+    if float(NORM_TRIGGER) <= float(mean_val) or num != 0:
+        GLOBAL_DECODING_DATA.add_a_sec_condition()
+        num = GLOBAL_DECODING_DATA.condition_num
+        if num == RETURN_STACK_SIZE:
+            GLOBAL_DECODING_DATA.set_target_data(stack)
+            GLOBAL_DECODING_DATA.standardization_data()
 
-            stack = standardization_func(stack)
-            start_time = time.time()
             print(len(stack))
-
-            data = trigal.signal_trigger_algorithm_for_decode(stack)
-
+            data = GLOBAL_DECODING_DATA.get_target_data()
+            data = trigal.signal_trigger_algorithm_for_decode(data)
+            write_npz(data)
             print(len(data))
 
             test_data = np.array([data], dtype=np.float32)
 
             print(len(test_data[0]))
             decoding_command(test_data)
-            num = 0
+
+            GLOBAL_DECODING_DATA.set_condition_num_zero()  
+    
+    GLOBAL_DECODING_DATA.set_none_target_data()
+    GLOBAL_DECODING_DATA.set_none_stack_data()
         
     return
 
 
 #%%
-def send_data(chunk, stream):
-    stack = list()
+def send_data(stream, stack):
     while True:
-        data = stream.read(chunk, exception_on_overflow = False)
+        data = stream.read(CHUNK_SIZE, exception_on_overflow = False)
         data = np.frombuffer(data, 'int16')
         receive_data(data, stack)
 
@@ -101,7 +106,6 @@ def send_data(chunk, stream):
 def record_voice():
 
     sample_format = pa.paInt16
-
     p = pa.PyAudio()
 
     # recording
@@ -117,8 +121,14 @@ def record_voice():
 
     data = list()
 
-    send = threading.Thread(target=send_data, args=(CHUNK_SIZE, stream))
-    decoder = threading.Thread(target=receive_data, args=(data, stack))
+    send = threading.Thread(
+        target=send_data, 
+        args=(stream, GLOBAL_DECODING_DATA.stack_data)
+    )
+    decoder = threading.Thread(
+        target=receive_data, 
+        args=(data, GLOBAL_DECODING_DATA.stack_data)
+    )
 
     send.start()
     decoder.start()
@@ -134,7 +144,13 @@ def print_result(index_num, output_data):
 
     for i, j in enumerate(output_data[0]):
         if i == index_num:
-            print("%d : %6.2f %% <<< %s"%(i, j*100))
+            for one in LabelsKorEng:
+                if one.value == index_num:
+                    label_name = one
+                    break
+                else:
+                    label_name = "None"
+            print("%d : %6.2f %% << %d"%(i, j*100, index_num), label_name)
         else:
             print("%d : %6.2f %%"%(i, j*100))
 
