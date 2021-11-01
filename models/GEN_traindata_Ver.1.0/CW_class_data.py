@@ -37,7 +37,7 @@ class TrainData():
         return temp_dict
 
 
-    def set_whole_data_dict(self, *args, **kwargs):
+    def gen_whole_data_dict(self, *args, **kwargs):
         temp_dict = dict()
 
         if 'speaker' in kwargs.keys():
@@ -60,7 +60,7 @@ class TrainData():
         return temp_dict
 
 
-    def set_file_data_dict(self, *args, **kwargs):
+    def gen_file_data_dict(self, *args, **kwargs):
         temp_dict = dict()
         if 'label' in kwargs.keys():
             temp_dict['data_label'] = kwargs['label']

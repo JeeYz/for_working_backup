@@ -55,7 +55,7 @@ def aug_position_process(input_files_list):
         init_data = init_dict['data']
 
         for i in range(DATA_AUG_POSITION):
-            temp_dict = GLOBAL_CW_TRAINDATA.set_file_data_dict()
+            temp_dict = GLOBAL_CW_TRAINDATA.gen_file_data_dict()
 
             shift_value_of_start = int((i+1)*BLOCK_OF_RANDOM)
             temp_start = int(init_start-shift_value_of_start)
@@ -102,7 +102,7 @@ def random_position_process(input_files_list):
         random_value_list = list()
 
         for i in range(DATA_AUG_POSITION):
-            temp_dict = GLOBAL_CW_TRAINDATA.set_file_data_dict()
+            temp_dict = GLOBAL_CW_TRAINDATA.gen_file_data_dict()
 
             if i == 0:
                 random_front_value = 0

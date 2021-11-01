@@ -181,5 +181,8 @@ if __name__ == '__main__':
     tempdata = loaded_data['data']
     draw_single_graph(tempdata)
 
-
+    temp_path = "D:\\stack_log_for_graph.npz"
+    loaded_data = np.load(temp_path)
+    tempdata = loaded_data['data']
+    draw_single_graph(tempdata)
 

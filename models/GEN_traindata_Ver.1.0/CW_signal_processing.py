@@ -58,7 +58,7 @@ def gen_signal_data(one_file_dict):
         print(len(curr_data))
         raise Exception("길이가 다릅니다.")
     
-    temp_dict = GLOBAL_CW_TRAINDATA.set_file_data_dict(
+    temp_dict = GLOBAL_CW_TRAINDATA.gen_file_data_dict(
         label=one_file_dict['file_label'],
         length=len(curr_data),
         data=curr_data

@@ -96,7 +96,7 @@ def fit_fullsize(input_data, end_index):
 
 
 def signal_trigger_algorithm_for_decode(input_data):
-    print(gv.GLOBAL_THRESHOLD)
+    # print(gv.GLOBAL_THRESHOLD)
     init_data = copy.deepcopy(input_data)
 
     mean_list = make_mean_value_list(init_data)
@@ -114,6 +114,10 @@ def signal_trigger_algorithm_for_decode(input_data):
 
     if start_index == 'none'  :
         return None
+
+    start_index = start_index-gv.BUFFER_SIZE 
+    if start_index < 0:
+        start_index = 0
 
     end_index = start_index+gv.FULL_SIZE
     # end_index = start_index+40000

@@ -38,6 +38,7 @@ def return_min_max():
 def normalization_for_block(input_data):
     min_val, max_val = return_min_max()
     temp = (input_data-min_val)/(max_val-min_val)
+    temp = (temp-0.5)*2.0
     temp = np.array(temp, dtype=TRAIN_DATA_TYPE)
     return temp
 
@@ -47,17 +48,17 @@ def calculate_mean_val(input_data):
     return np.mean(np.abs(input_data))
 
 
-def write_npz(input_data):
-    temp_path = "D:\\data_log_for_graph.npz"
-    np.savez(temp_path, data=input_data)
+def write_npz(input_data, filepath):
+    np.savez(filepath, data=input_data)
 
 
 #%%
 def receive_data(data, stack):
 
     data = np.asarray(data, dtype=TRAIN_DATA_TYPE)
-    norm_data = normalization_for_block(data)
-    mean_val = calculate_mean_val(norm_data)
+    # norm_data = normalization_for_block(data)
+    # std_data = standardization_func(norm_data)
+    mean_val = calculate_mean_val(data)
 
     stack.extend(data)
 
@@ -65,17 +66,22 @@ def receive_data(data, stack):
         del stack[0:CHUNK_SIZE]
 
     num = GLOBAL_DECODING_DATA.condition_num
-    if float(NORM_TRIGGER) <= float(mean_val) or num != 0:
+    print(mean_val, '\t', len(stack))
+
+    if float(VOICE_TRIGGER) <= float(mean_val) or num != 0:
+    # if float(STD_TRIGGER) <= float(mean_val) or num != 0:
         GLOBAL_DECODING_DATA.add_a_sec_condition()
         num = GLOBAL_DECODING_DATA.condition_num
         if num == RETURN_STACK_SIZE:
+            write_npz(stack, "D:\\stack_log_for_graph.npz")
+
             GLOBAL_DECODING_DATA.set_target_data(stack)
             GLOBAL_DECODING_DATA.standardization_data()
 
             print(len(stack))
             data = GLOBAL_DECODING_DATA.get_target_data()
             data = trigal.signal_trigger_algorithm_for_decode(data)
-            write_npz(data)
+            write_npz(data, "D:\\data_log_for_graph.npz")
             print(len(data))
 
             test_data = np.array([data], dtype=np.float32)
@@ -86,7 +92,7 @@ def receive_data(data, stack):
             GLOBAL_DECODING_DATA.set_condition_num_zero()  
     
     GLOBAL_DECODING_DATA.set_none_target_data()
-    GLOBAL_DECODING_DATA.set_none_stack_data()
+    # GLOBAL_DECODING_DATA.set_none_stack_data()
         
     return
 

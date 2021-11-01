@@ -95,7 +95,7 @@ def gen_label_data(data_dict_list, speaker_name):
             return_filename = find_files_path(temp_filename) 
 
             try:
-                return_dict = GLOBAL_CW_TRAINDATA.set_whole_data_dict(
+                return_dict = GLOBAL_CW_TRAINDATA.gen_whole_data_dict(
                     speaker=speaker_name,
                     filename=return_filename,
                     file_label=temp_file_label,
