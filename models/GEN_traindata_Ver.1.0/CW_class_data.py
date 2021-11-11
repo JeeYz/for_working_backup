@@ -26,11 +26,55 @@ class TrainData():
         else:
             self.data_kind = 'train'
 
+
+        # 변수
+        self.__whole_json_files_info = self.__init_whole_json_data(CWdata_path, '.json')
+
         # 얘가 중심 변수
-        self.__traindata_dict = self.initialization()
+        self.__traindata_dict = self.__initialization()
 
 
-    def initialization(self):
+    def get_whole_json_files_info(self):
+        return self.__whole_json_files_info
+
+        
+    def __init_whole_json_data(self, target_path, target_ext):
+        temp = self.__find_target_file(target_path, target_ext)
+        temp = self.__load_json_data(temp)
+        result = self.__load_whole_json_data(temp)
+
+        return result
+
+        
+    def __load_whole_json_data(self, input_files_list):
+        result = list()
+        for one_dict in input_files_list:
+            files_list = one_dict['files']
+            for one_file in files_list:
+                loaded_data = self.__load_json_data(one_file)
+                result.append(loaded_data)
+
+        return result
+
+        
+    def __load_json_data(self, input_filepath):
+        with open(input_filepath, 'r', encoding='utf-8') as fr:
+            loaded_data = json.load(fr)
+        return loaded_data        
+
+        
+    def __find_target_file(self, target_path, target_ext):
+        for (path, dir, files) in os.walk(target_path):
+            if path == target_path:
+                for one_file in files:
+                    ext = os.path.splitext(one_file)[-1]
+                    if ext == target_ext:
+                        result = path+'\\'+one_file
+                        break
+        return result
+
+
+    def __initialization(self):
         temp_dict = dict()
         temp_dict['kind_of_data'] = self.data_kind
         temp_dict['whole_data'] = list()
@@ -102,7 +146,6 @@ class TrainData():
         else:
             temp_dict['data'] = None
 
-
         return temp_dict
 
 
@@ -126,6 +169,7 @@ class TrainData():
             self.__traindata_dict['whole_data'] = list()
             self.__traindata_dict['whole_data'].append(input_dict)
 
+
     def set_file_data_list(self, input_dict):
         try:
             temp_target = self.__traindata_dict['whole_data']
@@ -144,11 +188,11 @@ class TrainData():
 
     def print_whole_train_data_info(self):
         print(json.dumps(
-                        self.__traindata_dict,
-                        sort_keys=False, 
-                        indent=4, 
-                        default=str, 
-                        ensure_ascii=False
+            self.__traindata_dict,
+            sort_keys=False, 
+            indent=4, 
+            default=str, 
+            ensure_ascii=False
         ))
 
 
@@ -177,6 +221,8 @@ class TrainData():
             label=label_list,
         )
         
+
+
 
 class DecodingData():
     global PREPRO_SHIFT_SIZE

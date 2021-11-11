@@ -13,10 +13,9 @@ import copy
 from tensorflow.python.keras.backend import dropout
 
 
-CONVERT_TFLITE_BOOL = False
+CONVERT_TFLITE_BOOL = True
 
 RESULT_GRAPH_BOOL = True
-
 
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
@@ -29,15 +28,17 @@ os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
 # train_data_path = "D:\\train_data_middle_20000_random_6_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_7_.npz"
 # train_data_path = "D:\\train_data_middle_20000_random_8_.npz"
-train_data_path = 'D:\\GEN_train_data_Ver.1.0.npz'
+# train_data_path = 'D:\\GEN_train_data_Ver.1.0.npz'
+# train_data_path = 'D:\\GEN_train_data_Ver.1.0_zero_pad.npz'
+train_data_path = "D:\\GEN_train_data_Ver.1.0_CWdata.npz"
 
 # test_data_path = "D:\\test_data_20000_.npz"
-test_data_path = 'D:\\GEN_train_data_Ver.1.0_test_.npz'
+# test_data_path = 'D:\\GEN_train_data_Ver.1.0_test_.npz'
 
 
 #%% variables
 # 에포크 
-EPOCH_NUM = 30
+EPOCH_NUM = 50
 # CNN 초기값
 INIT_CNN_CHAN = 16
 
@@ -57,15 +58,15 @@ NORM_DENSE_NUM = 128
 # 신호 나누는 값 기준
 DIVIDE_SIZE = 4000
 DIV_SHIFT_SIZE = 2000
-FULL_SIZE = 30000
+FULL_SIZE = 40000
 
 # 모델 레이어 값
 DENSE_LAYERS_NUM = 3
 CNN_LAYERS_NUM = 7
 LSTM_LAYERS_NUM = 3
 BILSTM_LAYERS_NUM = 3
-RESNET_LAYERS_NUM = 7
-TAIL_DENSE_LAYERS_NUM = 1
+RESNET_LAYERS_NUM = 5
+TAIL_DENSE_LAYERS_NUM = 2
 
 # 전처리 부분 레이어 값
 DENSE_FEATURE_NUM = 3
@@ -75,12 +76,12 @@ RESNET_FEATURE_NUM = 4
 # 배치 사이즈
 TRAIN_BATCH_SIZE = 256
 # 레이블 개수
-NUM_LABELS = 6
+NUM_LABELS = 32
 
-RESIZE_BOOL = False
+RESIZE_BOOL = True
 
-RESIZE_X = 32
-RESIZE_Y = 32
+RESIZE_X = 64
+RESIZE_Y = 64
 
 
 
@@ -93,9 +94,9 @@ train_data_00 = loaded_data_00['data']
 train_label_00 = loaded_data_00['label']
 
 # loaded_data_01 = np.load(test_data_path, allow_pickle=True)
-loaded_data_01 = np.load(test_data_path)
-test_data_00 = loaded_data_01['data']
-test_label_00 = loaded_data_01['label']
+# loaded_data_01 = np.load(test_data_path)
+# test_data_00 = loaded_data_01['data']
+# test_label_00 = loaded_data_01['label']
 
 
 
@@ -113,7 +114,8 @@ class residual_block(layers.Layer):
         x = conv2d_layer_1(input_x)
         x = layers.BatchNormalization()(x)
         # x = tf.nn.relu(x)
-        x = layers.ReLU(max_value=6)(x)
+        # x = layers.ReLU(max_value=6)(x)
+        x = tf.nn.relu6(x)
 
         x = conv2d_layer_2(x)
         x = layers.BatchNormalization()(x)
@@ -121,7 +123,8 @@ class residual_block(layers.Layer):
         y = layers.Conv2D(self.ch_size, (1, 1), padding='same')(input_x)
         x = tf.math.add(y, x)
         # x = tf.nn.relu(x)
-        x = layers.ReLU(max_value=6)(x)
+        # x = layers.ReLU(max_value=6)(x)
+        x = tf.nn.relu6(x)
 
         x = layers.Dropout(0.2)(x)
 
@@ -388,7 +391,8 @@ class preprocessing_layer(layers.Layer):
 
         if self.resize_bool == True:    
             x = preprocessing.Resizing(RESIZE_X, RESIZE_Y)(x)
-            x = layers.BatchNormalization()(x)
+            
+        x = layers.BatchNormalization()(x)
 
         return x    
     
@@ -475,8 +479,8 @@ class experiment_models(layers.Layer):
         
         # x = self.divide_function(input_x)
         # x = self.pre_proc_layer(x)
-        # 
-        # x = self.lstm_block(x)
+        # # 
+        # # x = self.lstm_block(x)
         # x = self.bilstm_block(x)
         
         
@@ -510,9 +514,9 @@ def generate_train_data():
         yield (one_data, one_label)
 
 
-def generate_test_data():
-    for one_data, one_label in zip(test_data_00, test_label_00):
-        yield (one_data, one_label)
+# def generate_test_data():
+#     for one_data, one_label in zip(test_data_00, test_label_00):
+#         yield (one_data, one_label)
     
     # yield (train_data_00, train_label_00)
 
@@ -533,14 +537,14 @@ train_dataset = train_dataset.with_options(options)
 # train_dataset = train_dataset.cache()
 
 #%%
-test_dataset = tf.data.Dataset.from_generator(generate_test_data, 
-# output_types=(tf.float32, tf.int32),
-output_signature=(
-                    tf.TensorSpec(shape=(None,), dtype=tf.float32),
-                    tf.TensorSpec(shape=(), dtype=tf.int32)
-)).shuffle(5000).batch(16)
-# args=(test_data_path))
-test_dataset = test_dataset.with_options(options)
+# test_dataset = tf.data.Dataset.from_generator(generate_test_data, 
+# # output_types=(tf.float32, tf.int32),
+# output_signature=(
+#                     tf.TensorSpec(shape=(None,), dtype=tf.float32),
+#                     tf.TensorSpec(shape=(), dtype=tf.int32)
+# )).shuffle(5000).batch(16)
+# # args=(test_data_path))
+# test_dataset = test_dataset.with_options(options)
 
 # test_dataset = train_dataset.cache()
 
@@ -584,186 +588,187 @@ model_class_weights = {
                            }
 
 history = model.fit(train_dataset, epochs=EPOCH_NUM,
+                    # validation_split=0.1,
                     # class_weight=model_class_weights,
                     )
 
 #%%
-eval_loss, eval_acc = model.evaluate(test_dataset)
+# eval_loss, eval_acc = model.evaluate(test_dataset)
 
-print('\n\n')
-print("loss : {}, accuracy : {}".format(eval_loss, eval_acc))
-print('\n\n')
+# print('\n\n')
+# print("loss : {}, accuracy : {}".format(eval_loss, eval_acc))
+# print('\n\n')
 
 
 
 #%%
-result_of_predict = model.predict(test_data_00)
-result_arg = tf.math.argmax(result_of_predict, 1).numpy()
+# result_of_predict = model.predict(test_data_00)
+# result_arg = tf.math.argmax(result_of_predict, 1).numpy()
 
-result_of_predict_train_data = model.predict(train_data_00)
-result_arg_train_data = tf.math.argmax(result_of_predict_train_data, 1).numpy()
+# result_of_predict_train_data = model.predict(train_data_00)
+# result_arg_train_data = tf.math.argmax(result_of_predict_train_data, 1).numpy()
 
 
 
 
 #%% F1 Score 계산하기
-labels_num = NUM_LABELS
+# labels_num = NUM_LABELS
 
-confusion_matrix = np.zeros((labels_num, labels_num), dtype=np.int16)
+# confusion_matrix = np.zeros((labels_num, labels_num), dtype=np.int16)
 
-length_of_true_ans = len(test_label_00)
+# length_of_true_ans = len(test_label_00)
 
-for i in range(length_of_true_ans):
-    x_axis = int(test_label_00[i])
-    y_axis = int(result_arg[i])
-    confusion_matrix[x_axis, y_axis]+=1
+# for i in range(length_of_true_ans):
+#     x_axis = int(test_label_00[i])
+#     y_axis = int(result_arg[i])
+#     confusion_matrix[x_axis, y_axis]+=1
 
-
-print('\n')
-print(confusion_matrix)
-print('\n')
-
-sum_ax_0 = np.sum(confusion_matrix, axis=0)
-sum_ax_1 = np.sum(confusion_matrix, axis=1)
-
-print('\n')
-print(sum_ax_0)
-print(sum_ax_1)
-print('\n')
-
-precisions = list()
-recalls = list()
-
-for i in range(labels_num):
-
-    if sum_ax_0[i] != 0:
-        temp_val = confusion_matrix[i][i]/sum_ax_0[i]
-        precisions.append(temp_val)
-    else:
-        precisions.append(0.0)
-
-    if sum_ax_1[i] != 0:
-        temp_val = confusion_matrix[i][i]/sum_ax_1[i]
-        recalls.append(temp_val)
-    else:
-        precisions.append(0.0)
-
-f_result = open("D:\\result_acc.txt", "a")
-
-print('\n')
-f_result.write("\n\n")
-for i in range(labels_num):
-    f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
-    print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
-    f_result.write("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
-    f_result.write("\n")
-
-print('\n')
-f_result.write("\n")
-
-temp_sum = 0
-for i in range(labels_num):
-    temp_sum+=confusion_matrix[i][i]
-
-total_acc = temp_sum/np.sum(sum_ax_0)
-total_acc_1 = temp_sum/len(test_label_00)
-
-print("number of test data : {a}".format(a=len(test_label_00)))
-f_result.write("number of test data : {a}".format(a=len(test_label_00)))
-f_result.write("\n")
-print("sum of right answers : {b}".format(b=temp_sum))
-f_result.write("sum of right answers : {b}".format(b=temp_sum))
-f_result.write("\n")
-print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
-f_result.write("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
-f_result.write("\n")
-print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
-f_result.write("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
-f_result.write("\n")
-print("accuracy : {}".format(total_acc))
-f_result.write("accuracy : {}".format(total_acc))
-f_result.write("\n")
-print("accuracy 1 : {}".format(total_acc_1))
-f_result.write("accuracy 1 : {}".format(total_acc_1))
-f_result.write("\n")
-
-f_result.close()
-
-
-
-
-#%% 훈련 데이터 테스트 F1 Score 계산하기
-labels_num = NUM_LABELS
-
-confusion_matrix = np.zeros((labels_num, labels_num), dtype=np.int64)
 
 # print('\n')
 # print(confusion_matrix)
 # print('\n')
 
-length_of_true_ans = len(train_data_00)
+# sum_ax_0 = np.sum(confusion_matrix, axis=0)
+# sum_ax_1 = np.sum(confusion_matrix, axis=1)
 
-for i in range(length_of_true_ans):
-    x_axis = int(train_label_00[i])
-    y_axis = int(result_arg_train_data[i])
-    confusion_matrix[x_axis, y_axis]+=1
+# print('\n')
+# print(sum_ax_0)
+# print(sum_ax_1)
+# print('\n')
+
+# precisions = list()
+# recalls = list()
+
+# for i in range(labels_num):
+
+#     if sum_ax_0[i] != 0:
+#         temp_val = confusion_matrix[i][i]/sum_ax_0[i]
+#         precisions.append(temp_val)
+#     else:
+#         precisions.append(0.0)
+
+#     if sum_ax_1[i] != 0:
+#         temp_val = confusion_matrix[i][i]/sum_ax_1[i]
+#         recalls.append(temp_val)
+#     else:
+#         precisions.append(0.0)
+
+# f_result = open("D:\\result_acc.txt", "a")
+
+# print('\n')
+# f_result.write("\n\n")
+# for i in range(labels_num):
+#     f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
+#     print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
+#     f_result.write("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
+#     f_result.write("\n")
+
+# print('\n')
+# f_result.write("\n")
+
+# temp_sum = 0
+# for i in range(labels_num):
+#     temp_sum+=confusion_matrix[i][i]
+
+# total_acc = temp_sum/np.sum(sum_ax_0)
+# total_acc_1 = temp_sum/len(test_label_00)
+
+# print("number of test data : {a}".format(a=len(test_label_00)))
+# f_result.write("number of test data : {a}".format(a=len(test_label_00)))
+# f_result.write("\n")
+# print("sum of right answers : {b}".format(b=temp_sum))
+# f_result.write("sum of right answers : {b}".format(b=temp_sum))
+# f_result.write("\n")
+# print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
+# f_result.write("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
+# f_result.write("\n")
+# print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
+# f_result.write("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
+# f_result.write("\n")
+# print("accuracy : {}".format(total_acc))
+# f_result.write("accuracy : {}".format(total_acc))
+# f_result.write("\n")
+# print("accuracy 1 : {}".format(total_acc_1))
+# f_result.write("accuracy 1 : {}".format(total_acc_1))
+# f_result.write("\n")
+
+# f_result.close()
 
 
-print('\n')
-print(confusion_matrix)
-print('\n')
 
-sum_ax_0 = np.sum(confusion_matrix, axis=0)
-sum_ax_1 = np.sum(confusion_matrix, axis=1)
 
-print('\n')
-print(sum_ax_0)
-print(sum_ax_1)
-print('\n')
+#%% 훈련 데이터 테스트 F1 Score 계산하기
+# labels_num = NUM_LABELS
 
-precisions = list()
-recalls = list()
+# confusion_matrix = np.zeros((labels_num, labels_num), dtype=np.int64)
 
-for i in range(labels_num):
+# # print('\n')
+# # print(confusion_matrix)
+# # print('\n')
 
-    if sum_ax_0[i] != 0:
-        temp_val = confusion_matrix[i][i]/sum_ax_0[i]
-        precisions.append(temp_val)
-    else:
-        precisions.append(0.0)
+# length_of_true_ans = len(train_data_00)
 
-    if sum_ax_1[i] != 0:
-        temp_val = confusion_matrix[i][i]/sum_ax_1[i]
-        recalls.append(temp_val)
-    else:
-        precisions.append(0.0)
+# for i in range(length_of_true_ans):
+#     x_axis = int(train_label_00[i])
+#     y_axis = int(result_arg_train_data[i])
+#     confusion_matrix[x_axis, y_axis]+=1
 
-print('\n')
 
-for i in range(labels_num):
-    f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
-    print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
+# print('\n')
+# print(confusion_matrix)
+# print('\n')
+
+# sum_ax_0 = np.sum(confusion_matrix, axis=0)
+# sum_ax_1 = np.sum(confusion_matrix, axis=1)
+
+# print('\n')
+# print(sum_ax_0)
+# print(sum_ax_1)
+# print('\n')
+
+# precisions = list()
+# recalls = list()
+
+# for i in range(labels_num):
+
+#     if sum_ax_0[i] != 0:
+#         temp_val = confusion_matrix[i][i]/sum_ax_0[i]
+#         precisions.append(temp_val)
+#     else:
+#         precisions.append(0.0)
+
+#     if sum_ax_1[i] != 0:
+#         temp_val = confusion_matrix[i][i]/sum_ax_1[i]
+#         recalls.append(temp_val)
+#     else:
+#         precisions.append(0.0)
+
+# print('\n')
+
+# for i in range(labels_num):
+#     f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
+#     print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
     
-print("\n\n")
+# print("\n\n")
     
-temp_sum = 0
-for i in range(labels_num):
-    temp_sum+=confusion_matrix[i][i]
+# temp_sum = 0
+# for i in range(labels_num):
+#     temp_sum+=confusion_matrix[i][i]
 
-total_acc = temp_sum/np.sum(sum_ax_0)
-total_acc_1 = temp_sum/len(train_label_00)
+# total_acc = temp_sum/np.sum(sum_ax_0)
+# total_acc_1 = temp_sum/len(train_label_00)
 
-print("number of test data : {a}".format(a=len(train_label_00)))
+# print("number of test data : {a}".format(a=len(train_label_00)))
 
-print("sum of right answers : {b}".format(b=temp_sum))
+# print("sum of right answers : {b}".format(b=temp_sum))
 
-print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
+# print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
 
-print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
+# print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
 
-print("accuracy : {}".format(total_acc))
+# print("accuracy : {}".format(total_acc))
 
-print("accuracy 1 : {}".format(total_acc_1))
+# print("accuracy 1 : {}".format(total_acc_1))
 
 
 
@@ -775,7 +780,7 @@ print("accuracy 1 : {}".format(total_acc_1))
 
 if CONVERT_TFLITE_BOOL == True:
     # file_path = "D:\\test_tflite_file_0_.tflite"
-    file_path = "D:\\PNC_ASR_2.3_GEN_train_data_1.0_.tflite"
+    file_path = "D:\\PNC_ASR_2.4_CW_model_.tflite"
     
     converter = tf.lite.TFLiteConverter.from_keras_model(model)
     converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS,

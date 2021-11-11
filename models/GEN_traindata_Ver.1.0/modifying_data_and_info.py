@@ -1,18 +1,19 @@
 
 from global_variables import *
+import global_variables as gv
 
 
 def modifying_start_end_indexs(input_data_list):
     for one_file in input_data_list :
         for i, one_data in enumerate(one_file['file_data']):
-            temp_start = one_data['start_index']-HEAD_SIZE
-            temp_end = one_data['end_index']+TAIL_SIZE
+            temp_start = one_data['start_index']-gv.HEAD_SIZE
+            temp_end = one_data['end_index']+gv.TAIL_SIZE
 
             if temp_start < 0:
                 temp_start = 0
             
-            if temp_end > FULL_SIZE:
-                temp_end = FULL_SIZE
+            if temp_end > gv.FULL_SIZE:
+                temp_end = gv.FULL_SIZE
             
             one_data['start_index'] = temp_start
             one_data['end_index'] = temp_end
@@ -22,8 +23,8 @@ def modifying_start_end_indexs(input_data_list):
 
 def fit_full_size_data(input_data):
 
-    gap_size = FULL_SIZE - len(input_data)
-    fit_padding = np.zeros(gap_size, dtype=TRAIN_DATA_TYPE)
+    gap_size = gv.FULL_SIZE - len(input_data)
+    fit_padding = np.zeros(gap_size, dtype=gv.TRAIN_DATA_TYPE)
     result_data = np.append(input_data, fit_padding)
 
     return result_data
@@ -37,9 +38,9 @@ def make_fit_full_size_data_mid(input_data_list):
             init_end = one_data['end_index']
             mid_val = (init_start+init_end)//2
 
-            half_full_size = FULL_SIZE//2
+            half_full_size = gv.FULL_SIZE//2
 
-            head_zeros = np.zeros(half_full_size, dtype=TRAIN_DATA_TYPE)
+            head_zeros = np.zeros(half_full_size, dtype=gv.TRAIN_DATA_TYPE)
 
             new_data = np.append(head_zeros, init_data)
             new_data = np.append(new_data, head_zeros)
@@ -65,17 +66,17 @@ def make_fit_full_size_data(input_data_list):
             init_start = one_data['start_index']
             init_end = one_data['end_index']
 
-            half_full_size = FULL_SIZE//2
-            tail_zeros = np.zeros(half_full_size, dtype=TRAIN_DATA_TYPE)
+            half_full_size = gv.FULL_SIZE//2
+            tail_zeros = np.zeros(half_full_size, dtype=gv.TRAIN_DATA_TYPE)
 
             new_data = np.append(init_data, tail_zeros)
 
-            new_start = init_start-BUFFER_SIZE
+            new_start = init_start-gv.BUFFER_SIZE
 
             if new_start < 0:
                 new_start=0
             
-            new_end = new_start+FULL_SIZE
+            new_end = new_start+gv.FULL_SIZE
 
             new_data = new_data[new_start:new_end]
 

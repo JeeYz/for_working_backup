@@ -2,6 +2,9 @@
 
 from global_variables import *
 import modifying_data_and_info as moddata
+import global_variables as gv
+import random
+
 
 def check_number_of_labels(files_list):
 
@@ -37,7 +40,7 @@ def check_data_gap_size(input_data_list):
 
     for one_file in input_data_list:
         for one_data in one_file['file_data']:
-            if one_data['gap_start_end'] <= FULL_SIZE:
+            if one_data['gap_start_end'] <= gv.FULL_SIZE:
                 under_full_size_num += 1
             else:
                 over_full_size_num += 1
@@ -75,7 +78,7 @@ def check_data_length(input_data_list):
     for one_file in input_data_list:
         for one_data in one_file['file_data']:
             temp_length = one_data['data_length']
-            if temp_length != FULL_SIZE:
+            if temp_length != gv.FULL_SIZE:
                 try:
                     raise Exception("데이터의 길이가 full size와 일치하지 않습니다.")
                 except Exception as e:
@@ -85,7 +88,7 @@ def check_data_length(input_data_list):
                         length=temp_length,
                     ))
 
-                    if len(one_data['data']) != FULL_SIZE:
+                    if len(one_data['data']) != gv.FULL_SIZE:
                         try:
                             raise Exception("실 데이터의 길이의 오류 확인")
                         except Exception as e:
@@ -95,10 +98,10 @@ def check_data_length(input_data_list):
                             one_data['data_length'] = len(result_data)
                             print("수정 완료...")
                     else:
-                        one_data['data_length'] = FULL_SIZE
+                        one_data['data_length'] = gv.FULL_SIZE
                         print("데이터 길이 값 수정 완료...")
 
-                    if len(one_data['data']) != FULL_SIZE:
+                    if len(one_data['data']) != gv.FULL_SIZE:
                         raise Exception("오류 재확인 수정 코드를 수정 필요")
                     else:
                         print("재확인 이상 없음...")       
@@ -148,7 +151,7 @@ def draw_multi_graphes(input_data_list):
         if input_data_list[i][0] is None:
         # if input_data_list[i] is None:
             break
-        x = np.linspace(0, FULL_SIZE, num=FULL_SIZE)
+        x = np.linspace(0, gv.FULL_SIZE, num=gv.FULL_SIZE)
         # y = input_data_list[i][0]
         y = input_data_list[i]
         ax.plot(x, y)
@@ -171,6 +174,16 @@ def draw_single_graph(input_data):
     return
 
 
+def return_random(total_num, persentage_num):
+    persentage_num = persentage_num*10
+    num = random.randrange(total_num)
+    if num < persentage_num:
+        return 1
+    else:
+        return 0
+
+
+
 
 
 if __name__ == '__main__':
@@ -185,4 +198,35 @@ if __name__ == '__main__':
     loaded_data = np.load(temp_path)
     tempdata = loaded_data['data']
     draw_single_graph(tempdata)
+
+    # temp_path = "D:\\GEN_train_data_Ver.1.0_CWdata.npz"
+    # loaded_data = np.load(temp_path)
+    # tempdata = loaded_data['data']
+
+    # for one in tempdata:
+    #     draw_single_graph(one)
+
+    # temp_path = "C:\\temp"
+    # files_list = fpro.find_data_files(temp_path, ".wav")
+
+    # for i, one_filename in enumerate(files_list):
+    #     return_num = return_random(10, 0.2)
+
+    #     if return_num == 1:
+    #         try:
+    #             with wave.open(one_filename, 'rb') as wf:
+    #                 parameters = wf.getparams()
+    #         except FileNotFoundError as e:
+    #             print(e)
+
+    #         a = wavio.read(one_filename)
+
+    #         data0 = a.data[:, 0]
+    #         curr_data = data0 
+
+    #         print(i+1, one_filename, end='\r')
+    #         draw_single_graph(curr_data)
+
+
+
 

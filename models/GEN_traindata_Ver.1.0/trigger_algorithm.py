@@ -23,9 +23,9 @@ def signal_trigger_algorithm(one_file_data, train_flag):
     end_index = 'none'
 
     if train_flag is 'train':
-        threshold_ = GLOBAL_THRESHOLD
+        threshold_ = gv.GLOBAL_THRESHOLD
     else:
-        threshold_ = GLOBAL_THRESHOLD_TEST
+        threshold_ = gv.GLOBAL_THRESHOLD_TEST
 
     for one_dict in mean_list:
         if one_dict['mean_value'] > threshold_:
@@ -34,7 +34,7 @@ def signal_trigger_algorithm(one_file_data, train_flag):
         
     for one_dict in reversed(mean_list):
         if one_dict['mean_value'] > threshold_:
-            end_index = one_dict['start_index'] + PREPRO_FRAME_SIZE
+            end_index = one_dict['start_index'] + gv.PREPRO_FRAME_SIZE
             break
 
     try:

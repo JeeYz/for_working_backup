@@ -17,6 +17,7 @@ def run_processing_data( filepath):
 def find_data_files( filepath, file_ext):
 
     all_data_file = list()
+    print("This function is called for finding data files...")
 
     for (path, dir, files) in os.walk(filepath):
         for filename in files:

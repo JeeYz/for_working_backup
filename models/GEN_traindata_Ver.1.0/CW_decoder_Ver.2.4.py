@@ -62,11 +62,11 @@ def receive_data(data, stack):
 
     stack.extend(data)
 
-    if len(stack) > TARGET_SAMPLE_RATE*(RECORDING_TIME+1):
+    if len(stack) > TARGET_SAMPLE_RATE*(RECORDING_TIME+3):
         del stack[0:CHUNK_SIZE]
 
     num = GLOBAL_DECODING_DATA.condition_num
-    print(mean_val, '\t', len(stack))
+    # print(mean_val, '\t', len(stack))
 
     if float(VOICE_TRIGGER) <= float(mean_val) or num != 0:
     # if float(STD_TRIGGER) <= float(mean_val) or num != 0:
