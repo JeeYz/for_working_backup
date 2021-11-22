@@ -9,36 +9,25 @@ import seaborn as sns
 
 import os
 import copy
+import json
 
-from tensorflow.python.keras.backend import dropout
-
+from tensorflow.python.keras.backend import conv2d, dropout
 
 CONVERT_TFLITE_BOOL = True
-
 RESULT_GRAPH_BOOL = True
-
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
 
-# train_data_path = "D:\\train_data_middle_20000_random_1_.npz"
-# train_data_path = "D:\\train_data_middle_20000_random_2_.npz"
-# train_data_path = "D:\\train_data_middle_20000_random_3_.npz"
-# train_data_path = "D:\\train_data_middle_20000_random_4_.npz"
-# train_data_path = "D:\\train_data_middle_20000_random_5_.npz"
-# train_data_path = "D:\\train_data_middle_20000_random_6_.npz"
-# train_data_path = "D:\\train_data_middle_20000_random_7_.npz"
-# train_data_path = "D:\\train_data_middle_20000_random_8_.npz"
-# train_data_path = 'D:\\GEN_train_data_Ver.1.0.npz'
-# train_data_path = 'D:\\GEN_train_data_Ver.1.0_zero_pad.npz'
-train_data_path = "D:\\GEN_train_data_Ver.1.0_CWdata.npz"
+traindata_json_file = 'C:\\temp\\npz_data.json'
+# train_data_path = "D:\\GEN_train_data_Ver.1.0_CWdata.npz"
 
-# test_data_path = "D:\\test_data_20000_.npz"
-# test_data_path = 'D:\\GEN_train_data_Ver.1.0_test_.npz'
+tflite_file_path = "PNC_ASR_2.4_CW_model_.tflite"
+saved_model_file = "C:\\temp\\experiment_model_"
 
 
 #%% variables
 # 에포크 
-EPOCH_NUM = 50
+EPOCH_NUM = 10
 # CNN 초기값
 INIT_CNN_CHAN = 16
 
@@ -74,7 +63,7 @@ CONV_FEATURE_NUM = 5
 RESNET_FEATURE_NUM = 4
 
 # 배치 사이즈
-TRAIN_BATCH_SIZE = 256
+TRAIN_BATCH_SIZE = 128
 # 레이블 개수
 NUM_LABELS = 32
 
@@ -86,17 +75,20 @@ RESIZE_Y = 64
 
 
 
-
 #%%
 # loaded_data_00 = np.load(train_data_path, allow_pickle=True)
-loaded_data_00 = np.load(train_data_path)
-train_data_00 = loaded_data_00['data']
-train_label_00 = loaded_data_00['label']
+# loaded_data_00 = np.load(train_data_path)
+# train_data_00 = loaded_data_00['data']
+# train_label_00 = loaded_data_00['label']
 
 # loaded_data_01 = np.load(test_data_path, allow_pickle=True)
 # loaded_data_01 = np.load(test_data_path)
 # test_data_00 = loaded_data_01['data']
 # test_label_00 = loaded_data_01['label']
+
+with open(traindata_json_file, 'r', encoding='utf-8') as fr:
+    loaded_data = json.load(fr)
+
 
 
 
@@ -107,25 +99,32 @@ class residual_block(layers.Layer):
         super(residual_block, self).__init__()
         self.ch_size = ch
 
-    def __call__(self, input_x):
+        residual_block_layer = list()
+
         conv2d_layer_1 = layers.Conv2D(self.ch_size, (3, 3), padding='same')
         conv2d_layer_2 = layers.Conv2D(self.ch_size, (3, 3), padding='same')
 
-        x = conv2d_layer_1(input_x)
-        x = layers.BatchNormalization()(x)
-        # x = tf.nn.relu(x)
-        # x = layers.ReLU(max_value=6)(x)
-        x = tf.nn.relu6(x)
+        self.conv1 = layers.Conv2D(self.ch_size, (1, 1), padding='same')
 
-        x = conv2d_layer_2(x)
-        x = layers.BatchNormalization()(x)
+        self.res_block_layer_A = tf.keras.Sequential()
 
-        y = layers.Conv2D(self.ch_size, (1, 1), padding='same')(input_x)
+        self.res_block_layer_A.add(conv2d_layer_1)
+        self.res_block_layer_A.add(layers.BatchNormalization())
+        self.res_block_layer_A.add(tf.keras.layers.ReLU(max_value=6.0))
+
+        self.res_block_layer_A.add(conv2d_layer_2)
+        self.res_block_layer_A.add(layers.BatchNormalization())
+
+
+    def __call__(self, input_x):
+
+        # x = self.residual_block_layer(input_x)
+
+        x = self.res_block_layer_A(input_x)
+        y = self.conv1(input_x)
+
         x = tf.math.add(y, x)
-        # x = tf.nn.relu(x)
-        # x = layers.ReLU(max_value=6)(x)
         x = tf.nn.relu6(x)
-
         x = layers.Dropout(0.2)(x)
 
         return x
@@ -138,29 +137,29 @@ class residual_layers(layers.Layer):
         super(residual_layers, self).__init__()
 
         init_ch = INIT_RESNET_CH
+        # self.init_ch = INIT_RESNET_CH
         
         self.layers_list = list()
-        
-        temp_layers_list = list()
+
+        self.res_layers_list = list()
 
         for i in range(1, (num_of_layers+1)):
             temp = residual_block(init_ch*i)
-            self.layers_list.append(temp)
+            self.res_layers_list.append(temp)
+            
             temp = layers.Conv2D(init_ch*i, (3, 3), activation=None, padding='same', strides=2)
-            self.layers_list.append(temp)
-            
-        for one_layer in self.layers_list:
-            temp_layers_list.append(one_layer)
+            self.res_layers_list.append(temp)
         
-        temp_layers_list.append(layers.Flatten())
-            
-        self.resnet_blocks = tf.keras.Sequential(temp_layers_list)
+        self.res_layers_list.append(layers.Flatten())
 
 
     def __call__(self, input_x):
 
-        x = self.resnet_blocks(input_x)
+        x = input_x
 
+        for one_layer in self.res_layers_list:
+            x = one_layer(x)
+            
         return x
 
 
@@ -505,53 +504,9 @@ class experiment_models(layers.Layer):
         return result
 
 
-
-
-#%%
-def generate_train_data():
-
-    for one_data, one_label in zip(train_data_00, train_label_00):
-        yield (one_data, one_label)
-
-
-# def generate_test_data():
-#     for one_data, one_label in zip(test_data_00, test_label_00):
-#         yield (one_data, one_label)
-    
-    # yield (train_data_00, train_label_00)
-
-#%%
-options = tf.data.Options()
-options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
-
-#%%
-train_dataset = tf.data.Dataset.from_generator(generate_train_data, 
-# output_types=(tf.float32, tf.int32),
-output_signature=(
-                    tf.TensorSpec(shape=(None,), dtype=tf.float32),
-                    tf.TensorSpec(shape=(), dtype=tf.int32)
-)).shuffle(5000).batch(TRAIN_BATCH_SIZE)
-# args=(train_data_path)),
-train_dataset = train_dataset.with_options(options)
-
-# train_dataset = train_dataset.cache()
-
-#%%
-# test_dataset = tf.data.Dataset.from_generator(generate_test_data, 
-# # output_types=(tf.float32, tf.int32),
-# output_signature=(
-#                     tf.TensorSpec(shape=(None,), dtype=tf.float32),
-#                     tf.TensorSpec(shape=(), dtype=tf.int32)
-# )).shuffle(5000).batch(16)
-# # args=(test_data_path))
-# test_dataset = test_dataset.with_options(options)
-
-# test_dataset = train_dataset.cache()
-
 #%%
 mirrored_strategy = tf.distribute.MirroredStrategy(
     cross_device_ops=tf.distribute.HierarchicalCopyAllReduce())
-
 
 
 #%%
@@ -575,22 +530,50 @@ with mirrored_strategy.scope():
         metrics=["accuracy"],
     )
 
+# def generate_train_data(train_data, train_label):
+#     for one_data, one_label in zip(train_data, train_label):
+#         yield (one_data, one_label)
+
+# @tf.function
+def generate_train_data():
+    for idx in range(len(loaded_data)):
+        npz_file = loaded_data[idx]
+        loaded_numpy = np.load(npz_file)
+        train_data = loaded_numpy['data']
+        train_label = loaded_numpy['label']
+
+        for one_data, one_label in zip(train_data, train_label):
+            yield (one_data, one_label)
+
+# def generate_test_data():
+#     for one_data, one_label in zip(test_data_00, test_label_00):
+#         yield (one_data, one_label)
 
 
 #%%
-model_class_weights = {
-                        0: 1.0,
-                        1: 1.0,
-                        2: 1.0,
-                        3: 1.0,
-                        4: 1.0,
-                        5: 0.5,
-                           }
+options = tf.data.Options()
+options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
 
-history = model.fit(train_dataset, epochs=EPOCH_NUM,
-                    # validation_split=0.1,
-                    # class_weight=model_class_weights,
-                    )
+#%%
+train_dataset = tf.data.Dataset.from_generator(
+    generate_train_data, 
+    # output_types=(tf.float32, tf.int32),
+    output_signature=(
+        tf.TensorSpec(shape=(FULL_SIZE, ), dtype=tf.float32),
+        tf.TensorSpec(shape=(), dtype=tf.int32)
+    ),
+).shuffle(5000).batch(TRAIN_BATCH_SIZE)
+# args=(train_data_path)),
+train_dataset = train_dataset.with_options(options)
+train_dataset = train_dataset.cache()
+
+
+#%%
+history = model.fit(
+    train_dataset, 
+    epochs=EPOCH_NUM,
+)
+
 
 #%%
 # eval_loss, eval_acc = model.evaluate(test_dataset)
@@ -599,14 +582,6 @@ history = model.fit(train_dataset, epochs=EPOCH_NUM,
 # print("loss : {}, accuracy : {}".format(eval_loss, eval_acc))
 # print('\n\n')
 
-
-
-#%%
-# result_of_predict = model.predict(test_data_00)
-# result_arg = tf.math.argmax(result_of_predict, 1).numpy()
-
-# result_of_predict_train_data = model.predict(train_data_00)
-# result_arg_train_data = tf.math.argmax(result_of_predict_train_data, 1).numpy()
 
 
 
@@ -779,14 +754,11 @@ history = model.fit(train_dataset, epochs=EPOCH_NUM,
 # convert tflite
 
 if CONVERT_TFLITE_BOOL == True:
-    # file_path = "D:\\test_tflite_file_0_.tflite"
-    file_path = "D:\\PNC_ASR_2.4_CW_model_.tflite"
-    
     converter = tf.lite.TFLiteConverter.from_keras_model(model)
     converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS,
                                             tf.lite.OpsSet.SELECT_TF_OPS]
     tflite_model = converter.convert()
-    open(file_path, 'wb').write(tflite_model)
+    open(tflite_file_path, 'wb').write(tflite_model)
 
 
 

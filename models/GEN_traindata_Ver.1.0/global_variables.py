@@ -65,24 +65,23 @@ DATA_AUG_POSITION = 10
 PREPRO_SHIFT_SIZE = 200
 PREPRO_FRAME_SIZE = 400
 
-HEAD_SIZE = 7000
-TAIL_SIZE = 3000
+HEAD_SIZE = 5000
+TAIL_SIZE = 5000
 
 BUFFER_SIZE = 8000
+TRAIN_BUFFER_SIZE = 4000
 
-BLOCK_OF_RANDOM = 500
+BLOCK_OF_RANDOM = 1000
 
 MAX_SIGNAL_VALUE = 32767.0
 MIN_SIGNAL_VALUE = -32768.0
 
 
 rate_list = [
-                1.10,
-                # 1.0,
-                # 1.05,
-                # 1.07,
-
-    ]
+    0.95,
+    1.0,
+    1.05,
+]
 
 # data pathes
 numpy_traindata_files_path = 'D:\\GEN_train_data_Ver.1.0.npz'
@@ -90,10 +89,7 @@ numpy_traindata_files_path_zero = 'D:\\GEN_train_data_Ver_zero_pad.1.0.npz'
 numpy_testdata_files_path = 'D:\\GEN_train_data_Ver.1.0_test_.npz'
 
 numpy_traindata_file_CWdata = "D:\\GEN_train_data_Ver.1.0_CWdata.npz"
-# json_file_CWdata = "D:\\json_train_data_Ver.1.0.json"
 json_file_CWdata = "C:\\temp\\json_train_data_Ver.1.0.json"
-# NUMPY_TRAINDATA_FILE_CWDATA = "D:\\GEN_train_data_Ver.1.0_CWdata.npz"
-# JSON_FILE_CWDATA = "D:\\json_train_data_Ver.1.0.json"
 
 none_data_path = "D:\\voice_data_backup\\zeroth_none_label"
 train_data_path = "D:\\voice_data_backup\\PNC_DB_ALL"
@@ -104,6 +100,9 @@ CWdata_path = 'C:\\temp'
 npz_target_path = 'C:\\temp\\npz_train\\'
 
 tflite_file = "D:\\PNC_ASR_2.4_CW_model_.tflite"
+
+whole_data_json_filename = '$$whole_data_info.json'
+target_numpy_dir_name = "npz_train"
 
 
 # check traindata variables
@@ -132,6 +131,40 @@ STD_TRIGGER = 1.0
 NORM_TRIGGER = 0.001
 
 CMD_LABEL_NUM = 32
+
+
+
+# speaker exception
+speaker_exception = {
+    'strong':[
+        '59185653',
+        '59184297',
+        '59184290',
+        '59185228',
+    ],
+    'weak':[
+        '59183640',
+        '59184387',
+        '59185145',
+        '59185238',
+        '59185713',
+        '59184211',
+        '59192927',
+    ],
+    'machine_noise':[
+        '59184088',
+        '59185312',
+        '59185353',
+        '59185622',
+        '59185031',
+        '59184205',
+        '59184752',
+    ],
+    'none':[
+        '59185990',
+        '59198984',
+    ],
+}
 
 
 class LabelsKorEng(Enum):
@@ -169,6 +202,7 @@ class LabelsKorEng(Enum):
     ACCEPT=auto()               # 수락  30
     REJECT=auto()               # 거절  31
 
+
 # declare global class
 # GLOBAL_CW_TRAINDATA = TrainData(
 #     dtype=TRAIN_DATA_TYPE,
@@ -176,7 +210,11 @@ class LabelsKorEng(Enum):
 #     numpy_path=numpy_traindata_file_CWdata,
 # )
 
+
+
 GLOBAL_DECODING_DATA = DecodingData()
+
+
 
 
 

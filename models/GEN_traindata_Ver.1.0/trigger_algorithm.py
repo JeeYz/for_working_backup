@@ -37,16 +37,36 @@ def signal_trigger_algorithm(one_file_data, train_flag):
             end_index = one_dict['start_index'] + gv.PREPRO_FRAME_SIZE
             break
 
+    # gap_temp = end_index-start_index
+            
+    start_index = start_index-gv.TRAIN_BUFFER_SIZE
+    if start_index < 0:
+        start_index = 0
+
+    end_index = end_index+gv.TAIL_SIZE
+    if end_index > len(init_data):
+        end_index = len(init_data)
+
+    gap_temp = end_index-start_index
+    
     try:
-        a = end_index-start_index
+        gap_temp = end_index-start_index
     except TypeError as e:
         print(e)
+        print("start index 나 end index에 정상 데이터가 입력되지 않았습니다.")
         print(end_index, start_index)
+        print(json.dumps(
+            mean_list,
+            sort_keys=False, 
+            indent=4, 
+            default=str, 
+            ensure_ascii=False
+        ))
         test.draw_single_graph(input_data)
     
     one_file_data['start_index'] = start_index
     one_file_data['end_index'] = end_index
-    one_file_data['gap_start_end'] = end_index-start_index
+    one_file_data['gap_start_end'] = gap_temp
     one_file_data['data_length'] = len(input_data)
 
 

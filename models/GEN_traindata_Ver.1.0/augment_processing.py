@@ -2,6 +2,8 @@
 from numpy import random
 from global_variables import *
 import global_variables as gv
+from CW_class_data import TrainData
+import gen_traindata_process as gentrain
 
 
 def time_stretch_process(files_list):
@@ -85,6 +87,74 @@ def aug_position_process(input_files_list):
             one_file['file_data'].append(temp_dict)
 
         set_initial_dict(init_dict)
+
+
+def return_block_size(input_dict):
+
+    return block_size, aug_num
+
+
+def aug_position_process_2(input_files_list):
+
+    for one_file in input_files_list:
+        init_dict = copy.deepcopy(one_file['file_data'][0])
+        origin_dict = copy.deepcopy(one_file['file_data'][0])
+
+        init_start = init_dict['start_index']
+        init_data = init_dict['data']
+
+        block_size, aug_num = return_block_size(init_dict)
+
+        for one_rate in rate_list:
+            if one_rate == 1.0:
+                origin_start = origin_dict['start_index']
+                origin_data = origin_dict['data']
+
+                init_start = origin_start                
+                init_data = origin_data
+                
+            else:
+                init_data = librosa.effects.time_stretch(init_data, one_rate)
+                para_dict = dict()
+                para_dict['data'] = init_data
+
+                return_dict = trigal.signal_trigger_algorithm(para_dict)
+                init_start = return_dict['start_index']
+                init_data = return_dict['data']
+
+                block_size, aug_num = return_block_size(return_dict)
+
+            for i in range(aug_num):
+                temp_dict = gentrain.gen_file_data_dict()
+
+                shift_value_of_start = int((i+1)*block_size)
+                temp_start = int(init_start-shift_value_of_start)
+
+                if temp_start < 0:
+                    break
+                
+                temp_end_of_data = temp_start+gv.FULL_SIZE
+
+                cond = len(init_data) < temp_end_of_data
+                if cond:
+                    temp_data = add_zero_padding_back(init_data[temp_start:])
+                else:
+                    temp = temp_start+gv.FULL_SIZE
+                    temp_data = init_data[temp_start:temp]
+
+                if len(temp_data) != gv.FULL_SIZE:
+                    raise Exception("데이터의 길이가 정해진 길이가 아닙니다.")
+                
+                temp_dict['data'] = temp_data
+                temp_dict['auged_position'] = shift_value_of_start
+                temp_dict['data_length'] = len(temp_data)
+                temp_dict['auged_boolean'] = True
+                temp_dict['data_label'] = one_file['file_label']
+
+                one_file['file_data'].append(temp_dict)
+
+            set_initial_dict(init_dict)
+            # print('augment complete...'+str(one_file['file_label']))
 
 
 def random_position_process(input_files_list):

@@ -71,7 +71,7 @@ def gen_signal_data(one_file_dict):
     print(f'{print_sent}', end='\r')
 
 
-def gen_sig_data_2(self, input_dict):
+def gen_sig_data_2(input_dict):
     one_filename = input_dict['filename']
 
     print_sent = str()
@@ -119,10 +119,9 @@ def gen_sig_data_2(self, input_dict):
         raise Exception("길이가 다릅니다.")
     
     return_dict = dict()    
-    return_dict['filename'] = input_dict['filename']
+    return_dict['filename'] = one_filename
     return_dict['file_label'] = input_dict['label']
-    return_dict['data'] = list()
-    return_dict['data'].append(curr_data)
+    return_dict['file_data'] = curr_data
 
     print_sent = print_sent+str(np.max(curr_data))+' '+str(np.min(curr_data))
     print(f'{print_sent}', end='\r')

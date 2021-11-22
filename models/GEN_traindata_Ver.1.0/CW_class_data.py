@@ -1,6 +1,7 @@
 
 from wave import Error
 from global_variables import *
+import global_variables as gv
 
 
 class TrainData():
@@ -28,7 +29,7 @@ class TrainData():
 
 
         # 변수
-        self.__whole_json_files_info = self.__init_whole_json_data(CWdata_path, '.json')
+        self.__whole_json_files_info = self.__init_whole_json_data(gv.CWdata_path, '.json')
 
         # 얘가 중심 변수
         self.__traindata_dict = self.__initialization()

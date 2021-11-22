@@ -1,5 +1,6 @@
 
 
+from pickle import load
 from global_variables import *
 import modifying_data_and_info as moddata
 import global_variables as gv
@@ -136,6 +137,7 @@ def check_traindata_npz_with_plt(filename):
 
 
 def draw_multi_graphes(input_data_list):
+    length_data = len(input_data_list[0][0])
     num_data = len(input_data_list)
     x_num = int(np.sqrt(num_data))
 
@@ -151,9 +153,9 @@ def draw_multi_graphes(input_data_list):
         if input_data_list[i][0] is None:
         # if input_data_list[i] is None:
             break
-        x = np.linspace(0, gv.FULL_SIZE, num=gv.FULL_SIZE)
-        # y = input_data_list[i][0]
-        y = input_data_list[i]
+        x = np.linspace(0, length_data, num=length_data)
+        y = input_data_list[i][0]
+        # y = input_data_list[i]
         ax.plot(x, y)
         ax.set_title(input_data_list[i][1])
         ax.grid()
@@ -183,49 +185,37 @@ def return_random(total_num, persentage_num):
         return 0
 
 
+def load_json_file(file_path):
+    with open(file_path, 'r', encoding='utf-8') as fr:
+        loaded_data = json.load(fr)
+
+    # for one_file in loaded_data:
+    #     check_traindata_npz_with_plt(one_file)
+
+    temp = speaker_exception.keys()
+    print(temp)
+
+    target_list = list()
+    target_key = 'strong'
+
+    for one_file in loaded_data:
+        for one_speaker in speaker_exception[target_key]:
+            if one_speaker in one_file:
+                target_list.append(one_file)
+    
+    for one_file in target_list:
+        check_traindata_npz_with_plt(one_file)
+
+    
+
 
 
 
 if __name__ == '__main__':
     print('hello, world~!!')
-    # check_traindata_npz_with_plt(numpy_traindata_files_path)
-    temp_path = "D:\\data_log_for_graph.npz"
-    loaded_data = np.load(temp_path)
-    tempdata = loaded_data['data']
-    draw_single_graph(tempdata)
-
-    temp_path = "D:\\stack_log_for_graph.npz"
-    loaded_data = np.load(temp_path)
-    tempdata = loaded_data['data']
-    draw_single_graph(tempdata)
-
-    # temp_path = "D:\\GEN_train_data_Ver.1.0_CWdata.npz"
-    # loaded_data = np.load(temp_path)
-    # tempdata = loaded_data['data']
-
-    # for one in tempdata:
-    #     draw_single_graph(one)
-
-    # temp_path = "C:\\temp"
-    # files_list = fpro.find_data_files(temp_path, ".wav")
-
-    # for i, one_filename in enumerate(files_list):
-    #     return_num = return_random(10, 0.2)
-
-    #     if return_num == 1:
-    #         try:
-    #             with wave.open(one_filename, 'rb') as wf:
-    #                 parameters = wf.getparams()
-    #         except FileNotFoundError as e:
-    #             print(e)
-
-    #         a = wavio.read(one_filename)
-
-    #         data0 = a.data[:, 0]
-    #         curr_data = data0 
-
-    #         print(i+1, one_filename, end='\r')
-    #         draw_single_graph(curr_data)
+    
+    target_json = CWdata_path+'\\'+'npz_data.json'
+    load_json_file(target_json)
 
 
 
