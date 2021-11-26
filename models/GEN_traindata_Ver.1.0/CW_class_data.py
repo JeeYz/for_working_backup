@@ -258,6 +258,9 @@ class DecodingData():
     def set_target_data(self, input_data):
         self.__target_data = input_data
 
+    def reset_stack_data(self):
+        self.stack_data = list()
+
 
 
 

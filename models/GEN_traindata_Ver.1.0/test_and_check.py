@@ -113,6 +113,7 @@ def check_data_length(input_data_list):
 
 
 def check_traindata_npz_with_plt(filename):
+    print(filename)
 
     loaded_data = np.load(filename)
 
@@ -128,10 +129,11 @@ def check_traindata_npz_with_plt(filename):
     for one_data in whole_data:
         data_list.append(one_data)
 
-        if len(data_list) is 30:
+        if len(data_list) is NUMBER_OF_GRAPH:
             draw_multi_graphes(data_list)
             data_list = list()
 
+    draw_multi_graphes(data_list)
 
     return
 
@@ -148,10 +150,14 @@ def draw_multi_graphes(input_data_list):
 
     fig, axs = plt.subplots(x_num, y_num)
 
+    # print(num_data) 
     for i, ax in enumerate(axs.flat):
         # print(input_data_list[i])
-        if input_data_list[i][0] is None:
-        # if input_data_list[i] is None:
+        # print(i, ax)
+        # if input_data_list[i][0] is None:
+        # # if input_data_list[i] is None:
+        #     break
+        if i >= num_data:
             break
         x = np.linspace(0, length_data, num=length_data)
         y = input_data_list[i][0]
@@ -189,22 +195,22 @@ def load_json_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as fr:
         loaded_data = json.load(fr)
 
-    # for one_file in loaded_data:
-    #     check_traindata_npz_with_plt(one_file)
-
-    temp = speaker_exception.keys()
-    print(temp)
-
-    target_list = list()
-    target_key = 'strong'
-
     for one_file in loaded_data:
-        for one_speaker in speaker_exception[target_key]:
-            if one_speaker in one_file:
-                target_list.append(one_file)
-    
-    for one_file in target_list:
         check_traindata_npz_with_plt(one_file)
+
+    # temp = speaker_exception.keys()
+    # print(temp)
+
+    # target_list = list()
+    # target_key = 'none'
+
+    # for one_file in loaded_data:
+    #     for one_speaker in speaker_exception[target_key]:
+    #         if one_speaker in one_file:
+    #             target_list.append(one_file)
+    
+    # for one_file in target_list:
+    #     check_traindata_npz_with_plt(one_file)
 
     
 
@@ -214,8 +220,17 @@ def load_json_file(file_path):
 if __name__ == '__main__':
     print('hello, world~!!')
     
-    target_json = CWdata_path+'\\'+'npz_data.json'
-    load_json_file(target_json)
+    # target_json = CWdata_path+'\\'+'$$npz_data.json'
+    # load_json_file(target_json)
+
+    target_path = 'C:\\temp\\test_npz_data\\'
+    files_list = fpro.find_data_files(target_path, '.npz')
+
+    for one in files_list:
+        loaded = np.load(one)
+        data = loaded['data']
+        label = loaded['label']
+        draw_single_graph(data[0])
 
 
 

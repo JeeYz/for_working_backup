@@ -61,6 +61,7 @@ INCLUDE_ZEROTH_NONE =  True
 # variables for generating data 
 POP_DATA_NUM = 3
 DATA_AUG_POSITION = 10
+AUG_THRES_SIZE = 500
 
 PREPRO_SHIFT_SIZE = 200
 PREPRO_FRAME_SIZE = 400
@@ -68,13 +69,16 @@ PREPRO_FRAME_SIZE = 400
 HEAD_SIZE = 5000
 TAIL_SIZE = 5000
 
-BUFFER_SIZE = 8000
+BUFFER_SIZE = 6000
 TRAIN_BUFFER_SIZE = 4000
+DECODING_FRONT_SIZE = 8000
 
-BLOCK_OF_RANDOM = 1000
+BLOCK_OF_RANDOM = 800
 
 MAX_SIGNAL_VALUE = 32767.0
 MIN_SIGNAL_VALUE = -32768.0
+
+TEMP_FLAG = 'train'
 
 
 rate_list = [
@@ -106,7 +110,7 @@ target_numpy_dir_name = "npz_train"
 
 
 # check traindata variables
-NUMBER_OF_GRAPH = 20
+NUMBER_OF_GRAPH = 49
 
 
 # Stereo 24bit 48,000Hz
@@ -126,11 +130,13 @@ RETURN_STACK_SIZE = (TARGET_SAMPLE_RATE/CHUNK_SIZE)*(RECORDING_TIME)
 
 NUM_CHANNEL = 1
 
-VOICE_TRIGGER = 200
+VOICE_TRIGGER = 500
 STD_TRIGGER = 1.0
 NORM_TRIGGER = 0.001
 
 CMD_LABEL_NUM = 32
+
+STRONG_COE = 5
 
 
 
@@ -181,8 +187,8 @@ class LabelsKorEng(Enum):
     PICTURE=auto()              # 촬영  9
     RECORD=auto()               # 녹화  10
     STOP=auto()                 # 정지  11
-    UP=auto()                   # 위로  12
-    DOWN=auto()                 # 아래로    13
+    DOWN=auto()                 # 아래로    12
+    UP=auto()                   # 위로  13
     NEXT=auto()                 # 다음  14
     PREVIOUS=auto()             # 이전  15
     PLAY=auto()                 # 재생  16
@@ -201,6 +207,18 @@ class LabelsKorEng(Enum):
     CALL=auto()                 # 통화  29
     ACCEPT=auto()               # 수락  30
     REJECT=auto()               # 거절  31
+
+
+test_pnc_dict={
+    'none': 0,
+    'bright': 7,
+    'call': 28,
+    'dark': 6,
+    'end': 5,
+    'picture': 9,
+    'record': 10,
+    'reject': 31,
+}
 
 
 # declare global class

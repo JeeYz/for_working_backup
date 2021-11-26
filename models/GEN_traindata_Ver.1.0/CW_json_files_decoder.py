@@ -174,55 +174,74 @@ class WriteJsonFiles():
     def print_target_json_length(self):
         print(len(self.__target_json_data))
 
-    def __return_target_keys(self, input_dict, one_result):
-        list_keys_in_result = list(one_result.keys())
-
-        for one_key in list_keys_in_result:
-            if 'name_' in one_key:
-                target_key_temp = one_key
-
-        target_dict_temp = one_result[target_key_temp]
-        target_data_dict_temp = target_dict_temp['data'][0]
-        target_value_temp = target_data_dict_temp['value']
-
-        target_filename = target_value_temp[0]['file_name']
-
+    def __find_target(self, target_filename):
         for one_file in self.wav_files_list:
             if target_filename in one_file:
                 parsing_temp = one_file.split('\\')
                 target_path = '\\'.join(parsing_temp[:-1])+'\\'
                 target_type = parsing_temp[-3]
                 json_filename_temp = '$$'+parsing_temp[-2]+'_'+target_type+'.json'
+                return target_path, target_type, json_filename_temp
+        
+        try:
+            raise Exception('아무것도 찾아내지 못했습니다.')
+        except Exception:
+            print('None을 반환합니다.')
+            return None, None, None
+        
 
-        input_dict['path'] = target_path
-        input_dict['type'] = target_type
-        input_dict['json_filename'] = json_filename_temp
-        input_dict['files'] = list()
+    def __return_target_keys(self, one_result):
+        list_keys_in_result = list(one_result.keys())
 
-        for i, one_value in enumerate(target_value_temp):
-            temp_one_file_dict = dict()
-            return_label = self.label_dict.get_label(i)
+        target_keys_temp = list()
 
-            if 'noncmd_' in target_type:
-                return_label = 0
+        for one_key in list_keys_in_result:
+            if 'name_' in one_key:
+                # target_key_temp = one_key
+                target_keys_temp.append(one_key)
+
+        one_key = target_keys_temp[0]
+        target_dict_temp = one_result[one_key]
+        target_data_dict_temp = target_dict_temp['data'][0]
+        target_value_temp = target_data_dict_temp['value']
+
+        target_filename = target_value_temp[0]['file_name']
+
+        target_path, target_type, json_filename_temp = self.__find_target(target_filename)
+        
+        temp_dict = dict()
+
+        temp_dict['speaker'] = one_result['dataID']
+        temp_dict['path'] = target_path
+        temp_dict['type'] = target_type
+        temp_dict['json_filename'] = json_filename_temp
+        temp_dict['files'] = list()
+
+        for one_key in target_keys_temp:
+            target_dict_temp = one_result[one_key]
+            target_data_dict_temp = target_dict_temp['data'][0]
+            target_value_temp = target_data_dict_temp['value']
+
+            for i, one_value in enumerate(target_value_temp):
+                temp_one_file_dict = dict()
+                return_label = self.label_dict.get_label(i)
+
+                if 'noncmd_' in target_type:
+                    return_label = 0
+                
+                temp_one_file_dict['filename'] = one_value['file_name']
+                temp_one_file_dict['label'] = return_label
+
+                
+                temp_dict['files'].append(temp_one_file_dict)
             
-            temp_one_file_dict['filename'] = one_value['file_name']
-            temp_one_file_dict['label'] = return_label
-
-            
-            input_dict['files'].append(temp_one_file_dict)
-
-        return input_dict
+        return temp_dict
         
     def __refine_source_json_data(self):
         for one_json_data in self.json_files_data:
             for one_result in one_json_data['result']:
-                temp_dict = dict()
-                key_speaker = one_result['dataID']
-                temp_dict['speaker'] = key_speaker 
-
-                temp_dict = self.__return_target_keys(temp_dict, one_result)
-                self.__target_json_data.append(temp_dict)
+                return_dict = self.__return_target_keys(one_result)
+                self.__target_json_data.append(return_dict)
 
     def write_each_json_files(self):
         whole_info_json = list()

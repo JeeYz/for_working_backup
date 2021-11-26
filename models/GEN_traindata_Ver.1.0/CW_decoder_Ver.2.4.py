@@ -62,7 +62,7 @@ def receive_data(data, stack):
 
     stack.extend(data)
 
-    if len(stack) > TARGET_SAMPLE_RATE*(RECORDING_TIME+3):
+    if len(stack) > TARGET_SAMPLE_RATE*(RECORDING_TIME+2):
         del stack[0:CHUNK_SIZE]
 
     num = GLOBAL_DECODING_DATA.condition_num
@@ -79,6 +79,9 @@ def receive_data(data, stack):
             GLOBAL_DECODING_DATA.standardization_data()
 
             print(len(stack))
+
+            write_numpy_for_draw_graph([stack])
+            
             data = GLOBAL_DECODING_DATA.get_target_data()
             data = trigal.signal_trigger_algorithm_for_decode(data)
             write_npz(data, "D:\\data_log_for_graph.npz")
@@ -92,6 +95,7 @@ def receive_data(data, stack):
             GLOBAL_DECODING_DATA.set_condition_num_zero()  
     
     GLOBAL_DECODING_DATA.set_none_target_data()
+    GLOBAL_DECODING_DATA.reset_stack_data()
     # GLOBAL_DECODING_DATA.set_none_stack_data()
         
     return
@@ -164,6 +168,21 @@ def print_result(index_num, output_data):
 
 
 #%%
+def write_numpy_for_draw_graph(input_data):
+    target_path = CWdata_path+'\\'+'test_npz_data'+'\\'
+    filename = str(time.time())
+    target_file = target_path+filename
+    np.savez(
+        target_file,
+        data=input_data,
+        label = 'No Label',
+    )
+
+    return
+
+
+
+#%%
 def decoding_command(test_data):
     global end_time
 
@@ -184,6 +203,8 @@ def decoding_command(test_data):
     end_time = time.time()
 
     print("decoding time : %f" %(end_time-start_time))
+
+    write_numpy_for_draw_graph(test_data)
 
     return
 

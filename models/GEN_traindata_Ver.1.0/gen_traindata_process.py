@@ -1,6 +1,7 @@
 
 from global_variables import *
 from CW_class_data import TrainData
+import global_variables as gv
 
 
 class OneTrainData():
@@ -70,6 +71,12 @@ class OneTrainData():
             for one_data in one_file['file_data']:
                 data_list.append(one_data['data'])
                 label_list.append(one_data['data_label'])
+
+        num = 0
+        for one in data_list:
+            if len(one) != FULL_SIZE:
+                print(one, len(one))
+                num+=1
 
         data_list = np.asarray(data_list, dtype=TRAIN_DATA_TYPE)
         label_list = np.asarray(label_list, dtype=np.int8)
@@ -221,7 +228,7 @@ def gen_json_for_npz():
         '.npz',
     )
 
-    target_file = CWdata_path+'\\'+"npz_data.json"
+    target_file = CWdata_path+'\\'+"$$npz_data.json"
 
     with open(target_file, 'w', encoding='utf-8') as fw:
         json.dump(

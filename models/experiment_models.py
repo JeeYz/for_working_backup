@@ -18,16 +18,18 @@ RESULT_GRAPH_BOOL = True
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
 
-traindata_json_file = 'C:\\temp\\npz_data.json'
+traindata_json_file = 'C:\\temp\\$$npz_data.json'
 # train_data_path = "D:\\GEN_train_data_Ver.1.0_CWdata.npz"
 
 tflite_file_path = "PNC_ASR_2.4_CW_model_.tflite"
 saved_model_file = "C:\\temp\\experiment_model_"
 
+test_data_npz_file = "C:\\temp\\test_Ver.2.4.npz"
+
 
 #%% variables
 # 에포크 
-EPOCH_NUM = 10
+EPOCH_NUM = 20
 # CNN 초기값
 INIT_CNN_CHAN = 16
 
@@ -41,7 +43,7 @@ INIT_LSTM_CELL = 128
 INIT_RESNET_CH = 32
 
 # 뉴런의 개수
-TAIL_DENSE_NUM = 128
+TAIL_DENSE_NUM = 256
 NORM_DENSE_NUM = 128
 
 # 신호 나누는 값 기준
@@ -55,7 +57,7 @@ CNN_LAYERS_NUM = 7
 LSTM_LAYERS_NUM = 3
 BILSTM_LAYERS_NUM = 3
 RESNET_LAYERS_NUM = 5
-TAIL_DENSE_LAYERS_NUM = 2
+TAIL_DENSE_LAYERS_NUM = 1
 
 # 전처리 부분 레이어 값
 DENSE_FEATURE_NUM = 3
@@ -72,7 +74,98 @@ RESIZE_BOOL = True
 RESIZE_X = 64
 RESIZE_Y = 64
 
+#%%
+speaker_exception = {
+    'strong':[
+        '59185653',
+        '59184297',
+        '59184290',
+        '59185228',
+    ],
+    'weak':[
+        '59183640',
+        '59184387',
+        '59185145',
+        '59185238',
+        '59185713',
+        '59184211',
+        '59192927',
+    ],
+    'machine_noise':[
+        '59184088',
+        '59185312',
+        '59185353',
+        '59185622',
+        '59185031',
+        '59184205',
+        '59184752',
+    ],
+    'none':[
+        '59185990',
+        '59198984',
+    ],
+}
 
+
+#%%
+
+cmd_F_num = 15
+cmd_M_num = 15
+
+def choose_speakers(input_data):
+    cmd_list = list()
+    noncmd_list = list()
+    for one_file in input_data:
+        if 'noncmd' in one_file:
+            noncmd_list.append(one_file)
+
+    print('None Label data : {num}'.format(num=len(noncmd_list)))    
+    
+    for one_file in input_data:
+        if one_file not in noncmd_list:
+            cmd_list.append(one_file)
+            
+    return_list = list()
+    return_list = noncmd_list
+
+    f_num = 0
+    m_num = 0
+    for one_file in cmd_list:
+        if "cmd_F" in one_file:
+            if f_num >= cmd_F_num:
+                continue
+            return_list.append(one_file) 
+            f_num+=1
+        else:
+            if m_num >= cmd_M_num:
+                continue
+            return_list.append(one_file) 
+            m_num+=1
+
+    print('Label data : {num}'.format(
+        num=len(return_list)-len(noncmd_list)))    
+
+    return return_list
+
+
+def select_traindata(loaded_data):
+    target_list = list()
+    temp_list = list()
+
+    speaker_keys = list(speaker_exception.keys())
+    for one_key in speaker_keys:
+        for one_speaker in speaker_exception[one_key]:
+            temp_list.append(one_speaker)
+
+    for one_speaker in temp_list:
+        for one_file in loaded_data:
+            if one_speaker in one_file:
+                target_list.append(one_file)
+
+    for one_file in target_list:
+        loaded_data.remove(one_file)
+
+    return loaded_data
 
 
 #%%
@@ -89,8 +182,15 @@ RESIZE_Y = 64
 with open(traindata_json_file, 'r', encoding='utf-8') as fr:
     loaded_data = json.load(fr)
 
+import time
+print(len(loaded_data))
+select_traindata(loaded_data)
+print(len(loaded_data))
 
+loaded_data = choose_speakers(loaded_data)
+print(len(loaded_data))
 
+# time.sleep(10000)
 
 #%% class -> residual cnn block
 class residual_block(layers.Layer):
@@ -562,10 +662,12 @@ train_dataset = tf.data.Dataset.from_generator(
         tf.TensorSpec(shape=(FULL_SIZE, ), dtype=tf.float32),
         tf.TensorSpec(shape=(), dtype=tf.int32)
     ),
-).shuffle(5000).batch(TRAIN_BATCH_SIZE)
+).shuffle(TRAIN_BATCH_SIZE*8).batch(TRAIN_BATCH_SIZE)
 # args=(train_data_path)),
 train_dataset = train_dataset.with_options(options)
-train_dataset = train_dataset.cache()
+# train_dataset = train_dataset.cache()
+# train_dataset = train_dataset.take(128)
+# train_dataset = train_dataset.repeat(30)
 
 
 #%%
@@ -576,11 +678,41 @@ history = model.fit(
 
 
 #%%
-# eval_loss, eval_acc = model.evaluate(test_dataset)
+def generate_test_data():
+    loaded_numpy = np.load(test_data_npz_file)
+    test_data = loaded_numpy['data']
+    test_label = loaded_numpy['label']
 
-# print('\n\n')
-# print("loss : {}, accuracy : {}".format(eval_loss, eval_acc))
-# print('\n\n')
+    for one_data, one_label in zip(test_data, test_label):
+        yield (one_data, one_label)
+
+# def generate_test_data():
+#     for one_data, one_label in zip(test_data_00, test_label_00):
+#         yield (one_data, one_label)
+
+
+#%%
+options = tf.data.Options()
+options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
+
+#%%
+test_dataset = tf.data.Dataset.from_generator(
+    generate_test_data, 
+    # output_types=(tf.float32, tf.int32),
+    output_signature=(
+        tf.TensorSpec(shape=(FULL_SIZE, ), dtype=tf.float32),
+        tf.TensorSpec(shape=(), dtype=tf.int32)
+    ),
+).shuffle(TRAIN_BATCH_SIZE*8).batch(TRAIN_BATCH_SIZE)
+test_dataset = test_dataset.with_options(options)
+
+
+#%%
+eval_loss, eval_acc = model.evaluate(test_dataset)
+
+print('\n\n')
+print("loss : {}, accuracy : {}".format(eval_loss, eval_acc))
+print('\n\n')
 
 
 
