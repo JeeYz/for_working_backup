@@ -7,6 +7,8 @@ from global_variables import *
 start_time, end_time = float(), float()
 pady_size = 20
 
+start_time = None
+
 ## global model
 
 ## keyword global model
@@ -54,6 +56,7 @@ def write_npz(input_data, filepath):
 
 #%%
 def receive_data(data, stack):
+    global start_time
 
     data = np.asarray(data, dtype=TRAIN_DATA_TYPE)
     # norm_data = normalization_for_block(data)
@@ -73,18 +76,19 @@ def receive_data(data, stack):
         GLOBAL_DECODING_DATA.add_a_sec_condition()
         num = GLOBAL_DECODING_DATA.condition_num
         if num == RETURN_STACK_SIZE:
-            write_npz(stack, "D:\\stack_log_for_graph.npz")
+            start_time = time.time()
+            # write_npz(stack, "D:\\stack_log_for_graph.npz")
 
             GLOBAL_DECODING_DATA.set_target_data(stack)
             GLOBAL_DECODING_DATA.standardization_data()
 
             print(len(stack))
 
-            write_numpy_for_draw_graph([stack])
+            # write_numpy_for_draw_graph([stack])
             
             data = GLOBAL_DECODING_DATA.get_target_data()
             data = trigal.signal_trigger_algorithm_for_decode(data)
-            write_npz(data, "D:\\data_log_for_graph.npz")
+            # write_npz(data, "D:\\data_log_for_graph.npz")
             print(len(data))
 
             test_data = np.array([data], dtype=np.float32)
@@ -143,8 +147,8 @@ def record_voice():
     send.start()
     decoder.start()
 
-    while True:
-        time.sleep(0.1)
+    # while True:
+    #     time.sleep(0.1)
 
     return
 
@@ -185,6 +189,7 @@ def write_numpy_for_draw_graph(input_data):
 #%%
 def decoding_command(test_data):
     global end_time
+    global start_time
 
     print(test_data)
 
@@ -203,8 +208,9 @@ def decoding_command(test_data):
     end_time = time.time()
 
     print("decoding time : %f" %(end_time-start_time))
+    start_time = None
 
-    write_numpy_for_draw_graph(test_data)
+    # write_numpy_for_draw_graph(test_data)
 
     return
 

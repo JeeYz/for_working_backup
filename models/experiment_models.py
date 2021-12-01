@@ -7,9 +7,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+np.set_printoptions(threshold=np.inf, linewidth=np.inf)
+
 import os
 import copy
 import json
+import random
 
 from tensorflow.python.keras.backend import conv2d, dropout
 
@@ -29,7 +32,7 @@ test_data_npz_file = "C:\\temp\\test_Ver.2.4.npz"
 
 #%% variables
 # 에포크 
-EPOCH_NUM = 20
+EPOCH_NUM = 50
 # CNN 초기값
 INIT_CNN_CHAN = 16
 
@@ -40,7 +43,7 @@ INIT_AE_CHAN = 4
 INIT_LSTM_CELL = 128
 
 # ResNet 채널 초기값
-INIT_RESNET_CH = 32
+INIT_RESNET_CH = 64
 
 # 뉴런의 개수
 TAIL_DENSE_NUM = 256
@@ -61,11 +64,11 @@ TAIL_DENSE_LAYERS_NUM = 1
 
 # 전처리 부분 레이어 값
 DENSE_FEATURE_NUM = 3
-CONV_FEATURE_NUM = 5
+CONV_FEATURE_NUM = 4
 RESNET_FEATURE_NUM = 4
 
 # 배치 사이즈
-TRAIN_BATCH_SIZE = 128
+TRAIN_BATCH_SIZE = 256
 # 레이블 개수
 NUM_LABELS = 32
 
@@ -126,6 +129,7 @@ def choose_speakers(input_data):
             cmd_list.append(one_file)
             
     return_list = list()
+    temp_num = len(noncmd_list)
     return_list = noncmd_list
 
     f_num = 0
@@ -143,7 +147,7 @@ def choose_speakers(input_data):
             m_num+=1
 
     print('Label data : {num}'.format(
-        num=len(return_list)-len(noncmd_list)))    
+        num=len(return_list)-temp_num))    
 
     return return_list
 
@@ -189,6 +193,8 @@ print(len(loaded_data))
 
 loaded_data = choose_speakers(loaded_data)
 print(len(loaded_data))
+
+random.shuffle(loaded_data)
 
 # time.sleep(10000)
 
@@ -676,13 +682,17 @@ history = model.fit(
     epochs=EPOCH_NUM,
 )
 
+target_h5_file = "C:\\temp\\Ver.2.4_model.h5"
+model.save(target_h5_file)
+
 
 #%%
-def generate_test_data():
-    loaded_numpy = np.load(test_data_npz_file)
-    test_data = loaded_numpy['data']
-    test_label = loaded_numpy['label']
+loaded_numpy = np.load(test_data_npz_file)
+test_data = loaded_numpy['data']
+test_label = loaded_numpy['label']
 
+
+def generate_test_data():
     for one_data, one_label in zip(test_data, test_label):
         yield (one_data, one_label)
 
@@ -714,92 +724,114 @@ print('\n\n')
 print("loss : {}, accuracy : {}".format(eval_loss, eval_acc))
 print('\n\n')
 
+print("print label size : data : {len_d}, label : {len_l}".format(
+    len_d=len(test_data), len_l=len(test_label),
+))
+print('\n\n')
 
+result_prediction = model.predict(test_dataset)
+# print(result_prediction)
+print(result_prediction.shape)
 
+result_arg = np.argmax(result_prediction, axis=-1)
 
+print('\n\n')
+print("prediction size : {}".format(len(result_arg)))   
+print('\n\n')
+print(result_arg)
+print(test_label)
+print('\n\n')
+   
 
 #%% F1 Score 계산하기
-# labels_num = NUM_LABELS
+labels_num = NUM_LABELS
 
-# confusion_matrix = np.zeros((labels_num, labels_num), dtype=np.int16)
+confusion_matrix = np.zeros((labels_num, labels_num), dtype=np.int16)
 
-# length_of_true_ans = len(test_label_00)
+length_of_true_ans = len(test_label)
 
-# for i in range(length_of_true_ans):
-#     x_axis = int(test_label_00[i])
-#     y_axis = int(result_arg[i])
-#     confusion_matrix[x_axis, y_axis]+=1
+for i in range(length_of_true_ans):
+    x_axis = int(test_label[i])
+    y_axis = int(result_arg[i])
+    confusion_matrix[x_axis, y_axis]+=1
 
 
-# print('\n')
-# print(confusion_matrix)
-# print('\n')
+print('\n')
+print(confusion_matrix)
+print('\n')
 
-# sum_ax_0 = np.sum(confusion_matrix, axis=0)
-# sum_ax_1 = np.sum(confusion_matrix, axis=1)
+sum_ax_0 = np.sum(confusion_matrix, axis=0)
+sum_ax_1 = np.sum(confusion_matrix, axis=1)
 
-# print('\n')
-# print(sum_ax_0)
-# print(sum_ax_1)
-# print('\n')
+print('\n')
+print(sum_ax_0)
+print(sum_ax_1)
+print('\n')
 
-# precisions = list()
-# recalls = list()
+precisions = list()
+recalls = list()
 
-# for i in range(labels_num):
+for i in range(labels_num):
 
-#     if sum_ax_0[i] != 0:
-#         temp_val = confusion_matrix[i][i]/sum_ax_0[i]
-#         precisions.append(temp_val)
-#     else:
-#         precisions.append(0.0)
+    if sum_ax_0[i] != 0:
+        temp_val = confusion_matrix[i][i]/sum_ax_0[i]
+        precisions.append(temp_val)
+    else:
+        precisions.append(0.0)
 
-#     if sum_ax_1[i] != 0:
-#         temp_val = confusion_matrix[i][i]/sum_ax_1[i]
-#         recalls.append(temp_val)
-#     else:
-#         precisions.append(0.0)
+    if sum_ax_1[i] != 0:
+        temp_val = confusion_matrix[i][i]/sum_ax_1[i]
+        recalls.append(temp_val)
+    else:
+        recalls.append(0.0)
 
-# f_result = open("D:\\result_acc.txt", "a")
+f_result = open("D:\\result_acc.txt", "a")
 
-# print('\n')
-# f_result.write("\n\n")
-# for i in range(labels_num):
-#     f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
-#     print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
-#     f_result.write("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
-#     f_result.write("\n")
+print('\n')
+f_result.write("\n\n")
+for i in range(labels_num):
+    if (precisions[i]+recalls[i]) != 0:
+        f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
+    else:
+        f1_score = 0.0
+    print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
+    f_result.write("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
+    f_result.write("\n")
 
-# print('\n')
-# f_result.write("\n")
+print('\n')
+f_result.write("\n")
 
-# temp_sum = 0
-# for i in range(labels_num):
-#     temp_sum+=confusion_matrix[i][i]
+temp_sum = 0
+for i in range(labels_num):
+    temp_sum+=confusion_matrix[i][i]
 
-# total_acc = temp_sum/np.sum(sum_ax_0)
-# total_acc_1 = temp_sum/len(test_label_00)
+if np.sum(sum_ax_0) != 0:
+    total_acc = temp_sum/np.sum(sum_ax_0)
+    total_acc_1 = temp_sum/len(test_label)
+else:
+    total_acc = 0
+    total_acc_1 = temp_sum/len(test_label)
 
-# print("number of test data : {a}".format(a=len(test_label_00)))
-# f_result.write("number of test data : {a}".format(a=len(test_label_00)))
-# f_result.write("\n")
-# print("sum of right answers : {b}".format(b=temp_sum))
-# f_result.write("sum of right answers : {b}".format(b=temp_sum))
-# f_result.write("\n")
-# print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
-# f_result.write("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
-# f_result.write("\n")
-# print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
-# f_result.write("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
-# f_result.write("\n")
-# print("accuracy : {}".format(total_acc))
-# f_result.write("accuracy : {}".format(total_acc))
-# f_result.write("\n")
-# print("accuracy 1 : {}".format(total_acc_1))
-# f_result.write("accuracy 1 : {}".format(total_acc_1))
-# f_result.write("\n")
+print("number of test data : {a}".format(a=len(test_label)))
+f_result.write("number of test data : {a}".format(a=len(test_label)))
+f_result.write("\n")
+print("sum of right answers : {b}".format(b=temp_sum))
+f_result.write("sum of right answers : {b}".format(b=temp_sum))
+f_result.write("\n")
+print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
+f_result.write("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
+f_result.write("\n")
+print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
+f_result.write("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
+f_result.write("\n")
+print("accuracy : {}".format(total_acc))
+f_result.write("accuracy : {}".format(total_acc))
+f_result.write("\n")
+print("accuracy 1 : {}".format(total_acc_1))
+f_result.write("accuracy 1 : {}".format(total_acc_1))
+f_result.write("\n")
 
-# f_result.close()
+f_result.close()
 
 
 

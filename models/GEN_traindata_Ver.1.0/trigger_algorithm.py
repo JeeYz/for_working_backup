@@ -189,6 +189,7 @@ def signal_trigger_algorithm_for_decode(input_data):
             break
 
     if start_index == 'none'  :
+        print(start_index)
         return None
 
     start_index = start_index-gv.DECODING_FRONT_SIZE

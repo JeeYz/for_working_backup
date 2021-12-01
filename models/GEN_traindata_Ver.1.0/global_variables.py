@@ -103,7 +103,9 @@ test_data_path = "D:\\voice_data_backup\\test"
 CWdata_path = 'C:\\temp'
 npz_target_path = 'C:\\temp\\npz_train\\'
 
-tflite_file = "D:\\PNC_ASR_2.4_CW_model_.tflite"
+# tflite_file = "D:\\PNC_ASR_2.4_CW_model_.tflite"
+tflite_file = "PNC_ASR_2.4_CW_model_.tflite"
+model_saved_file = "C:\\temp\\Ver.2.4_model.h5"
 
 whole_data_json_filename = '$$whole_data_info.json'
 target_numpy_dir_name = "npz_train"

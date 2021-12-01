@@ -175,9 +175,10 @@ def draw_multi_graphes(input_data_list):
     return
 
 
-def draw_single_graph(input_data):
+def draw_single_graph(input_data, titlename):
     fig = plt.figure()
     plt.plot(input_data)
+    plt.title(titlename)
     plt.show()
     return
 
@@ -194,6 +195,15 @@ def return_random(total_num, persentage_num):
 def load_json_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as fr:
         loaded_data = json.load(fr)
+
+    ######################################
+    temp = list()
+    for one_file in loaded_data:
+        if 'noncmd' in one_file:
+            temp.append(one_file)
+    
+    loaded_data = temp
+    ######################################
 
     for one_file in loaded_data:
         check_traindata_npz_with_plt(one_file)
@@ -213,24 +223,59 @@ def load_json_file(file_path):
     #     check_traindata_npz_with_plt(one_file)
 
     
+def check_hy_cw_data():
+    hy_data_path = "D:\\voice_data_backup\\PNC_DB_ALL\\PNCDB"
+    cw_data_path = "C:\\temp\\PnC_Solution_CW_all_1102\\"
+    
+    hy_files_list = fpro.find_data_files(hy_data_path, '.wav')
+    cw_files_list = fpro.find_data_files(cw_data_path, '.wav')
+    
+    # for one_file in hy_files_list:
+    #      sr, data = wavfile.read(one_file)
+    #      draw_single_graph(data, one_file)
 
+         
+    for one_file in cw_files_list:
+        temp = dict()
+        temp['filename'] = one_file
+        temp['label'] = 'None'
+        result = cwsig.gen_sig_data_2(temp)
+        draw_single_graph(result['file_data'], one_file.split('\\')[-1])
 
 
 
 if __name__ == '__main__':
     print('hello, world~!!')
+    check_hy_cw_data()
+        
     
+    #################################################################
     # target_json = CWdata_path+'\\'+'$$npz_data.json'
     # load_json_file(target_json)
 
-    target_path = 'C:\\temp\\test_npz_data\\'
-    files_list = fpro.find_data_files(target_path, '.npz')
+    # target_path = "C:\\temp\\test_Ver.2.4.npz"
+    # check_traindata_npz_with_plt(target_path)
 
-    for one in files_list:
-        loaded = np.load(one)
-        data = loaded['data']
-        label = loaded['label']
-        draw_single_graph(data[0])
+    #################################################################
+    # target_path = 'C:\\temp\\test_npz_data\\'
+    # target_path = "C:\\temp\\CW_test\\"
+    # files_list = fpro.find_data_files(target_path, '.npz')
+
+    # temp = list()
+    # for one_file in files_list:
+    #     if 'noncmd' in one_file:
+    #         temp.append(one_file)
+
+    # files_list = temp
+
+    # for one in files_list:
+    #     print(one)
+    #     check_traindata_npz_with_plt(one)
+        # loaded = np.load(one)
+        # data = loaded['data']
+        # label = loaded['label']
+        # draw_single_graph(data)
+
 
 
 

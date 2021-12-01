@@ -1,5 +1,6 @@
 
 from numpy import random
+from numpy.core.shape_base import block
 from global_variables import *
 import global_variables as gv
 from CW_class_data import TrainData
@@ -166,6 +167,14 @@ def aug_position_process_2(input_files_list):
                 init_data = para_dict['data']
 
                 block_size, aug_num = return_block_size(para_dict)
+
+            #######################################################
+            # print(one_file) 
+            # time.sleep(10000)
+            if 'noncmd_' in one_file['filename']:
+                aug_num = 2
+                block_size = block_size*gv.DATA_AUG_POSITION//2
+                # continue
 
             for i in range(aug_num):
                 temp_dict = gentrain.gen_file_data_dict()
