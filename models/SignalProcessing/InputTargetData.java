@@ -10,8 +10,7 @@ public class InputTargetData extends VoiceSignalData {
      * 생성자
      * @param fullsize
      */
-    InputTargetData(int fullsize){
-        this.fullsize = fullsize;
+    InputTargetData(){
     }
 
     /**

@@ -17,10 +17,16 @@ public class PracticeDemo {
         ArrayList tempInput = new ArrayList<Integer>();
         Random random = new Random();
 
-        int temp = random.nextInt(maxvalue);
-        System.out.println(temp);
+        for (int i=0; i < randomsize; i++){
+            int temp = random.nextInt(maxvalue);
+            temp = temp-(randomsize/2);
+            tempInput.add(i, temp);
+        }
 
-        SignalProcessing mainprocess = new SignalProcessing();
+        //System.out.println(tempInput);
+
+        SignalProcessing mainprocess = new SignalProcessing(tempInput, 40000);
+        mainprocess.runProcess();
         
     }
     
