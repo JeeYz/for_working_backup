@@ -14,7 +14,7 @@ public class PracticeDemo {
         int randomsize = 64000;
         int maxvalue = 64000;
 
-        ArrayList tempInput = new ArrayList<Integer>();
+        ArrayList<Integer> tempInput = new ArrayList<Integer>();
         Random random = new Random();
 
         for (int i=0; i < randomsize; i++){
@@ -27,6 +27,8 @@ public class PracticeDemo {
 
         SignalProcessing mainprocess = new SignalProcessing(tempInput, 40000);
         mainprocess.runProcess();
+
+        // 리턴값을 받는 코드 필요
         
     }
     
