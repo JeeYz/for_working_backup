@@ -94,7 +94,15 @@ class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList{
             ArrayList <Float> tempList = new ArrayList<Float>();
             for (int j=i; j<(i+framesize); j++){
                 if(j==(i+framesize-1)){
-                    tempList.add((j-i), dataList.get(j));
+                    float tempOneData = dataList.get(j);
+
+                    if (tempOneData<0){
+                        tempOneData = (-1)*tempOneData;
+                        tempList.add((j-i), tempOneData);
+
+                    } else {
+                        tempList.add((j-i), tempOneData);
+                    }
 
                     float sum = (float) 0;
                     for (float onedata: tempList){
