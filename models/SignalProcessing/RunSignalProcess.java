@@ -1,5 +1,6 @@
 package models.SignalProcessing;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 class PreProcess implements CheckSignalData, ProcessingData{
@@ -120,22 +121,71 @@ class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList{
     @Override
     public void runTrigger(VoiceSignalData inputClass) {
         // TODO Auto-generated method stub
+        int startIndex = returnStartIndex((InputTargetData)inputClass);        
+        addZeroPadding((InputTargetData)inputClass);
+        System.out.println(inputClass.getData().size());
+
+        cutData((InputTargetData)inputClass, startIndex);
+    }
+
+    private int returnStartIndex(InputTargetData inputClass){
         ArrayList meanValueList = inputClass.getMeanList();
         ArrayList sigData = inputClass.getData();
         ArrayList<Float> result = new ArrayList<>();
-
+        
+        int startIndex = 0;
         for (int i=0; i<meanValueList.size(); i++){
-
+            if ((float)meanValueList.get(i) >= inputClass.getTriggerValue()){
+                startIndex = i;
+                break;
+            }
         }
 
+        return startIndex;
     }
 
-    private void cutData(){
+    private void cutData(InputTargetData inputClass, int startIndex){
+        ArrayList<Float> result = new ArrayList<>();
+        int dataFullSize = inputClass.getFullSize();
+        int endIndex = startIndex+dataFullSize;
 
+        ArrayList tempData = inputClass.getData();
+
+        int jNumber = 0;
+        for (int i=0; i<tempData.size(); i++){
+            if (startIndex<=i && i<endIndex){
+                result.add(jNumber, (Float)tempData.get(i));
+                jNumber++;
+            }
+        }
+
+        System.out.println(result.size());;
+        System.out.println(result);
+        inputClass.setData(result);
     }
 
-    private void addZeroPadding(){
+    private ArrayList fillZeroValue(int targetSize){
+        ArrayList<Float> result = new ArrayList<>();
 
+        for (int i=0; i<targetSize; i++){
+            result.add(i, (float)0.0);
+        }
+
+        return result;
+    }
+
+    private void addZeroPadding(InputTargetData inputClass){
+        ArrayList<Float> sigData = inputClass.getData();
+        ArrayList frontZero = fillZeroValue(inputClass.getDecodingFrontSize());
+        ArrayList backZero = fillZeroValue(inputClass.getDecodingFrontSize());
+        ArrayList<Float> frontTemp = frontZero;
+        ArrayList<Float> backTemp = backZero;
+
+        frontTemp.addAll(sigData);
+        frontTemp.addAll(backTemp);
+        System.out.println(frontTemp.size());
+
+        inputClass.setData(frontTemp);
     }
 
     void runTriggerAlgorithm(VoiceSignalData inputClass){

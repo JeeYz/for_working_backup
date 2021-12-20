@@ -37,6 +37,10 @@ public class InputTargetData extends VoiceSignalData {
         return this.fullsize;
     }
 
+    public void setFullSize(int fullSize){
+        this.fullsize = fullSize;
+    }
+
     @Override
     ArrayList getData() {
         // TODO Auto-generated method stub

@@ -17,6 +17,7 @@ public class SignalProcessing {
         // 
         this.targetdata.setData(input);
         this.fullsize = fullsize;
+        targetdata.setFullSize(fullsize);
     }
 
     public ArrayList getTargetData(){
