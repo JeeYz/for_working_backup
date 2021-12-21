@@ -7,24 +7,14 @@ import java.util.ArrayList;
  */
 abstract class VoiceSignalData {
     /**
-     * filed of data
-     * 변수들
-     */
-    // ArrayList signaldata;
-    // ArrayList meanList;
-
-    // int framesize;
-    // int shiftsize;
-    // float triggervalue;
-
-    /**
      *  메서드들
      */
-    abstract ArrayList getData();
-    abstract void setData(ArrayList targetdata);
+    
+    abstract ArrayList<Float> getData();
+    abstract void setData(ArrayList<Float> targetdata);
 
-    abstract ArrayList getMeanList();
-    abstract void setMeanList(ArrayList targetMeanList);
+    abstract ArrayList<Float> getMeanList();
+    abstract void setMeanList(ArrayList<Float> targetMeanList);
 
     abstract int getFramesize();
     abstract int getShiftsize();
@@ -57,8 +47,7 @@ interface TriggerAlgorithm{
      * 트리거 알고리즘을 통과한 데이터를 잘라주는 메서드
      * @return array list
      */
-    // void cutData(VoiceSignalData inputClass);
-
+    void cutData(InputTargetData inputClass, int inputNum);
 }
 
 /**

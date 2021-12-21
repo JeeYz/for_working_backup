@@ -1,17 +1,22 @@
 package models.SignalProcessing;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * 입력 데이터의 전처리를 수행해주는 클래스
+ */
 class PreProcess implements CheckSignalData, ProcessingData{
 
+    /**
+     * 입력 데이터를 표준화 시켜주는 메서드
+     */
     @Override
     public void standardizeData(VoiceSignalData inputClass) {
         // TODO Auto-generated method stub
-        ArrayList<Integer> targetdata = inputClass.getData();
+        ArrayList<Float> targetdata = inputClass.getData();
 
         float sumValue = 0;
-        ArrayList<Float> result = new ArrayList<Float>();
+        ArrayList<Float> result = new ArrayList<>();
 
         for (float element : targetdata){
             // System.out.println(element);
@@ -35,12 +40,6 @@ class PreProcess implements CheckSignalData, ProcessingData{
             result.add(i, temp);
         }
 
-        // System.out.println(result);
-        System.out.println(result.size());
-        System.out.println(result.getClass());
-        System.out.println(result.getClass().getName());
-        // 밑에 있는 메서드를 사용
-        System.out.println(result.get(0).getClass().getName());
         inputClass.setData(result);
     }
 
@@ -61,7 +60,7 @@ class PreProcess implements CheckSignalData, ProcessingData{
         return 0;
     }
 
-    public void checkDataBeing(ArrayList targetData){
+    public void checkDataBeing(ArrayList<Float> targetData){
 
     }
 
@@ -72,15 +71,28 @@ class PreProcess implements CheckSignalData, ProcessingData{
     }
 
 
+    /**
+     * 본 클래스의 메인 메서드
+     * 전처리를 실행시켜주는 메서드
+     * @param inputClass
+     */
     void runPreProcess(VoiceSignalData inputClass){
         this.standardizeData(inputClass);
+        // ((InputTargetData) inputClass).printStatusInputTargetDataClass();
     }
 
 }
 
 
+/**
+ * 트리거 알고리즘을 실행시켜주는 메서드
+ * 실제 데이터 처리 부분
+ */
 class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList{
 
+    /**
+     * 평균값 리스트를 생성해주는 메서드
+     */
     @Override
     public void runGenerator(VoiceSignalData inputClass) {
         // TODO Auto-generated method stub
@@ -93,17 +105,17 @@ class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList{
         for (int i=0; i<dataList.size(); i=i+shiftsize) {
             ArrayList <Float> tempList = new ArrayList<Float>();
             for (int j=i; j<(i+framesize); j++){
+                float tempOneData = dataList.get(j);
+
+                if (tempOneData<0){
+                    tempOneData = (-1)*tempOneData;
+                    tempList.add((j-i), tempOneData);
+
+                } else {
+                    tempList.add((j-i), tempOneData);
+                }
+
                 if(j==(i+framesize-1)){
-                    float tempOneData = dataList.get(j);
-
-                    if (tempOneData<0){
-                        tempOneData = (-1)*tempOneData;
-                        tempList.add((j-i), tempOneData);
-
-                    } else {
-                        tempList.add((j-i), tempOneData);
-                    }
-
                     float sum = (float) 0;
                     for (float onedata: tempList){
                         sum = sum+onedata;
@@ -114,32 +126,37 @@ class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList{
 
                 } else {
                     tempList.add((j-i), dataList.get(j));
-
                 }
             }
             if (i+framesize>=dataList.size()){
                 break;
             }
         }
-
+        // System.out.println(result);
         inputClass.setMeanList(result);
 
     }
 
+    /**
+     * 트리거를 수행해주는 메서드
+     */
     @Override
     public void runTrigger(VoiceSignalData inputClass) {
         // TODO Auto-generated method stub
         int startIndex = returnStartIndex((InputTargetData)inputClass);        
         addZeroPadding((InputTargetData)inputClass);
-        System.out.println(inputClass.getData().size());
+        // System.out.println(inputClass.getData().size());
 
         cutData((InputTargetData)inputClass, startIndex);
     }
 
+    /**
+     * 평균값 리스트와 트리거 값을 사용해서 시작 인덱스를 출력해주는 메서드
+     * @param inputClass
+     * @return startIndex
+     */
     private int returnStartIndex(InputTargetData inputClass){
-        ArrayList meanValueList = inputClass.getMeanList();
-        ArrayList sigData = inputClass.getData();
-        ArrayList<Float> result = new ArrayList<>();
+        ArrayList<Float> meanValueList = inputClass.getMeanList();
         
         int startIndex = 0;
         for (int i=0; i<meanValueList.size(); i++){
@@ -152,12 +169,16 @@ class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList{
         return startIndex;
     }
 
-    private void cutData(InputTargetData inputClass, int startIndex){
+    /**
+     * 시작 인덱스를 사용해서 실제 클래스내의 데이터를 잘라주는 메서드
+     */
+    @Override
+    public void cutData(InputTargetData inputClass, int startIndex){
         ArrayList<Float> result = new ArrayList<>();
         int dataFullSize = inputClass.getFullSize();
         int endIndex = startIndex+dataFullSize;
 
-        ArrayList tempData = inputClass.getData();
+        ArrayList<Float> tempData = inputClass.getData();
 
         int jNumber = 0;
         for (int i=0; i<tempData.size(); i++){
@@ -167,12 +188,17 @@ class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList{
             }
         }
 
-        System.out.println(result.size());;
-        System.out.println(result);
+        // System.out.println(result.size());
+        // System.out.println(result);
         inputClass.setData(result);
     }
 
-    private ArrayList fillZeroValue(int targetSize){
+    /**
+     * 제로 패딩 내의 값을 채워주는 메서드
+     * @param targetSize
+     * @return
+     */
+    private ArrayList<Float> fillZeroValue(int targetSize){
         ArrayList<Float> result = new ArrayList<>();
 
         for (int i=0; i<targetSize; i++){
@@ -182,24 +208,35 @@ class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList{
         return result;
     }
 
+    /**
+     * 데이터에 제로패딩을 붙여주는 메서드
+     * @param inputClass
+     */
     private void addZeroPadding(InputTargetData inputClass){
         ArrayList<Float> sigData = inputClass.getData();
-        ArrayList frontZero = fillZeroValue(inputClass.getDecodingFrontSize());
-        ArrayList backZero = fillZeroValue(inputClass.getDecodingFrontSize());
+        int addZeroSize = inputClass.getFullSize();
+        ArrayList<Float> frontZero = fillZeroValue(addZeroSize);
+        ArrayList<Float> backZero = fillZeroValue(addZeroSize);
         ArrayList<Float> frontTemp = frontZero;
         ArrayList<Float> backTemp = backZero;
 
         frontTemp.addAll(sigData);
         frontTemp.addAll(backTemp);
-        System.out.println(frontTemp.size());
+        // System.out.println(frontTemp.size());
 
         inputClass.setData(frontTemp);
     }
 
+    /**
+     * 현재 클래스의 실제 실행부분
+     * @param inputClass
+     */
     void runTriggerAlgorithm(VoiceSignalData inputClass){
         this.runGenerator(inputClass);
-        // System.out.println(inputClass.getMeanList().size());
+        ((InputTargetData) inputClass).printStatusInputTargetDataClass();
+
         this.runTrigger(inputClass);
+        ((InputTargetData) inputClass).printStatusInputTargetDataClass();
     }
 
 }

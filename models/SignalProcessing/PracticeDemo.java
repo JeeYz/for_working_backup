@@ -3,33 +3,45 @@ package models.SignalProcessing;
 import java.util.ArrayList;
 import java.util.Random;
 
-import javax.print.event.PrintJobListener;
-
 public class PracticeDemo {
 
+    /**
+     * 데모 실행을 위한 테스트 코드
+     * @param args
+     */
     public static void main(String[] args) {
         String x = "hello, world~!!";
         System.out.println(x);
 
+        ArrayList<Float> tempInput = genRandomInput();
+
+        SignalProcessing mainProcess = new SignalProcessing(tempInput, 40000);
+        mainProcess.runProcess();
+        System.out.println(mainProcess.getTargetData().size());
+
+        /**
+         * 데이터를 리턴받을 코드
+         */
+        mainProcess.getTargetData();
+        
+    }
+
+    /**
+     * 테스트를 위한 임시 랜덤값 생성 메서드
+     * @return ArrayList 
+     */
+    private static ArrayList<Float> genRandomInput(){
         int randomsize = 64000;
         int maxvalue = 64000;
+        ArrayList<Float> result = new ArrayList<>();
 
-        ArrayList<Integer> tempInput = new ArrayList<Integer>();
         Random random = new Random();
 
         for (int i=0; i < randomsize; i++){
-            int temp = random.nextInt(maxvalue);
+            float temp = (float)random.nextInt(maxvalue);
             temp = temp-(randomsize/2);
-            tempInput.add(i, temp);
+            result.add(i, temp);
         }
-
-        //System.out.println(tempInput);
-
-        SignalProcessing mainprocess = new SignalProcessing(tempInput, 40000);
-        mainprocess.runProcess();
-
-        // 리턴값을 받는 코드 필요
-        
+        return result;
     }
-    
 }
