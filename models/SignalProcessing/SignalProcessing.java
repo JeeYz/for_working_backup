@@ -53,11 +53,11 @@ public class SignalProcessing {
          * 데이터와 최종 출력 데이터의 길이
          */
         PreProcess prepro = new PreProcess();
-        prepro.runPreProcess(this.targetdata);
+        prepro.runPreProcess(targetdata);
         printStatusSignalProcessingClass();
 
         RunTriggerAlgorithm trigalg = new RunTriggerAlgorithm();
-        trigalg.runTriggerAlgorithm(this.targetdata);
+        trigalg.runTriggerAlgorithm(targetdata);
         printStatusSignalProcessingClass();
 
     }

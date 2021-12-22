@@ -77,8 +77,47 @@ class PreProcess implements CheckSignalData, ProcessingData{
      * @param inputClass
      */
     void runPreProcess(VoiceSignalData inputClass){
+        if (inputClass==null){
+            System.out.println("PreProcess 작업중 입니다.");
+            System.out.println("입력된 클래스는 null 입니다.");
+            System.out.println("클래스 내의 데이터를 0값으로 패딩합니다.");
+            inputClass = whenClassIsnull();
+        }
         this.standardizeData(inputClass);
         // ((InputTargetData) inputClass).printStatusInputTargetDataClass();
+    }
+
+    /**
+     * 제로 패딩 내의 값을 채워주는 메서드
+     * @param targetSize
+     * @return
+     */
+    private ArrayList<Float> fillZeroValue(int targetSize){
+        ArrayList<Float> result = new ArrayList<>();
+
+        for (int i=0; i<targetSize; i++){
+            result.add(i, (float)0.0);
+        }
+
+        return result;
+    }
+
+    /**
+     * 하드 코딩 메서드
+     */
+    @Override
+    public InputTargetData whenClassIsnull() {
+        // TODO Auto-generated method stub
+        InputTargetData result = new InputTargetData();
+        result.setFullSize(40000);
+
+        ArrayList<Float> tempData = new ArrayList<>();
+        tempData = fillZeroValue(40000);
+
+        result.setData(tempData);
+
+        return result;
+
     }
 
 }
@@ -88,7 +127,7 @@ class PreProcess implements CheckSignalData, ProcessingData{
  * 트리거 알고리즘을 실행시켜주는 메서드
  * 실제 데이터 처리 부분
  */
-class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList{
+class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList, CheckSignalData{
 
     /**
      * 평균값 리스트를 생성해주는 메서드
@@ -228,15 +267,53 @@ class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList{
     }
 
     /**
+     * 하드 코딩 메서드
+     * 재로패딩 full size가 하드 코딩 되어 있음.
+     */
+    @Override
+    public InputTargetData whenClassIsnull() {
+        // TODO Auto-generated method stub
+        InputTargetData result = new InputTargetData();
+        result.setFullSize(40000);
+
+        ArrayList<Float> tempData = new ArrayList<>();
+        tempData = fillZeroValue(40000);
+
+        result.setData(tempData);
+
+        return result;
+
+    }
+
+    /**
      * 현재 클래스의 실제 실행부분
      * @param inputClass
      */
     void runTriggerAlgorithm(VoiceSignalData inputClass){
+        if (inputClass==null){
+            System.out.println("PreProcess 작업중 입니다.");
+            System.out.println("입력된 클래스는 null 입니다.");
+            System.out.println("클래스 내의 데이터를 0값으로 패딩합니다.");
+            inputClass = whenClassIsnull();
+        }
+
         this.runGenerator(inputClass);
         ((InputTargetData) inputClass).printStatusInputTargetDataClass();
 
         this.runTrigger(inputClass);
         ((InputTargetData) inputClass).printStatusInputTargetDataClass();
+    }
+
+    @Override
+    public int checkSize() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int checkDataType() {
+        // TODO Auto-generated method stub
+        return 0;
     }
 
 }

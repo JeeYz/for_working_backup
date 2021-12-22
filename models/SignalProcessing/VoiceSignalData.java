@@ -36,6 +36,7 @@ interface ProcessingData{
 interface CheckSignalData{
     int checkSize();
     int checkDataType();
+    InputTargetData whenClassIsnull();
 }
 
 /**
