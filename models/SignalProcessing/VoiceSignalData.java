@@ -2,10 +2,21 @@ package models.SignalProcessing;
 
 import java.util.ArrayList;
 
+
 /**
  * 음성 시그널 데이터의 추상 클래스
  */
 abstract class VoiceSignalData {
+
+    int fullsize;
+    ArrayList<Float> signaldata;
+    ArrayList<Float> meanList;
+
+    int framesize;
+    int shiftsize;
+    float triggervalue;
+    int decodingFrontSize;
+
     /**
      *  메서드들
      */
@@ -19,6 +30,8 @@ abstract class VoiceSignalData {
     abstract int getFramesize();
     abstract int getShiftsize();
     abstract float getTriggerValue();
+
+    public abstract String toString();
 }
 
 /**

@@ -15,18 +15,8 @@ public class SignalProcessing {
      */
     public SignalProcessing(ArrayList<Float> input, int fullsize){
         
-        targetdata.setData(input);
-        targetdata.setFullSize(fullsize);
-    }
-
-    public void printStatusSignalProcessingClass(){
-        ArrayList<Float> currentData = targetdata.getData();
-        System.out.println("\n");
-        System.out.println("**About Signal Data**");
-        System.out.println("Data Class Name : " + currentData.getClass());
-        System.out.println("Data Size : " + currentData.size());
-        System.out.println("Data Type : " + currentData.get(0).getClass().getName());
-        System.out.println("\n");
+        this.targetdata.setData(input);
+        this.targetdata.setFullSize(fullsize);
     }
 
     /**
@@ -34,7 +24,7 @@ public class SignalProcessing {
      * @return
      */
     public ArrayList<Float> getTargetData(){
-        return targetdata.getData();
+        return this.targetdata.getData();
     }
 
     /**
@@ -54,11 +44,9 @@ public class SignalProcessing {
          */
         PreProcess prepro = new PreProcess();
         prepro.runPreProcess(targetdata);
-        printStatusSignalProcessingClass();
 
         RunTriggerAlgorithm trigalg = new RunTriggerAlgorithm();
         trigalg.runTriggerAlgorithm(targetdata);
-        printStatusSignalProcessingClass();
 
     }
 }

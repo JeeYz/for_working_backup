@@ -13,28 +13,6 @@ public class InputTargetData extends VoiceSignalData {
     private float triggervalue = (float)1.0;
     private int decodingFrontSize = 8000;
 
-    public void printStatusInputTargetDataClass(){
-        ArrayList<Float> currentData = getData();
-        ArrayList<Float> meanValueList = getMeanList();
-
-        System.out.println("\n");
-        System.out.println("**About Signal Data**");
-        System.out.println("Data Class Name : " + currentData.getClass());
-        System.out.println("Data Size : " + currentData.size());
-        System.out.println("Data Type : " + currentData.get(0).getClass().getName());
-        System.out.println("Mean Vlaue List Size : " + meanValueList.size());
-        System.out.println("\n");
-        
-        System.out.println("**Class Parameter Status**");
-        System.out.println("Output Data Size : " + getFullSize());
-        System.out.println("Frame Size : " + getFramesize());
-        System.out.println("Shift Size : " + getShiftsize());
-        System.out.println("Trigger Value : " + getTriggerValue());
-        System.out.println("Front Buffer Size  : " + getDecodingFrontSize());
-        System.out.println("\n");
-
-    }
-
     /**
      * 생성자
      * @param fullsize
@@ -47,7 +25,7 @@ public class InputTargetData extends VoiceSignalData {
      * @return
      */
     public int getDecodingFrontSize() {
-        return decodingFrontSize;
+        return this.decodingFrontSize;
     }
 
     /**
@@ -72,7 +50,7 @@ public class InputTargetData extends VoiceSignalData {
     @Override
     ArrayList<Float> getData() {
         // TODO Auto-generated method stub
-        return signaldata;
+        return this.signaldata;
     }
 
     /**
@@ -81,7 +59,7 @@ public class InputTargetData extends VoiceSignalData {
     @Override
     void setData(ArrayList<Float> targetdata) {
         // TODO Auto-generated method stub
-        signaldata = targetdata;
+        this.signaldata = targetdata;
     }
 
     /**
@@ -90,7 +68,7 @@ public class InputTargetData extends VoiceSignalData {
     @Override
     ArrayList<Float> getMeanList() {
         // TODO Auto-generated method stub
-        return meanList;
+        return this.meanList;
     }
 
     /**
@@ -99,7 +77,7 @@ public class InputTargetData extends VoiceSignalData {
     @Override
     void setMeanList(ArrayList<Float> targetMeanList) {
         // TODO Auto-generated method stub
-        meanList = targetMeanList;
+        this.meanList = targetMeanList;
         
     }
 
@@ -109,7 +87,7 @@ public class InputTargetData extends VoiceSignalData {
     @Override
     int getFramesize() {
         // TODO Auto-generated method stub
-        return framesize;
+        return this.framesize;
     }
 
     /**
@@ -118,7 +96,7 @@ public class InputTargetData extends VoiceSignalData {
     @Override
     int getShiftsize() {
         // TODO Auto-generated method stub
-        return shiftsize;
+        return this.shiftsize;
     }
 
     /**
@@ -127,8 +105,27 @@ public class InputTargetData extends VoiceSignalData {
     @Override
     float getTriggerValue() {
         // TODO Auto-generated method stub
-        return triggervalue;
+        return this.triggervalue;
     }
 
+    public String toString() {
+        // TODO Auto-generated method stub
+        ArrayList<Float> currentData = this.getData();
+        ArrayList<Float> meanValueList = this.getMeanList();
+
+        String returnStr = "Data Size : " + currentData.size() 
+                         + " , Data Type : " + currentData.get(0).getClass().getName()
+                         + " , Mean Value List Size : " + meanValueList.size()
+                         + "\n" + "*Parameters*  "
+                         + "Result Data Size : " + getFullSize()
+                         + " , Frame Size : " + getFramesize()
+                         + " , Shift Size : " + getShiftsize()
+                         + " , Trigger Value : " + getTriggerValue()
+                         + " , Front Buffer Size : " + getDecodingFrontSize()
+                         + "\n";
+
+
+        return returnStr;
+    }
 
 }

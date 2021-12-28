@@ -17,7 +17,6 @@ public class PracticeDemo {
 
         SignalProcessing mainProcess = new SignalProcessing(tempInput, 40000);
         mainProcess.runProcess();
-        System.out.println(mainProcess.getTargetData().size());
 
         /**
          * 데이터를 리턴받을 코드
