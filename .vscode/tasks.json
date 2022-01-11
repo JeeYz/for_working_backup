@@ -1,0 +1,22 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "java",
+			"targetPath": "${workspaceFolder}/${workspaceFolderBasename}.jar",
+			"elements": [
+				"${compileOutput:for_working_backup_ffc77b9}",
+				"${dependencies:for_working_backup_ffc77b9}",
+				"${compileOutput:hellotensorflow}",
+				"${dependencies:hellotensorflow}"
+			],
+			"problemMatcher": [],
+			"label": "java: exportjar:for_working_backup",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+
+	]
+}
