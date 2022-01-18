@@ -1,5 +1,8 @@
 
+from cProfile import label
+import datetime
 from os import write
+from numpy import percentile
 from numpy.core.defchararray import index
 from numpy.core.fromnumeric import mean
 from global_variables import *
@@ -164,7 +167,7 @@ def print_result(index_num, output_data):
                     break
                 else:
                     label_name = "None"
-            print("%d : %6.2f %% << %d"%(i, j*100, index_num), label_name)
+            print("%d : %6.2f %% << "%(i, j*100), label_name)
         else:
             print("%d : %6.2f %%"%(i, j*100))
 
@@ -185,6 +188,35 @@ def write_numpy_for_draw_graph(input_data):
     return
 
 
+#%%
+def writeLogFile(labelIndex, predictions, runningTime):
+    now = datetime.datetime.now()
+
+    if (labelIndex==0):
+        label_name = "NONE"
+    else:
+        for one in LabelsKorEng:
+            if one.value == labelIndex:
+                label_name = one
+                label_name = str(label_name).split(".")[-1]
+                break
+
+    percentageLabel = "{:.2f}".format(predictions[0][labelIndex]*100)
+    runningTime = "{:.4f}".format(runningTime)
+    
+    writeLine = \
+        "Time : {time}, Label : {label}, Word : {word}, Percentage = {percentage}%, RunTime : {runtime}sec"\
+        .format(time=now.replace(microsecond=0), label=labelIndex,
+                percentage=percentageLabel, 
+                word=label_name, runtime=runningTime)
+
+    with open(outputLogFile, 'a', encoding='utf-8') as f:
+        f.write(writeLine)
+        f.write("\n")
+    
+
+
+# %%
 
 #%%
 def decoding_command(test_data):
@@ -208,7 +240,10 @@ def decoding_command(test_data):
     end_time = time.time()
 
     print("decoding time : %f" %(end_time-start_time))
+    runningTime = end_time-start_time
     start_time = None
+    
+    writeLogFile(a, predictions, runningTime)
 
     # write_numpy_for_draw_graph(test_data)
 

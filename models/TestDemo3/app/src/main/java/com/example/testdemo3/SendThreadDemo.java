@@ -1,8 +1,7 @@
 package com.example.testdemo3;
 
-import static android.media.AudioRecord.getMinBufferSize;
-
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.media.AudioFormat;
@@ -12,63 +11,31 @@ import android.util.Log;
 
 import androidx.core.app.ActivityCompat;
 
+import java.io.PipedOutputStream;
+
 public class SendThreadDemo implements Runnable {
 
-    private static final int RECORDER_SOURCE = MediaRecorder.AudioSource.MIC;
-    private static final int RECORDER_SAMPLERATE = 16000;
-    private static final int RECORDER_CHANNELS = AudioFormat.CHANNEL_IN_MONO;
-    private static final int RECORDER_AUDIO_ENCODING = AudioFormat.ENCODING_PCM_16BIT;
-    private static int bufferSizeInBytes = 0;
-    private static boolean isRecording = true;
+    private static AudioRecord audioRec;
+    private byte[] audioBytes;
+    private int chunkSize;
 
-    private AudioRecord audioRec;
-
-
-    public SendThreadDemo(AudioRecord audioRec) {
-        this.bufferSizeInBytes = getMinBufferSize(
-                RECORDER_SAMPLERATE,
-                RECORDER_CHANNELS,
-                RECORDER_AUDIO_ENCODING
-        );
-
-        Log.i("buffer size", String.valueOf(bufferSizeInBytes));
+    public SendThreadDemo(AudioRecord audioRec, int mainChunkSize) {
         this.audioRec = audioRec;
-
-    }
-
-    public int getBufferSizeInBytes() {
-        return this.bufferSizeInBytes;
+        this.chunkSize = mainChunkSize;
+        audioBytes = new byte[this.chunkSize];
     }
 
     @Override
     public void run() {
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
+        try{
+            while(true){
+                audioRec.startRecording();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            Log.d("exception", "녹음이 정상적으로 작동하지 않습니다...");
         }
-        audioRec = new AudioRecord(
-                RECORDER_SOURCE,
-                RECORDER_SAMPLERATE,
-                RECORDER_CHANNELS,
-                RECORDER_AUDIO_ENCODING,
-                bufferSizeInBytes
-        );
-
-        audioRec.startRecording();
-        System.out.println(audioRec.getRecordingState());
-
-
-        Log.i("current state", "end recording????");
-        System.out.println(audioRec.getRecordingState());
-        audioRec.stop();
-
     }
 
 }
