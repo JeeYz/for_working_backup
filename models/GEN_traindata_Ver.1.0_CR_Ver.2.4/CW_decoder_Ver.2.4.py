@@ -216,7 +216,25 @@ def writeLogFile(labelIndex, predictions, runningTime):
     
 
 
-# %%
+#%%
+def draw_graph_raw_signal(data, **kwargs):
+
+    title_name = kwargs['title_name']
+
+    plt.figure()
+    plt.plot(data)
+
+    plt.xlabel('sample rate')
+    plt.ylabel('amplitude')
+    plt.title(title_name)
+
+    # plt.tight_layout()
+    # plt.show()
+
+    return
+
+
+
 
 #%%
 def decoding_command(test_data):
@@ -244,6 +262,9 @@ def decoding_command(test_data):
     start_time = None
     
     writeLogFile(a, predictions, runningTime)
+
+    ## 수정필요
+    draw_graph_raw_signal(test_data, "result data")
 
     # write_numpy_for_draw_graph(test_data)
 

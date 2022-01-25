@@ -1,21 +1,38 @@
 package com.example.testdemo3;
 
+import android.provider.Settings;
 import android.util.Log;
 
 import java.util.ArrayList;
 
+
+/**
+ * 신호처리 전반을 수행하는 클래스
+ */
 public class SignalProcessing {
-    InputTargetData targetdata = new InputTargetData();
+    private static InputTargetData targetData;
+    private GlobalVariablesClass globalVariables;
+
+    private static PreProcess preProClass;
+    private static RunTriggerAlgorithm trigAlgClass;
 
     /**
      * 생성자
-     * @param input -> 데이터
-     * @param fullsize -> 최종 출력 데이터 사이즈
+     * 신호처리 전반을 수행하는 클래스
+     * 전처리부터 필요한 부분을 잘라 주는 알고리즘을 실행시키는 클래스
+     * @param globalVariables -> 전역 변수가 저장되어 있는 클래스
      */
-    public SignalProcessing(ArrayList<Float> input, int fullsize){
+    public SignalProcessing(GlobalVariablesClass globalVariables){
 
-        this.targetdata.setData(input);
-        this.targetdata.setFullSize(fullsize);
+        this.globalVariables = globalVariables;
+        this.targetData = new InputTargetData(globalVariables);
+        this.preProClass = new PreProcess();
+        this.trigAlgClass = new RunTriggerAlgorithm();
+
+    }
+
+    public void initInputDataClass(){
+        this.targetData = new InputTargetData(this.globalVariables);
     }
 
     /**
@@ -23,7 +40,7 @@ public class SignalProcessing {
      * @return
      */
     public ArrayList<Float> getTargetData(){
-        return this.targetdata.getData();
+        return this.targetData.getData();
     }
 
     /**
@@ -31,22 +48,21 @@ public class SignalProcessing {
      * @param settarget
      */
     public void setTargetData(ArrayList<Float> settarget){
-        this.targetdata.setData(settarget);
+        this.targetData.setData(settarget);
     }
 
     /**
      * 실제 실행부 메서드
      */
-    public void runProcess(){
+    public void runProcess(ArrayList<Float> input){
         /**
          * 데이터와 최종 출력 데이터의 길이
          */
 
-        PreProcess prepro = new PreProcess();
-        prepro.runPreProcess(targetdata);
+        this.targetData.setData(input);
 
-        RunTriggerAlgorithm trigalg = new RunTriggerAlgorithm();
-        trigalg.runTriggerAlgorithm(targetdata);
+        this.preProClass.runPreProcess(this.targetData);
+        this.trigAlgClass.runTriggerAlgorithm(this.targetData);
 
     }
 }

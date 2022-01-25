@@ -132,11 +132,11 @@ public class PreProcess implements CheckSignalData, ProcessingData{
     @Override
     public InputTargetData whenClassIsnull() {
         // TODO Auto-generated method stub
-        InputTargetData result = new InputTargetData();
-        result.setFullSize(40000);
+        GlobalVariablesClass tempClass = new GlobalVariablesClass();
+        InputTargetData result = new InputTargetData(tempClass);
 
         ArrayList<Float> tempData = new ArrayList<>();
-        tempData = fillZeroValue(40000);
+        tempData = fillZeroValue(result.getFullSizeOfResultData());
 
         result.setData(tempData);
 

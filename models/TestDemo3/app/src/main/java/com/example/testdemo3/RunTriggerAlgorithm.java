@@ -1,19 +1,25 @@
 package com.example.testdemo3;
 
+import android.renderscript.ScriptGroup;
 import android.util.Log;
 
 import java.util.ArrayList;
 
+/**
+ * 음성의 입력됨을 디텍션 해주는 클래스
+ */
 public class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList, CheckSignalData{
 
     /**
+     * 오버라이드
      * 평균값 리스트를 생성해주는 메서드
+     * @param "데이터가 입력되어 있는 클래스" VoiceSignalData Class
      */
     @Override
     public void runGenerator(VoiceSignalData inputClass) {
         // TODO Auto-generated method stub
-        int framesize = inputClass.getFramesize();
-        int shiftsize = inputClass.getShiftsize();
+        int frameSize = inputClass.getFrameSize();
+        int shiftSize = inputClass.getShiftSize();
 
         ArrayList<Float> result = new ArrayList<>();
         ArrayList<Float> dataList = inputClass.getData();
@@ -21,9 +27,9 @@ public class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList, 
         checkMaxMinValue(dataList);
         checkSize(dataList);
 
-        for (int i=0; i<dataList.size(); i=i+shiftsize) {
+        for (int i=0; i<dataList.size(); i=i+shiftSize) {
             ArrayList <Float> tempList = new ArrayList<>();
-            for (int j=i; j<(i+framesize); j++){
+            for (int j=i; j<(i+frameSize); j++){
                 float tempOneData = dataList.get(j);
 
                 if (tempOneData<0){
@@ -39,12 +45,12 @@ public class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList, 
             for (float onedata: tempList){
                 sum = sum+onedata;
             }
-            float meanValue = sum/framesize;
-            int idx = i/shiftsize;
+            float meanValue = sum/frameSize;
+            int idx = i/shiftSize;
             result.add(idx, meanValue);
 //            Log.i("standardization mean value", String.valueOf(meanValue));
 
-            if (i+framesize>=dataList.size()){
+            if (i+frameSize>=dataList.size()){
                 break;
             }
         }
@@ -84,17 +90,17 @@ public class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList, 
 
         int startIndex = 0;
         for (int i=0; i<meanValueList.size(); i++){
-            if ((float)meanValueList.get(i) >= (float)inputClass.getTriggerValue()){
+            if ((float)meanValueList.get(i) >= (float)inputClass.getTriggerValueStd()){
                 startIndex = i;
                 Log.d("compare", "trigger vs mean value");
-                Log.d("trigger value", String.valueOf(inputClass.getTriggerValue()));
+                Log.d("trigger value", String.valueOf(inputClass.getVoiceTriggerValue()));
                 Log.d("mean value", String.valueOf(meanValueList.get(i))+" "+String.valueOf(startIndex)+" of "+String.valueOf(meanValueList.size()));
 
                 break;
             }
         }
 
-        return (int)startIndex*inputClass.getShiftsize();
+        return (int)startIndex*inputClass.getShiftSize();
     }
 
     /**
@@ -103,7 +109,7 @@ public class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList, 
     @Override
     public void cutData(InputTargetData inputClass, int startIndex){
         ArrayList<Float> result = new ArrayList<>();
-        int dataFullSize = inputClass.getFullSize();
+        int dataFullSize = inputClass.getFullSizeOfResultData();
         Log.d("cut status full size", String.valueOf(dataFullSize));
         int decodeFrontSize = inputClass.getDecodingFrontSize();
 
@@ -147,8 +153,8 @@ public class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList, 
      */
     private void addZeroPadding(InputTargetData inputClass){
         ArrayList<Float> sigData = inputClass.getData();
-        int addZeroSize = inputClass.getFullSize();
-        Log.d("input class fullsize ", String.valueOf(inputClass.getFullSize())+" "+String.valueOf(addZeroSize));
+        int addZeroSize = inputClass.getFullSizeOfResultData();
+        Log.d("input class fullsize ", String.valueOf(inputClass.getFullSizeOfResultData())+" "+String.valueOf(addZeroSize));
 
         ArrayList<Float> frontZero = fillZeroValue(addZeroSize);
         ArrayList<Float> backZero = fillZeroValue(addZeroSize);
@@ -165,15 +171,16 @@ public class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList, 
     /**
      * 하드 코딩 메서드
      * 재로패딩 full size가 하드 코딩 되어 있음.
+     * 입력된 클래스가 null일 때 수행
      */
     @Override
     public InputTargetData whenClassIsnull() {
         // TODO Auto-generated method stub
-        InputTargetData result = new InputTargetData();
-        result.setFullSize(40000);
+        GlobalVariablesClass tempClass = new GlobalVariablesClass();
+        InputTargetData result = new InputTargetData(tempClass);
 
         ArrayList<Float> tempData = new ArrayList<>();
-        tempData = fillZeroValue(40000);
+        tempData = fillZeroValue(result.getFullSizeOfResultData());
 
         result.setData(tempData);
 
@@ -185,7 +192,7 @@ public class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList, 
      * 현재 클래스의 실제 실행부분
      * @param inputClass
      */
-    void runTriggerAlgorithm(VoiceSignalData inputClass){
+    void runTriggerAlgorithm(InputTargetData inputClass){
         if (inputClass==null){
             System.out.println("PreProcess 작업중 입니다.");
             System.out.println("입력된 클래스는 null 입니다.");
@@ -195,11 +202,11 @@ public class RunTriggerAlgorithm implements TriggerAlgorithm, GenMeanValueList, 
 
         this.runGenerator(inputClass);
 //        System.out.println(((InputTargetData) inputClass).toString());
-        Log.i("before data", ((InputTargetData)inputClass).toString());
+//        Log.i("before data", ((InputTargetData)inputClass).toString());
 
         this.runTrigger(inputClass);
 //        System.out.println(((InputTargetData) inputClass).toString());
-        Log.i("after data", ((InputTargetData)inputClass).toString());
+//        Log.i("after data", ((InputTargetData)inputClass).toString());
     }
 
     @Override

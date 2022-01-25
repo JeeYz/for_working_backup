@@ -111,6 +111,9 @@ outputLogFile = "result_log_data.txt"
 whole_data_json_filename = '$$whole_data_info.json'
 target_numpy_dir_name = "npz_train"
 
+## 수정
+txtFilesPath = "D:\\temp\\txtfiles"
+
 
 # check traindata variables
 NUMBER_OF_GRAPH = 49

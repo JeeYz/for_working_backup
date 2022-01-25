@@ -2,47 +2,91 @@ package com.example.testdemo3;
 
 import java.util.ArrayList;
 
+/**
+ * VoiceSignalData 클래스를 상속받은 클래스
+ */
 public class InputTargetData extends VoiceSignalData {
 
-    private int fullsize;
+    private GlobalVariablesClass globalVariables;
+
     private ArrayList<Float> signaldata;
     private ArrayList<Float> meanList;
 
-    private final int frameSize = 400;
-    private final int shiftSize = 200;
-    private final float triggerValue = (float)1.1;
-    private final int decodingFrontSize = 10000;
+    private int frameSize;
+    private int shiftSize;
+    private int fullSizeOfResultData;
+
+    private int voiceTriggerValue;
+    private float triggerValueStd;
+    private int decodingFrontSize;
 
     /**
      * 생성자
      * @param
      */
-    InputTargetData(){
+    InputTargetData(GlobalVariablesClass globalVariables){
+        this.frameSize = globalVariables.getFrameSize();
+        this.shiftSize = globalVariables.getShiftSize();
+        this.fullSizeOfResultData = globalVariables.getFullSizeOfResultData();
+
+        this.voiceTriggerValue = globalVariables.getVoiceTriggerValue();
+        this.triggerValueStd = globalVariables.getTriggerValueStd();
+        this.decodingFrontSize = globalVariables.getDecodingFrontSize();
     }
 
-    /**
-     * 최종 모델에 입력 데이터의 앞부분에 넣어줄 데이터 크기
-     * @return
-     */
-    public int getDecodingFrontSize() {
+    @Override
+    public int getFrameSize() {
+        return frameSize;
+    }
+    @Override
+    public void setFrameSize(int frameSize) {
+        this.frameSize = frameSize;
+    }
+
+    @Override
+    public int getShiftSize() {
+        return shiftSize;
+    }
+    @Override
+    public void setShiftSize(int shiftSize) {
+        this.shiftSize = shiftSize;
+    }
+
+    @Override
+    public int getFullSizeOfResultData() {
+        return fullSizeOfResultData;
+    }
+    @Override
+    public void setFullSizeOfResultData(int fullSizeOfResultData) {
+        this.fullSizeOfResultData = fullSizeOfResultData;
+    }
+
+    @Override
+    public int getVoiceTriggerValue() {
+        return this.voiceTriggerValue;
+    }
+    @Override
+    public void setVoiceTriggerValue(int voiceTriggerValue) {
+        this.voiceTriggerValue = voiceTriggerValue;
+    }
+    @Override
+    public float getTriggerValueStd() {
+        return this.triggerValueStd;
+    }
+    @Override
+    public void setTriggerValueStd(float triggerValueStd) {
+        this.triggerValueStd = triggerValueStd;
+    }
+
+    @Override
+    int getDecodingFrontSize() {
         return this.decodingFrontSize;
     }
-
-    /**
-     * 최종 출력 데이터 사이즈 반환
-     * @return fullsize 사이즈
-     */
-    public int getFullSize(){
-        return this.fullsize;
+    @Override
+    void setDecodingFrontSize(int decodingFrontSize) {
+        this.decodingFrontSize = decodingFrontSize;
     }
 
-    /**
-     * 풀사이즈 세팅
-     * @param fullSize
-     */
-    public void setFullSize(int fullSize){
-        this.fullsize = fullSize;
-    }
 
     /**
      * 메인 데이터를 반환해주는 메서드
@@ -81,51 +125,12 @@ public class InputTargetData extends VoiceSignalData {
 
     }
 
-    /**
-     * 프레임 사이즈를 반환해주는 메서드
-     */
     @Override
-    int getFramesize() {
-        // TODO Auto-generated method stub
-        return this.frameSize;
-    }
-
-    /**
-     * 쉬프트 사이즈를 반환해주는 메서드
-     */
-    @Override
-    int getShiftsize() {
-        // TODO Auto-generated method stub
-        return this.shiftSize;
-    }
-
-    /**
-     * 트리거 값을 반환해주는 메서드
-     */
-    @Override
-    float getTriggerValue() {
-        // TODO Auto-generated method stub
-        return this.triggerValue;
-    }
-
     public String toString() {
-        // TODO Auto-generated method stub
-        ArrayList<Float> currentData = this.getData();
-        ArrayList<Float> meanValueList = this.getMeanList();
-
-        String returnStr = "Data Size : " + currentData.size()
-                + " , Data Type : " + currentData.get(0).getClass().getName()
-                + " , Mean Value List Size : " + meanValueList.size()
-                + "\n" + "*Parameters*  "
-                + "Result Data Size : " + getFullSize()
-                + " , Frame Size : " + getFramesize()
-                + " , Shift Size : " + getShiftsize()
-                + " , Trigger Value : " + getTriggerValue()
-                + " , Front Buffer Size : " + getDecodingFrontSize()
-                + "\n";
-
-
-        return returnStr;
+        return "InputTargetData{" +
+                "globalVariables=" + globalVariables +
+                ", signaldata=" + signaldata +
+                ", meanList=" + meanList +
+                '}';
     }
-
 }
