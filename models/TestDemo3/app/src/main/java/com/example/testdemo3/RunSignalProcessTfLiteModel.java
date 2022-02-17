@@ -1,6 +1,7 @@
 package com.example.testdemo3;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 
 import java.io.IOException;
@@ -13,13 +14,15 @@ public class RunSignalProcessTfLiteModel implements Runnable {
     private RunTFliteModel tfLiteModel;
     private GlobalVariablesClass globalVariables;
     private Context mainAct;
-//    FloatBuffer inputBuffer = FloatBuffer.allocate(40000);
 
-    public RunSignalProcessTfLiteModel(GlobalVariablesClass globalVariables, RecordingData recordingDataClass, Context fromMainAct) {
+    public RunSignalProcessTfLiteModel(GlobalVariablesClass globalVariables,
+                                       RecordingData recordingDataClass,
+                                       Context fromMainAct,
+                                       Handler labelHandler) {
         this.recordingDataClass = recordingDataClass;
         this.globalVariables = globalVariables;
         this.mainAct = fromMainAct;
-        this.tfLiteModel = new RunTFliteModel(this.mainAct);
+        this.tfLiteModel = new RunTFliteModel(this.mainAct, labelHandler);
         this.signalProcessClass = new SignalProcessing(this.globalVariables);
     }
 

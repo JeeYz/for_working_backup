@@ -8,8 +8,11 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 
 import java.io.PipedReader;
@@ -26,7 +29,10 @@ import java.io.PipedReader;
  * 디코더 메인 클래스
  */
 public class DecoderDemoCW24 {
-    Context fromMainAct;
+    private Context fromMainAct;
+    private static Handler labelHandler;
+    private speechListener mSpeechListener;
+    private int resultLabel = -1;
 
     /**** Global Variables Setting ****/
     /** Record Data Variables **/
@@ -39,8 +45,6 @@ public class DecoderDemoCW24 {
 
     private GlobalVariablesClass globalVariables;
     /**** * * * ****/
-
-    private Handler dataHandler;
 
     /**** AudioRecord Setting ****/
     private static AudioRecord audioRec;
@@ -68,9 +72,9 @@ public class DecoderDemoCW24 {
     public DecoderDemoCW24(Context fromMainAct) {
         this.fromMainAct = fromMainAct;
         this.globalVariables = new GlobalVariablesClass();
-        this.dataHandler = new Handler();
         this.settingRecordingEnvironment();
     }
+
 
     /**
      * 녹음 기본 환경을 설정해주는 메서드
@@ -110,6 +114,31 @@ public class DecoderDemoCW24 {
 
     }
 
+
+
+    public int getResultLabel() {
+        return resultLabel;
+    }
+
+    public void setResultLabel(int resultLabel) {
+        this.resultLabel = resultLabel;
+    }
+
+
+    /**
+     * 리스너
+     */
+    public interface speechListener {
+        int onLabel(int resultLabel);
+//        int getResultLabel();
+//        void setResultLabel(int resultLabel);
+    }
+
+    public void onSetListener(speechListener inputInMainActInstance){
+        mSpeechListener = inputInMainActInstance;
+    }
+
+
     /**
      * 디코더를 실행 시켜 주는 메서드
      * Send Thread와 Receive Thread를 실행 시켜줌
@@ -140,11 +169,38 @@ public class DecoderDemoCW24 {
                 RECORDER_SAMPLERATE,
                 RECORDER_CHANNELS,
                 RECORDER_AUDIO_ENCODING,
-                this.chunkSize*2
+                this.chunkSize*5
         );
 
-        BufferQueueThread bufT = new BufferQueueThread(audioRec, this.globalVariables, this.recordingDataClass);
-        RunSignalProcessTfLiteModel runT = new RunSignalProcessTfLiteModel(this.globalVariables, this.recordingDataClass, this.fromMainAct);
+        this.labelHandler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+//                Log.e("debug", "$$$$$$$@@@@@@@@@@@@");
+                super.handleMessage(msg);
+                if (msg.arg1 != -1){
+//                    Log.e("debug", "$$$$$$$");
+                    setResultLabel(msg.arg1);
+                    if(mSpeechListener != null){
+//                        Log.e("debug", "$$$$$$%%%%%%%%%");
+                        mSpeechListener.onLabel(getResultLabel());
+                        Log.d("position debug", "after handler");
+                    }
+                }
+            }
+        };
+
+
+        BufferQueueThread bufT = new BufferQueueThread(
+                audioRec,
+                this.globalVariables,
+                this.recordingDataClass
+        );
+        RunSignalProcessTfLiteModel runT = new RunSignalProcessTfLiteModel(
+                this.globalVariables,
+                this.recordingDataClass,
+                this.fromMainAct,
+                this.labelHandler
+        );
 
         Thread bufferThread = new Thread(bufT);
         Thread runModelThread = new Thread(runT);
