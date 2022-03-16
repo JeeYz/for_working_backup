@@ -9,6 +9,7 @@ from global_variables import *
 
 start_time, end_time = float(), float()
 pady_size = 20
+threshold = 0.9999
 
 start_time = None
 
@@ -159,12 +160,18 @@ def record_voice():
 #%%
 def print_result(index_num, output_data):
 
+    print(output_data[0][index_num])
+
     for i, j in enumerate(output_data[0]):
         if i == index_num:
             for one in LabelsKorEng:
                 if one.value == index_num:
-                    label_name = one
-                    break
+                    if output_data[0][index_num] > threshold:
+                        label_name = one
+                        break
+                    else:
+                        label_name = "None"
+                        break
                 else:
                     label_name = "None"
             print("%d : %6.2f %% << "%(i, j*100), label_name)
@@ -264,7 +271,7 @@ def decoding_command(test_data):
     writeLogFile(a, predictions, runningTime)
 
     ## 수정필요
-    draw_graph_raw_signal(test_data, "result data")
+    # draw_graph_raw_signal(test_data, "result data")
 
     # write_numpy_for_draw_graph(test_data)
 

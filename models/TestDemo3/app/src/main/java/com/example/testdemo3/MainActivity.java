@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         };
         newDecoder.onSetListener(voidListener);
 
-        newDecoder.settingSignalPrecessing(600, 1.5f);
+        newDecoder.settingSignalPrecessing(5000, 1.5f);
         newDecoder.runDecoder();
 
         Log.d("main activity text", "after decoder implement");
