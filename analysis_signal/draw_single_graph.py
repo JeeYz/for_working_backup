@@ -23,7 +23,7 @@ import matplotlib.pyplot as plt
 
 from python_speech_features import mfcc
 from python_speech_features import logfbank
-from analysis_signal.util_module import standardization_func, new_minmax_normal, transpose_the_matrix
+# from analysis_signal.util_module import standardization_func, new_minmax_normal, transpose_the_matrix
 
 
 def standardization_func(data):
@@ -176,11 +176,22 @@ if __name__ == '__main__':
     #
     # waveFile.close()
 
-    sampler, data = wavfile.read('output_0.wav')
-    data = standardization_func(data)
-    draw_graph_raw_signal(data, title_name='raw')
+    all_norm_data = list()
 
-    plt.show()
+    for (path, dir, files) in os.walk("../models/GEN_traindata_Ver.1.0_CR_Ver.2.4/"):   
+        for filename in files:
+            ext = os.path.splitext(filename)[-1]
+            if ext == ".wav":
+                file_name = path + "\\" + filename
+                all_norm_data.append(file_name)
+
+    for one in all_norm_data:
+
+        sampler, data = wavfile.read(one)
+        # data = standardization_func(data)
+        draw_graph_raw_signal(data, title_name='raw')
+
+        plt.show()
 
     # stream.stop_stream()
     # stream.close()

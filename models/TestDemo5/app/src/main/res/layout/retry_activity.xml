@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="명령어를 다시 입력하세요"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:layout_marginTop="100dp"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:srcCompat="@drawable/mic"
+        android:layout_marginTop="80dp"
+        tools:ignore="MissingConstraints" />
+
+
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView5"-->
+    <!--        android:layout_width="223dp"-->
+    <!--        android:layout_height="44dp"-->
+    <!--        android:gravity="center"-->
+    <!--        android:text="명령어를 다시 입력하세요"-->
+    <!--        android:textColor="#FFFFFF"-->
+    <!--        android:textSize="25sp"-->
+    <!--        tools:ignore="MissingConstraints"-->
+    <!--        tools:layout_editor_absoluteX="125dp"-->
+    <!--        tools:layout_editor_absoluteY="165dp" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textView3"-->
+    <!--        android:layout_width="90dp"-->
+    <!--        android:layout_height="696dp"-->
+    <!--        android:text="명령어 목록 :\n선택\n클릭\n닫기\n홈\n종료\n어둡게\n밝게\n음성 명령어\n촬영\n녹화\n정지\n아래로\n위로\n다음\n이전\n재생\n되감기\n빨리감기\n처음\n소리 작게\n소리 크게\n화면 크게\n화면 작게\n전체 화면\n이동\n멈춤\n모든 창 보기\n전화\n통화\n수락\n거절"-->
+    <!--        android:textColor="#FFFFFF"-->
+    <!--        tools:layout_editor_absoluteX="3dp"-->
+    <!--        tools:layout_editor_absoluteY="16dp"-->
+    <!--        tools:ignore="MissingConstraints" />-->
+
+</LinearLayout>

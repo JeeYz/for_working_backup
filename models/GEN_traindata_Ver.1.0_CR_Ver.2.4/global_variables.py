@@ -71,7 +71,7 @@ TAIL_SIZE = 5000
 
 BUFFER_SIZE = 6000
 TRAIN_BUFFER_SIZE = 4000
-DECODING_FRONT_SIZE = 8000
+DECODING_FRONT_SIZE = 8700
 
 BLOCK_OF_RANDOM = 800
 
@@ -103,8 +103,11 @@ test_data_path = "D:\\voice_data_backup\\test"
 CWdata_path = 'C:\\temp'
 npz_target_path = 'C:\\temp\\npz_train\\'
 
-tflite_file = "D:\\PNC_ASR_2.4_CW_model_.tflite"
-# tflite_file = "PNC_ASR_2.4_CW_model_.tflite"
+# tflite_file = "D:\\PNC_ASR_2.4_CW_model_.tflite"
+# tflite_file = "D:\\PNC_ASR_2.4_CW_model_24.tflite"
+
+tflite_file = "PNC_ASR_2.4_CW_model_.tflite"
+
 model_saved_file = "C:\\temp\\Ver.2.4_model.h5"
 outputLogFile = "result_log_data.txt"
 
@@ -136,8 +139,8 @@ RETURN_STACK_SIZE = (TARGET_SAMPLE_RATE/CHUNK_SIZE)*(RECORDING_TIME)
 
 NUM_CHANNEL = 1
 
-VOICE_TRIGGER = 500
-STD_TRIGGER = 1.0
+VOICE_TRIGGER = 3000
+STD_TRIGGER = 1.6
 NORM_TRIGGER = 0.001
 
 CMD_LABEL_NUM = 32

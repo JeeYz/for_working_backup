@@ -23,7 +23,7 @@ img_label = Label(GUI_ROOT, image=mic_photo, borderwidth=0)
 
 start_time, end_time = float(), float()
 pady_size = 20
-threshold = 0.9998
+threshold = 0.80
 
 start_time = None
 
@@ -108,8 +108,13 @@ def write_npz(input_data, filepath):
 
 
 #%%
+# file_num = 0
+# temp_filename = "test_"
+
 def receive_data(data, stack):
     global start_time
+    # global file_num
+    # global temp_filename
 
     data = np.asarray(data, dtype=TRAIN_DATA_TYPE)
     # norm_data = normalization_for_block(data)
@@ -129,12 +134,18 @@ def receive_data(data, stack):
         GLOBAL_DECODING_DATA.add_a_sec_condition()
         num = GLOBAL_DECODING_DATA.condition_num
 
-        if num > 10:
+        if num == 50:
             print_decoding_screen()
 
         if num == RETURN_STACK_SIZE:
             start_time = time.time()
             # write_npz(stack, "D:\\stack_log_for_graph.npz")
+
+            stack = np.asarray(stack, dtype=np.int16)
+
+            # temp = temp_filename+str(file_num)+".wav"
+            # wavfile.write(temp, TARGET_SAMPLE_RATE, stack)
+            # file_num+=1
 
             GLOBAL_DECODING_DATA.set_target_data(stack)
             GLOBAL_DECODING_DATA.standardization_data()
@@ -152,6 +163,7 @@ def receive_data(data, stack):
 
             print(len(test_data[0]))
             decoding_command(test_data)
+
 
             GLOBAL_DECODING_DATA.set_condition_num_zero()  
     
@@ -340,11 +352,11 @@ def decoding_command(test_data):
     
     writeLogFile(a, predictions, runningTime)
 
-    if mod_index != 0:
-        time.sleep(2)
+    # if mod_index != 0:
+    #     time.sleep(1)
 
-    text_gui.pack_forget()
-    print_second_default()
+    # text_gui.pack_forget()
+    # print_second_default()
 
     ## 수정필요
     # draw_graph_raw_signal(test_data, "result data")
@@ -382,7 +394,7 @@ def insert_command_list():
     command_label = Label(GUI_ROOT, text=new_command_list)
     command_label['fg'] = 'white'
     command_label['bg'] = 'black'
-    command_label['font'] = 'Times 20 bold'
+    command_label['font'] = 'Times 13 bold'
     command_label.pack(side='right')
 
     return
