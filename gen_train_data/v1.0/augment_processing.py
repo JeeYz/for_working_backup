@@ -227,7 +227,7 @@ def random_position_process(input_files_list):
         random_value_list = list()
 
         for i in range(gv.DATA_AUG_POSITION):
-            temp_dict = gv.GLOBAL_CW_TRAINDATA.gen_file_data_dict()
+
 
             if i == 0:
                 random_front_value = 0
@@ -385,6 +385,13 @@ def random_position_zero_padding(input_files_list):
     print("number of exceptions : {num_except}".format(num_except=exception_num))
 
     return input_files_list
+
+
+
+
+
+
+
 
 
 
