@@ -15,13 +15,15 @@ import scipy.signal as sps
 import time
 import copy
 import matplotlib.pyplot as plt
-from CW_class_data import TrainData, DecodingData
 
 import tensorflow as tf
 import threading
 import pyaudio as pa
 
-
+import augment_processing as augp
+import signal_processing as sigp
+import trigger_algorithm as triga
+import files_module as fm
 
 
 # full size
@@ -33,6 +35,8 @@ TRAIN_DATA_TYPE = np.float32
 # boolean variables
 GEN_TRAIN_INCLUDE_NONE = False
 INCLUDE_ZEROTH_NONE =  True
+
+GEN_DATA_TYPE = 'train'
 
 PREPRO_SHIFT_SIZE = 200
 PREPRO_FRAME_SIZE = 400
@@ -53,10 +57,12 @@ rate_list = [
 
 
 # data pathes
-CWdata_path = '~/DeepLearning/CWtraindata/PnC_Solution_CW_all_1102_addnoise/'
-npz_target_path = '~/DeepLearning/CWtraindata/npzTrain/'
+CWdata_path = '/home/pncdl/DeepLearning/CWtraindata/PnC_Solution_CW_all_1102/'
+CWdata_16k_path = '/home/pncdl/DeepLearning/CWtraindata/PnC_Solution_CW_all_1102_addnoise/'
+npz_target_path = '/home/pncdl/DeepLearning/CWtraindata/npzTrain/'
 
 whole_data_json_filename = '$$whole_data_info.json'
+whole_data_json_filename_16k = '$$whole_data_info_16k.json'
 target_numpy_dir_name = "npz_train"
 
 
@@ -145,7 +151,6 @@ class LabelsKorEng(Enum):
 
 
 
-GLOBAL_DECODING_DATA = DecodingData()
 
 
 

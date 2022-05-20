@@ -1,3 +1,4 @@
+from global_variables import *
 import global_variables as gv
 
 
@@ -41,61 +42,20 @@ def aug_only_time_stretch(input_files_list):
 
         for one_rate in gv.rate_list:
             if one_rate == 1.0:
-                origin_start = origin_dict['start_index']
-                origin_data = origin_dict['data']
-
-                init_start = origin_start                
-                init_data = origin_data
+                pass
                 
             else:
-                init_data = librosa.effects.time_stretch(init_data, one_rate)
-                para_dict = dict()
-                para_dict['data'] = init_data
+                mod_by_time_stretch_data = librosa.effects.time_stretch(init_data, one_rate)
+                para_dict = set_initial_dict()
+                para_dict['data'] = mod_by_time_stretch_data
 
-                gv.trigal.signal_trigger_algorithm(para_dict, gv.TEMP_FLAG)
-                init_start = para_dict['start_index']
-                init_data = para_dict['data']
+                gv.triga.signal_trigger_algorithm_with_middle_index(para_dict)
 
-                block_size, aug_num = return_block_size(para_dict)
+                para_dict['auged_boolean'] = True
+                para_dict['data_label'] = one_file['file_label']
 
-            if 'noncmd_' in one_file['filename']:
-                aug_num = 2
-                block_size = block_size*gv.DATA_AUG_POSITION//2
-                # continue
+                one_file['file_data'].append(para_dict)
 
-            for i in range(aug_num):
-                temp_dict = gentrain.gen_file_data_dict()
-
-                shift_value_of_start = int((i+1)*block_size)
-                temp_start = int(init_start-shift_value_of_start)
-
-                if temp_start < 0:
-                    break
-                
-                temp_end_of_data = temp_start+gv.FULL_SIZE
-
-                cond = len(init_data) < temp_end_of_data
-                if cond:
-                    temp_data = add_zero_padding_back(init_data[temp_start:])
-                else:
-                    temp_end_of_data = temp_start+gv.FULL_SIZE
-                    temp_data = init_data[temp_start:temp_end_of_data]
-
-                if len(temp_data) != gv.FULL_SIZE:
-                    raise Exception("데이터의 길이가 정해진 길이가 아닙니다.")
-
-                temp_dict['auged_position'] = shift_value_of_start
-                temp_dict['data_length'] = len(temp_data)
-                temp_dict['auged_boolean'] = True
-                temp_dict['data_label'] = one_file['file_label']
-                temp_dict['data'] = temp_data
-
-                one_file['file_data'].append(temp_dict)
-
-        set_initial_dict(init_dict)
-        one_file['file_data'].append(init_dict)
-    
-        del one_file['file_data'][0]
     
     return
 

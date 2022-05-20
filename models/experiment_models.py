@@ -17,22 +17,21 @@ import random
 from tensorflow.python.keras.backend import conv2d, dropout
 
 CONVERT_TFLITE_BOOL = True
-RESULT_GRAPH_BOOL = True
+RESULT_GRAPH_BOOL = False
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
 
-traindata_json_file = 'C:\\temp\\$$npz_data.json'
-# train_data_path = "D:\\GEN_train_data_Ver.1.0_CWdata.npz"
+traindata_json_file = '/home/pncdl/DeepLearning/CWtraindata/$$npz_data.json'
 
-tflite_file_path = "PNC_ASR_2.4_CW_model_.tflite"
-saved_model_file = "C:\\temp\\experiment_model_"
+tflite_file_path = "PNC_ASR_2.4_CW_model_BiGRU_0.tflite"
+h5_filename = "Ver.2.4_model_BiGRU_0.h5"
 
-test_data_npz_file = "C:\\temp\\test_Ver.2.4.npz"
 
 
 #%% variables
 # 에포크 
-EPOCH_NUM = 50
+EPOCH_NUM = 100
+
 # CNN 초기값
 INIT_CNN_CHAN = 16
 
@@ -40,14 +39,15 @@ INIT_CNN_CHAN = 16
 INIT_AE_CHAN = 4
 
 # LSTM 셀 초기값
-INIT_LSTM_CELL = 128
+INIT_LSTM_CELL = 256
+RNN_CELLS_NUM = 128
 
 # ResNet 채널 초기값
-INIT_RESNET_CH = 64
+INIT_RESNET_CH = 32
 
 # 뉴런의 개수
-TAIL_DENSE_NUM = 256
-NORM_DENSE_NUM = 128
+TAIL_DENSE_NUM = 512
+NORM_DENSE_NUM = 256
 
 # 신호 나누는 값 기준
 DIVIDE_SIZE = 4000
@@ -57,9 +57,10 @@ FULL_SIZE = 40000
 # 모델 레이어 값
 DENSE_LAYERS_NUM = 3
 CNN_LAYERS_NUM = 7
+RNN_LAYERS_NUM = 3
 LSTM_LAYERS_NUM = 3
 BILSTM_LAYERS_NUM = 3
-RESNET_LAYERS_NUM = 5
+RESNET_LAYERS_NUM = 2
 TAIL_DENSE_LAYERS_NUM = 1
 
 # 전처리 부분 레이어 값
@@ -72,10 +73,18 @@ TRAIN_BATCH_SIZE = 256
 # 레이블 개수
 NUM_LABELS = 32
 
-RESIZE_BOOL = True
+RESIZE_BOOL = False
 
 RESIZE_X = 64
 RESIZE_Y = 64
+
+# stft 파라미터
+FRAME_SIZE = 256
+FRAME_STEP = 160
+
+# RNN 레이어 타입
+RNN_TYPE = 'gru'
+
 
 #%%
 speaker_exception = {
@@ -85,71 +94,30 @@ speaker_exception = {
         '59184290',
         '59185228',
     ],
-    'weak':[
-        '59183640',
-        '59184387',
-        '59185145',
-        '59185238',
-        '59185713',
-        '59184211',
-        '59192927',
-    ],
-    'machine_noise':[
-        '59184088',
-        '59185312',
-        '59185353',
-        '59185622',
-        '59185031',
-        '59184205',
-        '59184752',
-    ],
-    'none':[
-        '59185990',
-        '59198984',
-    ],
+#     'weak':[
+#         '59183640',
+#         '59184387',
+#         '59185145',
+#         '59185238',
+#         '59185713',
+#         '59184211',
+#         '59192927',
+#     ],
+#     'machine_noise':[
+#         '59184088',
+#         '59185312',
+#         '59185353',
+#         '59185622',
+#         '59185031',
+#         '59184205',
+#         '59184752',
+#     ],
+#     'none':[
+#         '59185990',
+#         '59198984',
+#     ],
 }
 
-
-#%%
-
-cmd_F_num = 15
-cmd_M_num = 15
-
-def choose_speakers(input_data):
-    cmd_list = list()
-    noncmd_list = list()
-    for one_file in input_data:
-        if 'noncmd' in one_file:
-            noncmd_list.append(one_file)
-
-    print('None Label data : {num}'.format(num=len(noncmd_list)))    
-    
-    for one_file in input_data:
-        if one_file not in noncmd_list:
-            cmd_list.append(one_file)
-            
-    return_list = list()
-    temp_num = len(noncmd_list)
-    return_list = noncmd_list
-
-    f_num = 0
-    m_num = 0
-    for one_file in cmd_list:
-        if "cmd_F" in one_file:
-            if f_num >= cmd_F_num:
-                continue
-            return_list.append(one_file) 
-            f_num+=1
-        else:
-            if m_num >= cmd_M_num:
-                continue
-            return_list.append(one_file) 
-            m_num+=1
-
-    print('Label data : {num}'.format(
-        num=len(return_list)-temp_num))    
-
-    return return_list
 
 
 def select_traindata(loaded_data):
@@ -172,16 +140,6 @@ def select_traindata(loaded_data):
     return loaded_data
 
 
-#%%
-# loaded_data_00 = np.load(train_data_path, allow_pickle=True)
-# loaded_data_00 = np.load(train_data_path)
-# train_data_00 = loaded_data_00['data']
-# train_label_00 = loaded_data_00['label']
-
-# loaded_data_01 = np.load(test_data_path, allow_pickle=True)
-# loaded_data_01 = np.load(test_data_path)
-# test_data_00 = loaded_data_01['data']
-# test_label_00 = loaded_data_01['label']
 
 with open(traindata_json_file, 'r', encoding='utf-8') as fr:
     loaded_data = json.load(fr)
@@ -189,9 +147,6 @@ with open(traindata_json_file, 'r', encoding='utf-8') as fr:
 import time
 print(len(loaded_data))
 select_traindata(loaded_data)
-print(len(loaded_data))
-
-loaded_data = choose_speakers(loaded_data)
 print(len(loaded_data))
 
 random.shuffle(loaded_data)
@@ -250,13 +205,13 @@ class residual_layers(layers.Layer):
         self.res_layers_list = list()
 
         for i in range(1, (num_of_layers+1)):
-            temp = residual_block(init_ch*i)
+            temp = residual_block(init_ch)
             self.res_layers_list.append(temp)
             
-            temp = layers.Conv2D(init_ch*i, (3, 3), activation=None, padding='same', strides=2)
+            temp = layers.Conv2D(init_ch, (3, 3), activation=None, padding='same', strides=2)
             self.res_layers_list.append(temp)
         
-        self.res_layers_list.append(layers.Flatten())
+        # self.res_layers_list.append(layers.Flatten())
 
 
     def __call__(self, input_x):
@@ -373,6 +328,71 @@ class conv2d_layers(layers.Layer):
 
 
 #%%
+class UniRNNLayers():
+    def __init__(self):
+        super(UniRNNLayers, self).__init__()
+        self.layers_list = list()
+        self.layers_list.append(layers.BatchNormalization())
+
+        for i in range(RNN_LAYERS_NUM):
+
+            if RNN_TYPE == 'lstm':
+                layer_name = "uni_lstm_{num}".format(num=i+1)
+                self.layers_list.append(layers.LSTM(RNN_CELLS_NUM, return_sequences=True, name=layer_name))
+            elif RNN_TYPE == 'gru':
+                layer_name = "uni_gru_{num}".format(num=i+1)
+                self.layers_list.append(layers.GRU(RNN_CELLS_NUM, return_sequences=True, name=layer_name))
+
+            self.layers_list.append(layers.Dropout(0.5))
+
+        self.layers_list.append(layers.Flatten())
+        self.layers_list.append(layers.BatchNormalization())
+
+    
+    def __call__(self, input_x):
+        x = input_x
+
+        for one_layer in self.layers_list:
+            x = one_layer(x)
+
+        return x
+
+
+
+#%%
+class BiRNNLayers():
+    def __init__(self):
+        super(BiRNNLayers, self).__init__()
+        self.layers_list = list()
+        self.layers_list.append(layers.BatchNormalization())
+
+        for i in range(RNN_LAYERS_NUM):
+
+            if RNN_TYPE == 'lstm':
+                layer_name = "bi_lstm_{num}".format(num=i+1)
+                recurrent = layers.LSTM(RNN_CELLS_NUM, return_sequences=True, name=layer_name)
+            elif RNN_TYPE == 'gru':
+                layer_name = "bi_gru_{num}".format(num=i+1)
+                recurrent = layers.GRU(RNN_CELLS_NUM, return_sequences=True, name=layer_name)
+            self.layers_list.append(layers.Bidirectional(recurrent, merge_mode='concat'))
+
+            self.layers_list.append(layers.Dropout(0.5))
+            
+        self.layers_list.append(layers.Flatten())
+
+    
+    def __call__(self, input_x):
+        x = input_x
+
+        for one_layer in self.layers_list:
+            x = one_layer(x)
+
+        return x
+
+
+
+
+#%%
 class lstm_layers(layers.Layer):
     def __init__(self, num_of_layers):
         super(lstm_layers, self).__init__()
@@ -429,7 +449,9 @@ class tail_dense_layers(layers.Layer):
         for i in range(num_of_layers):
             layers_list.append(layers.Dense(TAIL_DENSE_NUM))
             if dropout_bool == True:
-                layers_list.append(layers.Dropout(0.25))
+                layers_list.append(layers.Dropout(0.5))
+
+            layers_list.append(layers.ReLU())
 
         self.dlayers = tf.keras.Sequential(layers_list)
 
@@ -490,8 +512,14 @@ class preprocessing_layer(layers.Layer):
     
     def stft_function(self, input_x):
 
-        x = tf.signal.stft(input_x, frame_length=255, frame_step=128)
+        x = tf.signal.stft(input_x, frame_length=FRAME_SIZE, frame_step=FRAME_STEP)
         x = tf.abs(x)
+        x = tf.math.pow(x, 0.5)
+
+        means = tf.math.reduce_mean(x, 1, keepdims=True)
+        stddevs = tf.math.reduce_std(x, 1, keepdims=True)
+        x = (x - means)/(stddevs + 1e-10)
+
         x = tf.expand_dims(x, -1)
 
         if self.resize_bool == True:    
@@ -551,6 +579,8 @@ class experiment_models(layers.Layer):
         self.pre_proc_layer = preprocessing_layer(prepro_flag = 'resnet',
                                                     resize_bool = RESIZE_BOOL,
                                                   )
+        self.uni_rnn_block = UniRNNLayers()
+        self.bi_rnn_block = BiRNNLayers()
 
     
     def divide_function(self, input_x, **kwargs):
@@ -599,6 +629,10 @@ class experiment_models(layers.Layer):
         
         # x = self.conv2d_block(x)
         x = self.residual_blocks(x)
+
+        x = layers.Reshape((-1, x.shape[-2]*x.shape[-1]))(x)
+
+        x = self.bi_rnn_block(x)
         
         # x = self.dense_block(x)
         
@@ -682,235 +716,8 @@ history = model.fit(
     epochs=EPOCH_NUM,
 )
 
-target_h5_file = "C:\\temp\\Ver.2.4_model.h5"
+target_h5_file = h5_filename
 model.save(target_h5_file)
-
-
-#%%
-loaded_numpy = np.load(test_data_npz_file)
-test_data = loaded_numpy['data']
-test_label = loaded_numpy['label']
-
-
-def generate_test_data():
-    for one_data, one_label in zip(test_data, test_label):
-        yield (one_data, one_label)
-
-# def generate_test_data():
-#     for one_data, one_label in zip(test_data_00, test_label_00):
-#         yield (one_data, one_label)
-
-
-#%%
-options = tf.data.Options()
-options.experimental_distribute.auto_shard_policy = tf.data.experimental.AutoShardPolicy.DATA
-
-#%%
-test_dataset = tf.data.Dataset.from_generator(
-    generate_test_data, 
-    # output_types=(tf.float32, tf.int32),
-    output_signature=(
-        tf.TensorSpec(shape=(FULL_SIZE, ), dtype=tf.float32),
-        tf.TensorSpec(shape=(), dtype=tf.int32)
-    ),
-).shuffle(TRAIN_BATCH_SIZE*8).batch(TRAIN_BATCH_SIZE)
-test_dataset = test_dataset.with_options(options)
-
-
-#%%
-eval_loss, eval_acc = model.evaluate(test_dataset)
-
-print('\n\n')
-print("loss : {}, accuracy : {}".format(eval_loss, eval_acc))
-print('\n\n')
-
-print("print label size : data : {len_d}, label : {len_l}".format(
-    len_d=len(test_data), len_l=len(test_label),
-))
-print('\n\n')
-
-result_prediction = model.predict(test_dataset)
-# print(result_prediction)
-print(result_prediction.shape)
-
-result_arg = np.argmax(result_prediction, axis=-1)
-
-print('\n\n')
-print("prediction size : {}".format(len(result_arg)))   
-print('\n\n')
-print(result_arg)
-print(test_label)
-print('\n\n')
-   
-
-#%% F1 Score 계산하기
-labels_num = NUM_LABELS
-
-confusion_matrix = np.zeros((labels_num, labels_num), dtype=np.int16)
-
-length_of_true_ans = len(test_label)
-
-for i in range(length_of_true_ans):
-    x_axis = int(test_label[i])
-    y_axis = int(result_arg[i])
-    confusion_matrix[x_axis, y_axis]+=1
-
-
-print('\n')
-print(confusion_matrix)
-print('\n')
-
-sum_ax_0 = np.sum(confusion_matrix, axis=0)
-sum_ax_1 = np.sum(confusion_matrix, axis=1)
-
-print('\n')
-print(sum_ax_0)
-print(sum_ax_1)
-print('\n')
-
-precisions = list()
-recalls = list()
-
-for i in range(labels_num):
-
-    if sum_ax_0[i] != 0:
-        temp_val = confusion_matrix[i][i]/sum_ax_0[i]
-        precisions.append(temp_val)
-    else:
-        precisions.append(0.0)
-
-    if sum_ax_1[i] != 0:
-        temp_val = confusion_matrix[i][i]/sum_ax_1[i]
-        recalls.append(temp_val)
-    else:
-        recalls.append(0.0)
-
-f_result = open("D:\\result_acc.txt", "a")
-
-print('\n')
-f_result.write("\n\n")
-for i in range(labels_num):
-    if (precisions[i]+recalls[i]) != 0:
-        f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
-    else:
-        f1_score = 0.0
-    print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
-    f_result.write("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
-    f_result.write("\n")
-
-print('\n')
-f_result.write("\n")
-
-temp_sum = 0
-for i in range(labels_num):
-    temp_sum+=confusion_matrix[i][i]
-
-if np.sum(sum_ax_0) != 0:
-    total_acc = temp_sum/np.sum(sum_ax_0)
-    total_acc_1 = temp_sum/len(test_label)
-else:
-    total_acc = 0
-    total_acc_1 = temp_sum/len(test_label)
-
-print("number of test data : {a}".format(a=len(test_label)))
-f_result.write("number of test data : {a}".format(a=len(test_label)))
-f_result.write("\n")
-print("sum of right answers : {b}".format(b=temp_sum))
-f_result.write("sum of right answers : {b}".format(b=temp_sum))
-f_result.write("\n")
-print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
-f_result.write("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
-f_result.write("\n")
-print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
-f_result.write("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
-f_result.write("\n")
-print("accuracy : {}".format(total_acc))
-f_result.write("accuracy : {}".format(total_acc))
-f_result.write("\n")
-print("accuracy 1 : {}".format(total_acc_1))
-f_result.write("accuracy 1 : {}".format(total_acc_1))
-f_result.write("\n")
-
-f_result.close()
-
-
-
-
-#%% 훈련 데이터 테스트 F1 Score 계산하기
-# labels_num = NUM_LABELS
-
-# confusion_matrix = np.zeros((labels_num, labels_num), dtype=np.int64)
-
-# # print('\n')
-# # print(confusion_matrix)
-# # print('\n')
-
-# length_of_true_ans = len(train_data_00)
-
-# for i in range(length_of_true_ans):
-#     x_axis = int(train_label_00[i])
-#     y_axis = int(result_arg_train_data[i])
-#     confusion_matrix[x_axis, y_axis]+=1
-
-
-# print('\n')
-# print(confusion_matrix)
-# print('\n')
-
-# sum_ax_0 = np.sum(confusion_matrix, axis=0)
-# sum_ax_1 = np.sum(confusion_matrix, axis=1)
-
-# print('\n')
-# print(sum_ax_0)
-# print(sum_ax_1)
-# print('\n')
-
-# precisions = list()
-# recalls = list()
-
-# for i in range(labels_num):
-
-#     if sum_ax_0[i] != 0:
-#         temp_val = confusion_matrix[i][i]/sum_ax_0[i]
-#         precisions.append(temp_val)
-#     else:
-#         precisions.append(0.0)
-
-#     if sum_ax_1[i] != 0:
-#         temp_val = confusion_matrix[i][i]/sum_ax_1[i]
-#         recalls.append(temp_val)
-#     else:
-#         precisions.append(0.0)
-
-# print('\n')
-
-# for i in range(labels_num):
-#     f1_score = 2*(precisions[i]*recalls[i])/(precisions[i]+recalls[i])
-#     print("{} label : precision : {},    recall : {},    f1 score : {}".format(i, precisions[i], recalls[i], f1_score))
-    
-# print("\n\n")
-    
-# temp_sum = 0
-# for i in range(labels_num):
-#     temp_sum+=confusion_matrix[i][i]
-
-# total_acc = temp_sum/np.sum(sum_ax_0)
-# total_acc_1 = temp_sum/len(train_label_00)
-
-# print("number of test data : {a}".format(a=len(train_label_00)))
-
-# print("sum of right answers : {b}".format(b=temp_sum))
-
-# print("sum of sum_ax_0 : {}".format(np.sum(sum_ax_0)))
-
-# print("sum of sum_ax_1 : {}".format(np.sum(sum_ax_1)))
-
-# print("accuracy : {}".format(total_acc))
-
-# print("accuracy 1 : {}".format(total_acc_1))
-
-
-
 
 
 

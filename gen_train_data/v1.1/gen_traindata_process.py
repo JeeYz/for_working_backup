@@ -1,6 +1,9 @@
-
+from global_variables import *
 import global_variables as gv
 import augment_processing as augp
+import signal_processing as sigp
+import trigger_algorithm as triga
+import files_module as fm
 
 
 class OneTrainData():
@@ -182,7 +185,7 @@ def gen_one_npz_file_process(target_json_file):
     for one_file_dict in json_data['files']:
         one_file_dict['filename'] = target_path+one_file_dict['filename']
         # print(one_file_dict['filename'])
-        return_dict = cwsig.gen_sig_data_2(one_file_dict)
+        return_dict = sigp.gen_sig_data_2(one_file_dict)
 
         w_dict = gen_whole_data_dict(
             speaker=json_data['speaker'],
@@ -200,9 +203,8 @@ def gen_one_npz_file_process(target_json_file):
     # cw_train.print_train_data_info()
     # break_point(input("answer?? :"))
 
-    trigal.apply_trigger_algorithm(
+    triga.apply_trigger_algorithm(
         one_npz_data_list,
-        cw_train.data_type,
     )
     
     cw_train.set_train_data(one_npz_data_list)
@@ -222,12 +224,12 @@ def gen_one_npz_file_process(target_json_file):
 
     
 def gen_json_for_npz():
-    npz_files_list = fpro.find_data_files(
-        npz_target_path,
+    npz_files_list = fm.find_data_files(
+        gv.npz_target_path,
         '.npz',
     )
 
-    target_file = CWdata_path+"$$npz_data.json"
+    target_file = gv.CWdata_path+"$$npz_data.json"
 
     with open(target_file, 'w', encoding='utf-8') as fw:
         json.dump(
@@ -253,7 +255,7 @@ def gen_traindata_process(**kwargs):
     else:
         json_file = None
 
-    json_filepath = filepath+'/'+json_file
+    json_filepath = filepath + json_file
     print(json_filepath)
 
     # 
@@ -277,8 +279,8 @@ if __name__ == '__main__':
     print('hello, world~!!')
 
     gen_traindata_process(
-        filepath=CWdata_path,
-        json_file=whole_data_json_filename,
+        filepath=gv.CWdata_path,
+        json_file=gv.whole_data_json_filename,
     )
     
     

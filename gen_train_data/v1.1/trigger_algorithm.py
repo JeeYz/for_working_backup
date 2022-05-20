@@ -1,4 +1,16 @@
+from global_variables import *
 import global_variables as gv
+
+
+
+def apply_trigger_algorithm(input_data_list):
+
+    for one_file in input_data_list :
+        # print(one_file)
+        for i,one_data in enumerate(one_file['file_data']):
+            signal_trigger_algorithm_with_middle_index(one_data)
+
+
 
 
 def new_gen_start_end_index(mean_list):
@@ -68,7 +80,7 @@ def add_zero_padding(input_data):
 
 
 
-def signal_trigger_algorithm_with_middle_index(one_file_data, train_flag):
+def signal_trigger_algorithm_with_middle_index(one_file_data):
     input_data = one_file_data['data']
 
     init_data = copy.deepcopy(input_data)
@@ -82,10 +94,7 @@ def signal_trigger_algorithm_with_middle_index(one_file_data, train_flag):
     start_index = 'none'
     end_index = 'none'
 
-    if train_flag is 'train':
-        threshold_ = gv.GLOBAL_THRESHOLD
-    else:
-        threshold_ = gv.GLOBAL_THRESHOLD_TEST
+    threshold_ = gv.GLOBAL_THRESHOLD
 
     for one_dict in mean_list:
         if one_dict['mean_value'] > threshold_:
@@ -104,6 +113,7 @@ def signal_trigger_algorithm_with_middle_index(one_file_data, train_flag):
         print(end_index, start_index)
         print("정상적인 start index와 end index를 재반환합니다.")
         start_index, end_index = new_gen_start_end_index(mean_list)
+        print(end_index, start_index)
 
     half_of_fullsize = gv.FULL_SIZE//2
 
