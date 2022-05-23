@@ -10,7 +10,7 @@ def find_data_files( filepath, file_ext):
         for filename in files:
             ext = os.path.splitext(filename)[-1]
             if ext == file_ext:
-                file_name = path + "\\" + filename
+                file_name = path + "/" + filename
                 all_data_file.append(file_name)
 
     return all_data_file

@@ -40,8 +40,8 @@ def gen_sig_data_2(input_dict):
         curr_data = np.append(zero_pad, curr_data)
 
     # standardization
-    curr_data = (curr_data-np.mean(curr_data))/np.std(curr_data)
-    curr_data = np.array(curr_data, dtype=gv.TRAIN_DATA_TYPE)
+    # curr_data = (curr_data-np.mean(curr_data))/np.std(curr_data)
+    # curr_data = np.array(curr_data, dtype=gv.TRAIN_DATA_TYPE)
 
     new_data_len = int(len(curr_data)/a.rate*gv.TARGET_SAMPLE_RATE)
 

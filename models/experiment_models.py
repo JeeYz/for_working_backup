@@ -298,6 +298,40 @@ class dense_layers(layers.Layer):
 
 
 
+
+#%%
+class simple_conv2d_layers(layers.Layer):
+    def __init__(self):
+        super(simple_conv2d_layers, self).__init__()
+
+    def __call__(self, input_x):
+        x = layers.Conv2D(
+            32, 
+            [11, 41], 
+            strides=[2, 2], 
+            padding='same', 
+            use_bias=False,
+            name='conv_1')(input_x)
+
+        x = layers.BatchNormalization()(x)
+        x = tf.nn.relu6(x)
+
+        x = layers.Conv2D(
+            32, 
+            [11, 21], 
+            strides=[1, 2], 
+            padding='same', 
+            use_bias=False,
+            name='conv_2')(x)
+
+        x = layers.BatchNormalization()(x)
+        x = tf.nn.relu6(x)
+
+        return x
+
+        
+
+
 #%%
 class conv2d_layers(layers.Layer):
     def __init__(self, num_of_layers):
@@ -582,6 +616,8 @@ class experiment_models(layers.Layer):
         self.uni_rnn_block = UniRNNLayers()
         self.bi_rnn_block = BiRNNLayers()
 
+        self.simple_conv2d = simple_conv2d_layers()
+
     
     def divide_function(self, input_x, **kwargs):
 
@@ -628,7 +664,8 @@ class experiment_models(layers.Layer):
         x = self.pre_proc_layer.stft_function(input_x)
         
         # x = self.conv2d_block(x)
-        x = self.residual_blocks(x)
+        # x = self.residual_blocks(x)
+        x = self.simple_conv2d(x)
 
         x = layers.Reshape((-1, x.shape[-2]*x.shape[-1]))(x)
 

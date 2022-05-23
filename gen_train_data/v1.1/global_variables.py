@@ -28,6 +28,10 @@ import files_module as fm
 
 # full size
 FULL_SIZE = 40000
+RAW_DATA_FULLSIZE = 64000
+
+# start index
+START_INDEX_THRESHOLD = 10000
 
 # train data types
 TRAIN_DATA_TYPE = np.float32
@@ -45,14 +49,22 @@ MAX_SIGNAL_VALUE = 32767.0
 MIN_SIGNAL_VALUE = -32768.0
 
 GLOBAL_THRESHOLD_VALUE = 1000
-GLOBAL_THRESHOLD = 1.0 
+GLOBAL_THRESHOLD = 0.5 
 
 rate_list = [
-    0.95,
+    # 0.95,
     1.0,
     1.05,
     1.10,
-    1.15,
+    # 1.15,
+]
+
+
+NOISE_RATIO = [
+    0.5,
+    1.0,
+    1.5,
+    2.0,
 ]
 
 
@@ -64,6 +76,8 @@ npz_target_path = '/home/pncdl/DeepLearning/CWtraindata/npzTrain/'
 whole_data_json_filename = '$$whole_data_info.json'
 whole_data_json_filename_16k = '$$whole_data_info_16k.json'
 target_numpy_dir_name = "npz_train"
+
+noise_data_path = '/home/pncdl/DeepLearning/CWtraindata/noise_data/'
 
 
 # check traindata variables

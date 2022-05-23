@@ -8,9 +8,7 @@ def read_json_files(json_file):
     return loaded_data
 
 
-def write_json_files(json_file_path, input_data_callback):
-
-    target_data = input_data_callback()
+def write_json_files(json_file_path, target_data):
 
     with open(json_file_path, 'w', encoding='utf-8') as fp_write_json:
         json.dump(
@@ -21,9 +19,6 @@ def write_json_files(json_file_path, input_data_callback):
         )
 
 
-
-if __name__ == '__main__':
-    print("hello, world~!!")
 
 
 

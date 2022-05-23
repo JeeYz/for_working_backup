@@ -26,6 +26,13 @@ def new_gen_start_end_index(mean_list):
     
     start_index = max_index
     end_index = max_index
+
+    try:
+        if start_index < gv.START_INDEX_THRESHOLD:
+            raise("start index 가 {idx_num}을 넘지 않았습니다.".format(idx_num=gv.START_INDEX_THRESHOLD))
+    except Exception as e:
+        start_index = gv.RAW_DATA_FULLSIZE//2
+        end_index = gv.RAW_DATA_FULLSIZE//2
     
     return start_index, end_index
 
@@ -85,6 +92,8 @@ def signal_trigger_algorithm_with_middle_index(one_file_data):
 
     init_data = copy.deepcopy(input_data)
 
+    init_data = normalization_for_data(init_data)
+
     mean_list = make_mean_value_list(init_data)
 
     mean_val_list = list()
@@ -138,7 +147,33 @@ def signal_trigger_algorithm_with_middle_index(one_file_data):
     one_file_data['end_index'] = new_end_index
     one_file_data['gap_start_end'] = gap_temp
     one_file_data['data_length'] = len(init_data)
-    one_file_data['data'] = new_data
+
+    # one_file_data['data'] = normalization_for_data(new_data) 
+    one_file_data['data'] = new_data 
+
+
+
+def standardization_for_data(input_data):
+
+    print_sent = str()
+    result = (input_data - np.mean(input_data))/np.std(input_data)
+
+    print_sent = print_sent+str(np.max(result))+' '+str(np.min(result))
+    print(f'{print_sent}', end='\r')
+
+    return np.array(result, dtype=gv.TRAIN_DATA_TYPE)
+
+
+
+def normalization_for_data(input_data):
+    print_sent = str()
+    result = (input_data - np.min(input_data))/(np.max(input_data) - np.min(input_data))
+    result = result*4-2
+
+    print_sent = print_sent+str(np.max(result))+' '+str(np.min(result))
+    print(f'{print_sent}', end='\r')
+
+    return np.array(result, dtype=gv.TRAIN_DATA_TYPE)
 
 
 
