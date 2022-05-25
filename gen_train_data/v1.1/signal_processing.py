@@ -1,14 +1,10 @@
-
 from global_variables import *
 import global_variables as gv
 
 
 def gen_sig_data_2(input_dict):
-
-
+    
     one_filename = input_dict['filename']
-
-    print_sent = str()
 
     try:
         with wave.open(one_filename, 'rb') as wf:
@@ -18,32 +14,37 @@ def gen_sig_data_2(input_dict):
         return
 
     a = wavio.read(one_filename)
-    print_sent = str(a)+' '
 
     data0 = a.data[:, 0]
     data1 = a.data[:, 1]
 
-    try:
-        if data0.all() == data1.all():
-            print_sent += "True "
-        else:
-            print_sent += "False"
-            raise Exception("양 채널의 음성 데이터가 같지 않습니다.")
-    except Exception as e:
-        print(e)
+    return_dict_0 = gen_data_dictionary(data0, input_dict, a)
+    return_dict_1 = gen_data_dictionary(data1, input_dict, a)
 
-    curr_data = data0 
+    return_list = list()
+    return_list = [return_dict_0, return_dict_1]
+
+    return return_list
+
+
+
+def gen_data_dictionary(curr_data, input_dict, stereo_data):
+
+    one_filename = input_dict['filename']
+
+    print_sent = str()
+    print_sent = str(stereo_data)+' '
 
     if len(curr_data) < gv.RESOURCE_FULL_SIZE:
-        temp_gap = gv.RESOURCE_FULL_SIZE-a.data.shape[0]
-        zero_pad = np.zeros(temp_gap, dtype=a.data.dtype)
+        temp_gap = gv.RESOURCE_FULL_SIZE-stereo_data.data.shape[0]
+        zero_pad = np.zeros(temp_gap, dtype=stereo_data.data.dtype)
         curr_data = np.append(zero_pad, curr_data)
 
     # standardization
     # curr_data = (curr_data-np.mean(curr_data))/np.std(curr_data)
     # curr_data = np.array(curr_data, dtype=gv.TRAIN_DATA_TYPE)
 
-    new_data_len = int(len(curr_data)/a.rate*gv.TARGET_SAMPLE_RATE)
+    new_data_len = int(len(curr_data)/stereo_data.rate*gv.TARGET_SAMPLE_RATE)
 
     # curr_data = sps.resample(curr_data, new_data_len)
     curr_data = sps.decimate(curr_data, 3)
@@ -61,5 +62,11 @@ def gen_sig_data_2(input_dict):
     print(f'{print_sent}', end='\r')
 
     return return_dict
+
+
+
+
+
+
 
 

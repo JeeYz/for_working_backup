@@ -185,19 +185,21 @@ def gen_one_npz_file_process(target_json_file):
     for one_file_dict in json_data['files']:
         one_file_dict['filename'] = target_path+one_file_dict['filename']
         # print(one_file_dict['filename'])
-        return_dict = sigp.gen_sig_data_2(one_file_dict)
+        return_list = sigp.gen_sig_data_2(one_file_dict)
 
-        w_dict = gen_whole_data_dict(
-            speaker=json_data['speaker'],
-            file_label=one_file_dict['label'],
-            filename=one_file_dict['filename'],
-        )
-        f_dict = gen_file_data_dict(
-            label=one_file_dict['label'],
-            data=return_dict['file_data'],
-        )
-        w_dict['file_data'].append(f_dict)
-        one_npz_data_list.append(w_dict)
+        for one_return_dict in return_list:
+
+            w_dict = gen_whole_data_dict( # whole dictionary
+                speaker=json_data['speaker'],
+                file_label=one_file_dict['label'],
+                filename=one_file_dict['filename'],
+            )
+            f_dict = gen_file_data_dict( # file dictionary
+                label=one_file_dict['label'],
+                data=one_return_dict['file_data'],
+            )
+            w_dict['file_data'].append(f_dict)
+            one_npz_data_list.append(w_dict)
 
     cw_train.set_train_data(one_npz_data_list)
     # cw_train.print_train_data_info()

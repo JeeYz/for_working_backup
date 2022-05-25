@@ -60,11 +60,24 @@ rate_list = [
 ]
 
 
-NOISE_RATIO = [
+EXPO_NOISE_RATIO = [
+    0.1,
+    0.2,
+    0.3,
+    0.4,
     0.5,
-    1.0,
-    1.5,
-    2.0,
+    0.6,
+    0.7,
+]
+
+
+
+GAUSSIAN_NOISE_RATIO = [
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
 ]
 
 
@@ -76,6 +89,7 @@ npz_target_path = '/home/pncdl/DeepLearning/CWtraindata/npzTrain/'
 whole_data_json_filename = '$$whole_data_info.json'
 whole_data_json_filename_16k = '$$whole_data_info_16k.json'
 target_numpy_dir_name = "npz_train"
+npz_data_json_filename = '$$npz_data.json'
 
 noise_data_path = '/home/pncdl/DeepLearning/CWtraindata/noise_data/'
 

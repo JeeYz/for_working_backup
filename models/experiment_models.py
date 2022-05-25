@@ -21,7 +21,7 @@ RESULT_GRAPH_BOOL = False
 
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"]='true'
 
-traindata_json_file = '/home/pncdl/DeepLearning/CWtraindata/$$npz_data.json'
+traindata_json_file = '/home/pncdl/DeepLearning/CWtraindata/PnC_Solution_CW_all_1102/$$npz_data.json'
 
 tflite_file_path = "PNC_ASR_2.4_CW_model_BiGRU_0.tflite"
 h5_filename = "Ver.2.4_model_BiGRU_0.h5"
@@ -308,7 +308,7 @@ class simple_conv2d_layers(layers.Layer):
         x = layers.Conv2D(
             32, 
             [11, 41], 
-            strides=[2, 2], 
+            strides=[3, 2], 
             padding='same', 
             use_bias=False,
             name='conv_1')(input_x)
@@ -319,7 +319,7 @@ class simple_conv2d_layers(layers.Layer):
         x = layers.Conv2D(
             32, 
             [11, 21], 
-            strides=[1, 2], 
+            strides=[2, 2], 
             padding='same', 
             use_bias=False,
             name='conv_2')(x)
