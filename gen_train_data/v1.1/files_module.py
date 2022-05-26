@@ -4,7 +4,7 @@ import global_variables as gv
 def find_data_files( filepath, file_ext):
 
     all_data_file = list()
-    print("This function is called for finding data files...")
+    print("finding target is {path}, {ext}...".format(path=filepath, ext=file_ext))
 
     for (path, dir, files) in os.walk(filepath):
         for filename in files:
@@ -14,3 +14,28 @@ def find_data_files( filepath, file_ext):
                 all_data_file.append(file_name)
 
     return all_data_file
+
+
+def draw_single_graph(data):
+    fig = plt.figure()
+    plt.plot(data)
+    plt.show()
+
+
+
+def draw_mfcc_graph(data):
+
+    plt.figure()
+    plt.pcolormesh(data)
+
+    plt.xlabel('frame sequence')
+    plt.ylabel('number of filters')
+
+    plt.colorbar()
+    plt.show()
+
+    return
+
+
+
+
