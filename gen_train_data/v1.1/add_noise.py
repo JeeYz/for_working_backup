@@ -19,13 +19,24 @@ def gen_noised_data_main():
 
     all_npz_result_list = fdf(gv.npz_target_path, ".npz")
 
+    new_temp = list()
     for one_npz_file in all_npz_result_list:
+        if "zeroth" not in one_npz_file:
+            new_temp.append(one_npz_file)
+
+    all_npz_result_list = new_temp
+
+    data_length = len(all_npz_result_list)*2
+
+    for i, one_npz_file in enumerate(all_npz_result_list):
         return_data, return_label = add_noise_expo(one_npz_file)
         write_npz_file(return_data, return_label, one_npz_file)
+        print(one_npz_file, "{curr}/{total}".format(curr=i+1, total=data_length))
 
-    for one_npz_file in all_npz_result_list:
+    for j, one_npz_file in enumerate(all_npz_result_list):
         return_data, return_label = add_noise_gaussian(one_npz_file)
         write_npz_file_gaussian(return_data, return_label, one_npz_file)
+        print(one_npz_file, "{curr}/{total}".format(curr=i+j+2, total=data_length))
 
     regenerate_json_file()
 
@@ -174,7 +185,7 @@ def modify_file_path(input_file_path):
     temp = input_file_path.split('/')
     temp_split = temp[-1].split('.')
 
-    filename = temp_split[0] + '_add_zeroth_noise.' + temp_split[-1]
+    filename = temp_split[0] + '_add_expo_noise.' + temp_split[-1]
 
     temp_path = '/'.join(temp[:-1])
 
